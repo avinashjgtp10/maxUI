@@ -15,33 +15,80 @@
       <img src="../../../assets/icon/logo.svg">
     </div>
     <div class="slider">
-      <ion-slides pager="true" [options]="slideOpts" id="mainSlider">
+      <ion-slides pager="true" [options]="slideOpts" id="mainSlider" #imageSlider>
         <ion-slide *ngFor="let img of slideImages">
-          <img [src]="img">
+          <ion-img [src]="img"></ion-img>
         </ion-slide>
       </ion-slides>
     </div>
-    <div class="process">
-      <ion-slides pager="true" [options]="slideOpts" id="loginSlider">
+    <div class="login-otp">
+      <ion-slides pager="false" [options]="loginSliderOpts" #loginSlider >
         <ion-slide>
           <label class="process_header">{{'LOGIN.TITLE' | translate}}</label>
           <form [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
             <div class="mobileNumberInput">
               <div class="countryCode">IN +91</div>
               <div class="mobileNumber">
-                <input type="number" placeholder="Your Mobile Number" formControlName="mobileNumber"
+                <ion-input type="tel" placeholder="Your Mobile Number" formControlName="mobileNumber"
                   [ngClass]="{'is-invalid':form.get('mobileNumber').touched && form.get('mobileNumber').invalid}"
-                  id="mobileNumber">
+                  id="mobileNumber"></ion-input>
                 
               </div>
             </div>
             <div  *ngIf="form.get('mobileNumber').touched && form.get('mobileNumber').invalid" class="invalid-feedback">
-              <div *ngIf="form.get('mobileNumber').errors.pattern" class="validationErr">Number must be a 10 charector</div>
+              <div *ngIf="form.get('mobileNumber').errors.pattern" class="validationErr">{{'LOGIN.VALIDATION_ERROR' | translate}}</div>
             </div>
-            <label class="process_msg">{{'LOGIN.OTP_MSG' | translate}}</label>
-            <button class="setndOptBtn" [disabled]="!form.valid">Send OTP</button>
+            <p class="process_msg">{{'LOGIN.OTP_MSG' | translate}}</p>
+            <button class="setndOptBtn" [disabled]="!form.valid || !termsIsChecked">Send OTP</button>
           </form>
+          <ion-item lines="none">
+              <ion-label>{{'LOGIN.AGREE_TERMS' | translate}}</ion-label>
+              <ion-checkbox  mode="md" [(ngModel)]="termsIsChecked" slot="start"></ion-checkbox>
+          </ion-item>
         </ion-slide>
+        <ion-slide>
+          <ion-icon name="arrow-back-outline" button (click)="slideToPrevious()"></ion-icon>
+          <label class="verify_label">{{'VERIFY.TITLE' | translate}}</label>
+          <p class="ion-text-center verify_msg">{{'VERIFY.OTP_MSG' | translate}}</p>
+          <p class="ion-text-center mobile-num-text">{{mobileNumberEntered}}</p>
+          <ion-item  lines="none">
+            <ng-otp-input #ngOtpInput 
+            (onInputChange)="onOtpChange($event)" 
+            [config]="config">
+            </ng-otp-input>
+          </ion-item>
+          <div *ngIf="showWrongOtpError" class="validationErr">{{'VERIFY.VALIDATION_ERROR' | translate}}</div>
+          <p *ngIf="showResendCounter" class="ion-text-center showResendCounter">{{'VERIFY.RESEND' | translate}} {{resendCounter}}</p>
+           <p *ngIf="showResendAndGetCallButton" text-center  class="ion-text-center resend_row_msg">
+             <ion-text color="danger" class="ion-padding-start ion-padding-end">Resend</ion-text>Or
+             <ion-text color="dark" class="ion-padding-start ion-padding-end" (click)="slideToGetCall()">Get a Call</ion-text>
+            </p>
+          <button 
+            [disabled]="isOtpButtonDisabled" 
+            (click)="checkOtpEntered()" 
+            class="setndOptBtn ion-no-margin">{{'VERIFY.BUTTON_VERIFY' | translate}}
+          </button>
+        </ion-slide>
+        <ion-slide>
+          <label class="verify_label">{{'CONTACT.TITLE' | translate}}</label>
+          <p class="ion-text-center verify_msg">{{'VERIFY.OTP_MSG' | translate}}</p>
+          <p class="ion-text-center mobile-num-text">0:{{resendCounter}}</p>
+          <ion-item  lines="none">
+            <ng-otp-input #ngOtpInput 
+            (onInputChange)="onOtpChange($event)" 
+            [config]="config">
+            </ng-otp-input>
+          </ion-item>
+          <div *ngIf="showWrongOtpError" class="validationErr">{{'VERIFY.VALIDATION_ERROR' | translate}}</div>
+          <button [disabled]="isOtpButtonDisabled" (click)="checkOtpEntered()" class="setndOptBtn ion-margin-top">{{'VERIFY.BUTTON_VERIFY' | translate}}</button>
+        </ion-slide>
+        <ion-slide>
+            <p class="ion-text-center contact-header">{{'SUPPORT.TITLE' | translate}}</p>
+            <p class="ion-text-center verify_msg">{{'SUPPORT.OTP_MSG' | translate}}</p>
+            <p class="ion-text-center verify_msg">{{'SUPPORT.REQUEST_MSG' | translate}}</p>
+            <p class="ion-text-center">{{'SUPPORT.NUMBER' | translate}}</p>
+            <button  (click)="contact()" class="setndOptBtn ion-margin-top">{{'SUPPORT.BUTTON_CONTACT' | translate}}</button>
+          </ion-slide>
       </ion-slides>
     </div>
   </div>

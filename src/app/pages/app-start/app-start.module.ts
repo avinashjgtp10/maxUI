@@ -14,12 +14,13 @@ import { from } from 'rxjs';
 //Language set
 import { TranslateModule } from "@ngx-translate/core";
 import { ReactiveFormsModule} from '@angular/forms';
-
+import { NgOtpInputModule } from 'ng-otp-input';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+     NgOtpInputModule,
     ReactiveFormsModule,
     ComponentsModule,
     TranslateModule,
