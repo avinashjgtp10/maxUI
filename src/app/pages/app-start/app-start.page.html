@@ -1,14 +1,3 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>app-start</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-button color="primary" (click)="goToDashboard()">GoToDasboard</ion-button>
-  <app-sample></app-sample>
-</ion-content> -->
-
 <ion-content padding>
   <div class="container">
     <div class="logo">
@@ -60,7 +49,7 @@
           <div *ngIf="showWrongOtpError" class="validationErr">{{'VERIFY.VALIDATION_ERROR' | translate}}</div>
           <p *ngIf="showResendCounter" class="ion-text-center showResendCounter">{{'VERIFY.RESEND' | translate}} {{resendCounter}}</p>
            <p *ngIf="showResendAndGetCallButton" text-center  class="ion-text-center resend_row_msg">
-             <ion-text color="danger" class="ion-padding-start ion-padding-end">Resend</ion-text>Or
+             <ion-text color="danger" class="ion-padding-start ion-padding-end" (click)="resendOtp()">Resend</ion-text>Or
              <ion-text color="dark" class="ion-padding-start ion-padding-end" (click)="slideToGetCall()">Get a Call</ion-text>
             </p>
           <button 

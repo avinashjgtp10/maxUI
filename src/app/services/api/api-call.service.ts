@@ -18,12 +18,7 @@ export class ApiCallService {
       'Content-Type': 'application/json'
     })
   }
-  addAuthHead(head) {
-		var headers = head || new Headers();
-		let authToken = this.storage.get('Session_Id');
-		headers.append('session_id', authToken);
-		return headers;
-        }
+  
    // Handle API errors
    handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -43,22 +38,22 @@ export class ApiCallService {
 
   
     // Create a new item
-    generateOtp(item): Observable<String> {
+    generateOtp(item): Observable<JSON> {
       return this.http
-        .post<String>(this.base_path + '/send', JSON.stringify(item), this.httpOptions)
+        .post<JSON>(this.base_path + '/send', JSON.stringify(item), this.httpOptions)
         .pipe(
-          retry(1),
           catchError(this.handleError)
         )
     }
 
      // Create a new item
-     verifyOtp(item): Observable<String> {
-      var authHeader = this.addAuthHead(this.httpOptions);
+     verifyOtp(item,sessionId:string): Observable<String> {     
+       console.log('sessionId',sessionId);
+       this.httpOptions.headers.append('session_id', sessionId);
+       console.log('this.httpOption',this.httpOptions);
       return this.http
-        .post<String>(this.base_path + '/verify', JSON.stringify(item), {headers:authHeader})
+        .post<String>(this.base_path + '/verify', JSON.stringify(item), this.httpOptions)
         .pipe(
-          retry(1),
           catchError(this.handleError)
         )
     }
@@ -68,7 +63,6 @@ export class ApiCallService {
         return this.http
           .post<String>(this.base_path + '/call', JSON.stringify(item), this.httpOptions)
           .pipe(
-            retry(1),
             catchError(this.handleError)
           )
       }

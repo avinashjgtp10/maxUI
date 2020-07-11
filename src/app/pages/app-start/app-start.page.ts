@@ -36,16 +36,15 @@ export class AppStartPage implements OnInit {
      disableAutoFocus: false,
      placeholder: '',
      inputStyles: {
-       'width': '50px',
+       'width': '40px',
        'height': '40px'
      }
    };
    onOtpChange(otp) {
      this.otp = otp;
      this.showWrongOtpError = false;
-     if(this.otp.length === 5) {
+     if(this.otp.length === 6) {
       this.isOtpButtonDisabled = false;
-     // this.checkOtpEntered(this.otp);
      } else {
       this.isOtpButtonDisabled = true;
      }
@@ -53,8 +52,9 @@ export class AppStartPage implements OnInit {
 
   slideOpts = {
     initialSlide: 0,
-    speed: 400,
-    autoplay:true
+    speed: 700,
+    autoplay:true,
+    loop:true
   };
   slideImages=[
       "../../../assets/img/img 1.svg",
@@ -84,23 +84,25 @@ export class AppStartPage implements OnInit {
   checkOtpEntered(){
     this.showWrongOtpError = false;
     let args = {
-      tel_number : `+918149776868`,
+      tel_number : `${this.mobileNumberEntered}`,
       code :this.otp,
       channel :"SMS"
     }
-    this.apiService.generateOtp(args).subscribe((response: any) => {
-      console.log('response',response);
-      if(response.Status === 'Success'){
-           this.storage.set('Session_Id',response.Details);
-           this.loginSlider.slideNext();
-           this.setVal('');
-           this.timerTick();
-           this.showResendCounter = true;
-           this.showResendAndGetCallButton = false;
-           this.resendCounter = 5;
-      }
+    this.storage.get('Session_Id').then((val) => {
+      console.log('Session_Id',val);
+      this.apiService.verifyOtp(args,val).subscribe((response: any) => {
+        console.log('response',response);
+        if(response.Status === 'Success'){
+            this.showWrongOtpError = false;
+          } else {  
+              this.setVal('');       
+              this.showWrongOtpError = true;
+              this.isOtpButtonDisabled = true;
+          }
+      });
     });
-      // let myOtp = '12345';
+    
+      // let myOtp = '123456';
       // if(this.otp === myOtp){
       //   this.showWrongOtpError = false;
       // } else {  
@@ -110,9 +112,9 @@ export class AppStartPage implements OnInit {
       // }
   }
   onSubmit(){
-    this.mobileNumberEntered = this.form.value.mobileNumber
+     this.mobileNumberEntered = this.form.value.mobileNumber;
     let args = {
-      tel_number: `+919503639230`,
+      tel_number: `+91${this.mobileNumberEntered}`,
       channel :"SMS"
     }
     this.apiService.generateOtp(args).subscribe((response: any) => {
@@ -124,17 +126,49 @@ export class AppStartPage implements OnInit {
            this.timerTick();
            this.showResendCounter = true;
            this.showResendAndGetCallButton = false;
-           this.resendCounter = 5;
+           this.resendCounter = 30;
+      }
+    });
+  }
+  resendOtp() {
+     let args = {
+      tel_number: `+91${this.mobileNumberEntered}`,
+      channel :"SMS"
+    }
+    this.apiService.generateOtp(args).subscribe((response: any) => {
+      console.log('response',response);
+      if(response.Status === 'Success'){
+           this.storage.set('Session_Id',response.Details);
+           this.setVal('');
+           this.timerTick();
+           this.showResendCounter = true;
+           this.showResendAndGetCallButton = false;
+           this.resendCounter = 30;
       }
     });
   }
   slideToGetCall(){
-    this.resendCounter = 5;
-    this.loginSlider.slideNext();
-    this.imageSlider.slideTo(3);
-    this.imageSlider.lockSwipes(true);
-    this.setVal('');
-    this.timer();
+    // this.resendCounter = 60;
+    // this.loginSlider.slideNext();
+    // this.imageSlider.slideTo(3);
+    // this.imageSlider.lockSwipes(true);
+    // this.setVal('');
+    // this.timer();
+    let args = {
+      tel_number: `${this.mobileNumberEntered}`,
+      channel :"voice"
+    }
+    this.apiService.getCall(args).subscribe((response: any) => {
+      console.log('response',response);
+      if(response.Status === 'Success'){
+        this.resendCounter = 60;
+        this.loginSlider.slideNext();
+        this.imageSlider.slideTo(3);
+        this.imageSlider.lockSwipes(true);
+        this.setVal('');
+        this.timer();
+      }
+  });
   }
   ngOnInit() {
     this.language.setInitalAppLanguage();
