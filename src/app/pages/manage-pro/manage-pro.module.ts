@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ManageProfilePageRoutingModule } from './manage-profile-routing.module';
+import { ManageProPageRoutingModule } from './manage-pro-routing.module';
 
-import { ManageProfilePage } from './manage-profile.page';
+import { ManageProPage } from './manage-pro.page';
 import { TranslateModule } from "@ngx-translate/core";
 import { ReactiveFormsModule} from '@angular/forms';
 
@@ -17,8 +17,8 @@ import { ReactiveFormsModule} from '@angular/forms';
     IonicModule,
     TranslateModule,
     ReactiveFormsModule,
-    ManageProfilePageRoutingModule
+    ManageProPageRoutingModule
   ],
-  declarations: [ManageProfilePage]
+  declarations: [ManageProPage]
 })
-export class ManageProfilePageModule {}
+export class ManageProPageModule {}

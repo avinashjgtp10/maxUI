@@ -1,13 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
 import { IonSlides } from '@ionic/angular';
-
 @Component({
-  selector: 'app-manage-profile',
-  templateUrl: './manage-profile.page.html',
-  styleUrls: ['./manage-profile.page.scss'],
+  selector: 'app-manage-pro',
+  templateUrl: './manage-pro.page.html',
+  styleUrls: ['./manage-pro.page.scss'],
 })
-export class ManageProfilePage implements OnInit {
+export class ManageProPage implements OnInit {
   inputWeight: number = 40;
   @ViewChild('profileFormSlider', { static: false }) profileFormSlider: IonSlides;
   profileFormSliderOpts = {

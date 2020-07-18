@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'AppStartPage',
+    redirectTo: 'manage-profile',
     pathMatch: 'full'
   },
   {
@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'manage-profile',
     loadChildren: () => import('./pages/manage-profile/manage-profile.module').then( m => m.ManageProfilePageModule)
+  },
+  {
+    path: 'manage-pro',
+    loadChildren: () => import('./pages/manage-pro/manage-pro.module').then( m => m.ManageProPageModule)
   },
 ];
 
