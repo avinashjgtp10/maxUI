@@ -9,6 +9,30 @@
     },
     "LOGIN":{
         "TITLE":"Login to continue",
-        "OTP_MSG":"We will send you OTP on this number."
+        "OTP_MSG":"We will send you OTP on this number.",
+        "VALIDATION_ERROR": "Number must be a 10 charector",
+        "AGREE_TERMS":"I Agree Terms And Conditions"
+    },
+    "VERIFY":{
+        "TITLE":"Verify Mobile Number",
+        "OTP_MSG":"Please enter OTP we've sent you on",
+        "RESEND_CODE":"Resend code in",
+        "VALIDATION_ERROR": "This OTP is incorrect, please try again",
+        "BUTTON_VERIFY":"Verify",
+        "RESEND": "Resend code in 0:"
+    },
+    "CONTACT":{
+        "TITLE":"You’ll get a call in",
+        "OTP_MSG":"Please enter OTP you hear on call",
+        "RESEND_CODE":"Resend code in",
+        "VALIDATION_ERROR": "This OTP is incorrect, please try again",
+        "BUTTON_VERIFY":"Verify"
+    },
+    "SUPPORT":{
+        "TITLE":"Contact Support",
+        "OTP_MSG":"You have exceeded no of tries",
+        "REQUEST_MSG":"Please call or message",  
+        "NUMBER":"(091) 123 - 4567",
+        "BUTTON_CONTACT":"Contact"
     }
 }

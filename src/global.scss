@@ -30,3 +30,12 @@
     font-weight:300;
   };
 @textBoxColor:#e0f1e8;
+
+.otp-box {
+  border-radius: 6px;
+  border: 1px solid #D0C9D6;
+}
+.otp-container {
+  display: flex;
+  justify-content: space-between;
+}
