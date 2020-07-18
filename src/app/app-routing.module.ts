@@ -27,10 +27,6 @@ const routes: Routes = [
     path: 'manage-profile',
     loadChildren: () => import('./pages/manage-profile/manage-profile.module').then( m => m.ManageProfilePageModule)
   },
-  {
-    path: 'manage-pro',
-    loadChildren: () => import('./pages/manage-pro/manage-pro.module').then( m => m.ManageProPageModule)
-  },
 ];
 
 @NgModule({
