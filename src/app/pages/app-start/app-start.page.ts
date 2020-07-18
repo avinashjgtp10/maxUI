@@ -64,9 +64,7 @@ export class AppStartPage implements OnInit {
   slideImages=[
       "assets/img/img 1.svg",
       "assets/img/img2 2.svg",
-    "assets/img/Group 45.svg",
-    "assets/img/img_call.svg",
-    "assets/img/Component 3.svg"
+      "assets/img/Group 45.svg",
   ];
   loginSliderOpts = {
     initialSlide: 0,
@@ -98,10 +96,8 @@ export class AppStartPage implements OnInit {
       access: "client"
     }
     this.storage.get('Session_Id').then((val) => {
-      console.log('Session_Id',val);
       this.apiService.verifyOtp(args,val).subscribe((response: any) => {
-        console.log('response',response);
-        if(this.otp === myOtp){
+        if(response.status === "success"){
             this.showWrongOtpError = false;
              this.route.navigate(["manage-profile"]);
           } else {  
@@ -122,14 +118,6 @@ export class AppStartPage implements OnInit {
      });
     });
     
-      // let myOtp = '123456';
-      // if(this.otp === myOtp){
-      //   this.showWrongOtpError = false;
-      // } else {  
-      //     this.setVal('');       
-      //     this.showWrongOtpError = true;
-      //     this.isOtpButtonDisabled = true;
-      // }
   }
   async presentLoading() {
     const loading = await this.loadingController.create({
@@ -183,12 +171,6 @@ export class AppStartPage implements OnInit {
     });;
   }
   slideToGetCall(){
-    // this.resendCounter = 60;
-    // this.loginSlider.slideNext();
-    // this.imageSlider.slideTo(3);
-    // this.imageSlider.lockSwipes(true);
-    // this.setVal('');
-    // this.timer();
     let args = {
       tel_number: `${this.mobileNumberEntered}`,
       channel :"voice"
