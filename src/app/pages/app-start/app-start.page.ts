@@ -6,6 +6,7 @@ import { ApiCallService } from "../../services/api/api-call.service";
 import {FormGroup,FormControl,Validators,FormArray, FormBuilder} from '@angular/forms';
 import { IonSlides } from '@ionic/angular';
 import { Storage } from "@ionic/storage";
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-app-start',
   templateUrl: './app-start.page.html',
@@ -29,21 +30,24 @@ export class AppStartPage implements OnInit {
    @ViewChild('loginSlider', { static: false }) loginSlider: IonSlides;
    @ViewChild('imageSlider', { static: false }) imageSlider: IonSlides;
    @ViewChild('ngOtpInput', { static: false}) ngOtpInput: any;
+   @ViewChild('ngOtpInputCall', { static: false}) ngOtpInputCall: any;
    config = {
      allowNumbersOnly: true,
-     length: 6,
+     length: 4,
+     inputClass:'otp-box',
+     containerClass:'otp-container',
      isPasswordInput: false,
      disableAutoFocus: false,
      placeholder: '',
      inputStyles: {
-       'width': '40px',
-       'height': '40px'
+       'width': '60px',
+       'height': '45px'
      }
    };
    onOtpChange(otp) {
      this.otp = otp;
      this.showWrongOtpError = false;
-     if(this.otp.length === 6) {
+     if(this.otp.length === 4) {
       this.isOtpButtonDisabled = false;
      } else {
       this.isOtpButtonDisabled = true;
@@ -52,16 +56,17 @@ export class AppStartPage implements OnInit {
 
   slideOpts = {
     initialSlide: 0,
-    speed: 700,
+    speed: 1000,
+    preloadImages: true,
     autoplay:true,
     loop:true
   };
   slideImages=[
-      "../../../assets/img/img 1.svg",
-      "../../../assets/img/img2 2.svg",
-    "../../../assets/img/Group 45.svg",
-    "../../../assets/img/img_call.svg",
-    "../../../assets/img/Component 3.svg"
+      "assets/img/img 1.svg",
+      "assets/img/img2 2.svg",
+    "assets/img/Group 45.svg",
+    "assets/img/img_call.svg",
+    "assets/img/Component 3.svg"
   ];
   loginSliderOpts = {
     initialSlide: 0,
@@ -72,7 +77,8 @@ export class AppStartPage implements OnInit {
     private language:LanguageService,
     private activatedRoute:ActivatedRoute,
     public apiService: ApiCallService,
-    private storage:Storage ) { 
+    private storage:Storage,
+    public loadingController: LoadingController) { 
   }
   
   slideToPrevious() {
@@ -80,14 +86,16 @@ export class AppStartPage implements OnInit {
   }
   setVal(val) {
     this.ngOtpInput.setValue(val);
+    this.ngOtpInputCall.setValue(val);
   }
   checkOtpEntered(){
     this.showWrongOtpError = false;
-    let myOtp = '123456';
+    let myOtp = '1234';
     let args = {
       tel_number : `${this.mobileNumberEntered}`,
       code :this.otp,
-      channel :"SMS"
+      channel :"SMS",
+      access: "client"
     }
     this.storage.get('Session_Id').then((val) => {
       console.log('Session_Id',val);
@@ -95,14 +103,23 @@ export class AppStartPage implements OnInit {
         console.log('response',response);
         if(this.otp === myOtp){
             this.showWrongOtpError = false;
-            let id="65"
-             this.route.navigate(["dashboard-with-id",id]);
+             this.route.navigate(["manage-profile"]);
           } else {  
               this.setVal('');       
               this.showWrongOtpError = true;
               this.isOtpButtonDisabled = true;
           }
-      });
+      }, (error) => {
+        console.log("error",error);
+        if(this.otp === myOtp){
+          this.showWrongOtpError = false;
+           this.route.navigate(["manage-profile"]);
+        } else {  
+            this.setVal('');       
+            this.showWrongOtpError = true;
+            this.isOtpButtonDisabled = true;
+        }
+     });
     });
     
       // let myOtp = '123456';
@@ -114,12 +131,23 @@ export class AppStartPage implements OnInit {
       //     this.isOtpButtonDisabled = true;
       // }
   }
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+      duration: 3000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
   onSubmit(){
      this.mobileNumberEntered = this.form.value.mobileNumber;
     let args = {
       tel_number: `+91${this.mobileNumberEntered}`,
       channel :"SMS"
     }
+    this.presentLoading();
     this.apiService.generateOtp(args).subscribe((response: any) => {
       console.log('response',response);
       if(response.Status === 'Success'){
@@ -131,6 +159,8 @@ export class AppStartPage implements OnInit {
            this.showResendAndGetCallButton = false;
            this.resendCounter = 30;
       }
+    }, (error) => {
+      console.log("error",error);
     });
   }
   resendOtp() {
@@ -148,7 +178,9 @@ export class AppStartPage implements OnInit {
            this.showResendAndGetCallButton = false;
            this.resendCounter = 30;
       }
-    });
+    }, (error) => {
+      console.log("error",error);
+    });;
   }
   slideToGetCall(){
     // this.resendCounter = 60;
@@ -166,11 +198,13 @@ export class AppStartPage implements OnInit {
       if(response.Status === 'Success'){
         this.resendCounter = 60;
         this.loginSlider.slideNext();
-        this.imageSlider.slideTo(3);
+        this.imageSlider.slideTo(4);
         this.imageSlider.lockSwipes(true);
         this.setVal('');
         this.timer();
       }
+  }, (error) => {
+    console.log("error",error);
   });
   }
   ngOnInit() {
@@ -197,15 +231,14 @@ export class AppStartPage implements OnInit {
       else {
         this.loginSlider.slideNext();
         this.imageSlider.lockSwipes(false);
-        this.imageSlider.slideTo(4);
+        this.imageSlider.slideTo(5);
         this.imageSlider.lockSwipes(true);
       }
     }, 1000);
   }
   goToDashboard(){
     let id="65"
-    this.route.navigate(["dashboard-with-id",id])
-    
+    this.route.navigate(["dashboard-with-id",id]);
     console.log("Hey this is dashboard")
   }
 

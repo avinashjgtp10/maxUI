@@ -40,7 +40,7 @@
           <label class="verify_label">{{'VERIFY.TITLE' | translate}}</label>
           <p class="ion-text-center verify_msg">{{'VERIFY.OTP_MSG' | translate}}</p>
           <p class="ion-text-center mobile-num-text">{{mobileNumberEntered}}</p>
-          <ion-item  lines="none">
+          <ion-item  lines="none" class="ion-no-padding">
             <ng-otp-input #ngOtpInput 
             (onInputChange)="onOtpChange($event)" 
             [config]="config">
@@ -49,7 +49,7 @@
           <div *ngIf="showWrongOtpError" class="validationErr">{{'VERIFY.VALIDATION_ERROR' | translate}}</div>
           <p *ngIf="showResendCounter" class="ion-text-center showResendCounter">{{'VERIFY.RESEND' | translate}} {{resendCounter}}</p>
            <p *ngIf="showResendAndGetCallButton" text-center  class="ion-text-center resend_row_msg">
-             <ion-text color="danger" class="ion-padding-start ion-padding-end" (click)="resendOtp()">Resend</ion-text>Or
+             <ion-text color="danger" class="ion-padding-start ion-padding-end" (click)="resendOtp()">Resend sms</ion-text>Or
              <ion-text color="dark" class="ion-padding-start ion-padding-end" (click)="slideToGetCall()">Get a Call</ion-text>
             </p>
           <button 
@@ -62,8 +62,8 @@
           <label class="verify_label">{{'CONTACT.TITLE' | translate}}</label>
           <p class="ion-text-center verify_msg">{{'VERIFY.OTP_MSG' | translate}}</p>
           <p class="ion-text-center mobile-num-text">0:{{resendCounter}}</p>
-          <ion-item  lines="none">
-            <ng-otp-input #ngOtpInput 
+          <ion-item  lines="none" class="ion-no-padding">
+            <ng-otp-input #ngOtpInputCall 
             (onInputChange)="onOtpChange($event)" 
             [config]="config">
             </ng-otp-input>

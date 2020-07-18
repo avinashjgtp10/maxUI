@@ -48,11 +48,11 @@ export class ApiCallService {
 
      // Create a new item
      verifyOtp(item,sessionId:string): Observable<String> {     
-       console.log('sessionId',sessionId);
-       this.httpOptions.headers.append('session_id', sessionId);
-       console.log('this.httpOption',this.httpOptions);
+       let headers = new HttpHeaders().set('Content-Type', 'application/json')
+                                      .set('session_id', sessionId);
+       console.log('headers',headers);
       return this.http
-        .post<String>(this.base_path + '/verify', JSON.stringify(item), this.httpOptions)
+        .post<String>(this.base_path + '/verify', JSON.stringify(item), {headers: headers })
         .pipe(
           catchError(this.handleError)
         )

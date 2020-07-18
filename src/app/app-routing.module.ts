@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'dashboard-with-id',
     loadChildren: () => import('./pages/dashboard-with-id/dashboard-with-id.module').then( m => m.DashboardWithIdPageModule)
   },
+  {
+    path: 'manage-profile',
+    loadChildren: () => import('./pages/manage-profile/manage-profile.module').then( m => m.ManageProfilePageModule)
+  },
 ];
 
 @NgModule({
