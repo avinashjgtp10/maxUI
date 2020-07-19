@@ -5,9 +5,15 @@
     </div>
     <div class="slider">
       <ion-slides pager="true" [options]="slideOpts" id="mainSlider" #imageSlider>
-        <ion-slide *ngFor="let img of slideImages">
-          <ion-img [src]="img"></ion-img>
+        <ion-slide>
+          <ion-img src="assets/img/women.svg"></ion-img>
         </ion-slide>
+        <ion-slide>
+            <ion-img src="assets/img/young_people_group.svg"></ion-img>
+          </ion-slide>
+          <ion-slide>
+              <ion-img src="assets/img/old_people_group.svg"></ion-img>
+            </ion-slide>
       </ion-slides>
     </div>
     <div class="login-otp">

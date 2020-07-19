@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'manage-profile',
+    redirectTo: 'AppStartPage',
     pathMatch: 'full'
   },
   {

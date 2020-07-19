@@ -40,7 +40,7 @@
               <ion-item lines="inset">
                   <ion-icon src="assets/icon/icon_mobile.svg" class="ion-no-margin input-icon" slot="start"></ion-icon>
                   <ion-label position="floating">Mobile Number</ion-label>
-                  <ion-input inputmode="tel" formControlName="phone"></ion-input>
+                  <ion-input readonly="true" inputmode="tel" formControlName="phone"></ion-input>
               </ion-item>
               <div *ngFor="let error of errorMessages.phone" class="ion-text-left ion-padding-start">
                   <ng-container *ngIf="phone.hasError(error.type) && (phone.dirty || phone.touched)">

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
 import { IonSlides } from '@ionic/angular';
-
+import { Storage } from "@ionic/storage";
 @Component({
   selector: 'app-manage-profile',
   templateUrl: './manage-profile.page.html',
@@ -9,6 +9,7 @@ import { IonSlides } from '@ionic/angular';
 })
 export class ManageProfilePage implements OnInit {
   inputWeight: number = 40;
+  userMobileNumber: number;
   @ViewChild('profileFormSlider', { static: false }) profileFormSlider: IonSlides;
   profileFormSliderOpts = {
     initialSlide: 0,
@@ -25,9 +26,17 @@ export class ManageProfilePage implements OnInit {
     weight: [this.inputWeight,Validators.required],
     goal: ['',Validators.required],
   });
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private storage:Storage) { }
 
   ngOnInit() {
+    this.storage.get('User_Mobile_No').then((number: number)=> {
+      console.log('number',number);
+       this.userMobileNumber = number;
+       this.registrationForm.controls.phone.setValue(this.userMobileNumber);
+    }).catch((err)=> {
+      this.userMobileNumber = 0;
+    })
   }
 
   public errorMessages = {
