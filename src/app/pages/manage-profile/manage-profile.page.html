@@ -53,7 +53,7 @@
                   </ion-label> -->
                 </ion-item-divider>
               <ion-radio-group formControlName="gender">
-              <ion-item lines="none">
+              <ion-item lines="inset">
                   <ion-icon src="assets/icon/icon_gender.svg" class="ion-no-margin"></ion-icon>
                   <ion-label class="radio-gender-label">Gender</ion-label>
                     <ion-radio mode="md" #male_radio  value="male"></ion-radio>
@@ -62,38 +62,41 @@
                     <ion-label class="ion-text-center radio-label">Female</ion-label>
               </ion-item>
             </ion-radio-group>
-              <ion-item lines="none">
+              <ion-item lines="inset">
                   <ion-icon src="assets/icon/icon_age.svg" class="ion-no-margin"></ion-icon>
                   <ion-label class="radio-gender-label">Age</ion-label>
-                      <ion-select class="ion-no-padding age-select-box" 
+                  <ion-input inputmode="age" formControlName="age"></ion-input>
+                      <!-- <ion-select class="ion-no-padding age-select-box" 
                         name="age" multiple="false" formControlName="age">
                           <ion-select-option value="25">25</ion-select-option>
                           <ion-select-option value="26">26</ion-select-option>
                           <ion-select-option value="27">27</ion-select-option>
                           <ion-select-option value="26">28</ion-select-option>
-                      </ion-select>
+                      </ion-select> -->
               </ion-item>
-              <ion-item>
+              <ion-item lines="inset">
                   <ion-icon src="assets/icon/icon_weight.svg" class="ion-no-margin"></ion-icon>
                   <ion-label class="radio-gender-label">Weight</ion-label>
-                      <ion-button fill="clear" (click)="decreaseWeight()"  icon-only  class="weight-icon-button ion-margin-start">
+                  <ion-input inputmode="height" formControlName="height"></ion-input>
+                      <!-- <ion-button fill="clear" (click)="decreaseWeight()"  icon-only  class="weight-icon-button ion-margin-start">
                           <ion-icon class="size-icon" slot="icon-only" src="assets/icon/icon_minus.svg"></ion-icon>
                       </ion-button>
                       <ion-input readonly="true" inputmode="numeric" formControlName="weight" [value]="inputWeight" class="user-weight ion-text-center"></ion-input>
                       <ion-button  fill="clear" (click)="increaseWeight()" icon-only clear class="weight-icon-button">
                           <ion-icon  class="size-icon" slot="icon-only"  src="assets/icon/icon_plus.svg" ></ion-icon>
-                      </ion-button>
+                      </ion-button> -->
               </ion-item>
               <ion-item lines="inset">
                   <ion-icon src="assets/icon/icon_height.svg" class="ion-no-margin" slot="start"></ion-icon>
                   <ion-label class="radio-gender-label">Height</ion-label>
-                  <ion-select placeholder="Select Height" class="ion-no-padding weight-select-box"
+                  <!-- <ion-select placeholder="Select Height" class="ion-no-padding weight-select-box"
                   name="height" multiple="false" formControlName="height">
                       <ion-select-option value="6">6</ion-select-option>
                       <ion-select-option value="6.5">6.5</ion-select-option>
                       <ion-select-option value="7.2">7.2</ion-select-option>
                       <ion-select-option value="5">5</ion-select-option>
-                  </ion-select>
+                  </ion-select> -->
+                  <ion-input inputmode="height" formControlName="height"></ion-input>
               </ion-item>
               <ion-item lines="inset">
                   <ion-icon src="assets/icon/icon_fitness.svg" class="ion-no-margin" slot="start"></ion-icon>
