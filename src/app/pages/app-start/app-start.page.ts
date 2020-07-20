@@ -100,6 +100,7 @@ export class AppStartPage implements OnInit {
         if(response.status === "success"){
             this.showWrongOtpError = false;
              this.route.navigate(["manage-profile"]);
+             this.storage.set('User_Mobile_No',this.mobileNumberEntered);
           } else {  
               this.setVal('');       
               this.showWrongOtpError = true;

@@ -34,5 +34,12 @@
         "REQUEST_MSG":"Please call or message",  
         "NUMBER":"(091) 123 - 4567",
         "BUTTON_CONTACT":"Contact"
+    },
+    "PROFILE":{
+        "TITLE":"Manage Profile",
+        "NAME":"Name",
+        "EMAIL":"Email",
+        "MOBILE_NO": "Mobile Number",
+        "BUTTON_VERIFY":"Verify"
     }
 }

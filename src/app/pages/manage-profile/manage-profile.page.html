@@ -1,181 +1,185 @@
 <ion-header mode="md" class="ion-no-border">
-  <ion-toolbar class="ion-text-center">
-      <ion-buttons slot="start">
-          <ion-back-button text="" icon="add"></ion-back-button>
-        </ion-buttons>
-    <ion-title>Manage Profile</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar class="ion-text-center">
+        <!-- <ion-buttons slot="start">
+            <ion-back-button text="" icon="add"></ion-back-button>
+          </ion-buttons> -->
+      <ion-title>Manage Profile</ion-title>
+    </ion-toolbar>
+    <ion-avatar>
+      <img src="assets/img/manage-profile/default_profile_img.svg">
+    </ion-avatar>
+  </ion-header>
 
 <ion-content fullscreen>
-  <ion-avatar>
-        <img src="assets/img/manage-profile/default_profile_img.svg">
-  </ion-avatar>
-  <ion-card class="ion-no-margin">
-    <!-- <ion-card-header class="ion-no-padding">
-     
-    </ion-card-header> -->
-    <ion-card-content class="ion-no-padding">
-        <ion-item mode="ios">
-            <ion-icon src="assets/icon/icon_name.svg" class="ion-no-margin" slot="start"></ion-icon>
-            <ion-icon src="assets/icon/icon_edit_name.svg" class="ion-no-margin edit-icon" slot="end" name="logo-ionic"></ion-icon>
-            <ion-label position="floating">Name</ion-label>
-            <ion-input></ion-input>
-        </ion-item>
-        <ion-item mode="ios">
-            <ion-icon src="assets/icon/icon_email.svg" class="ion-no-margin" slot="start"></ion-icon>
-            <ion-icon src="assets/icon/icon_edit_name.svg" class="ion-no-margin edit-icon" slot="end" name="logo-ionic"></ion-icon>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input></ion-input>
-        </ion-item>
-        <ion-item mode="ios">
-            <ion-icon src="assets/icon/smart_phone.svg" class="ion-no-margin" slot="start"></ion-icon>
-            <!-- <ion-icon src="assets/icon/icon_edit_name.svg" class="ion-no-margin edit-icon" slot="end" name="logo-ionic"></ion-icon> -->
-            <ion-label position="floating">Mobile Number</ion-label>
-            <ion-input>+917875914818</ion-input>
-        </ion-item>
-    </ion-card-content>
-  </ion-card>
-  <ion-slides>
-      <ion-slide>
-          <ion-grid>
-            <ion-row>
-              <ion-col size="8">
-                <ion-item lines="none">
-                    <ion-icon src="assets/icon/icon_gender.svg" class="ion-no-margin catagory-icon" slot="start"></ion-icon>
-                    <ion-label class="ion-no-margin catagory-label">Gender</ion-label>
-                    <button ion-button icon-only clear>
-                        <ion-icon class="male"  src="assets/icon/icon-male.svg"></ion-icon>
-                    </button>
-                    <ion-label class="gender-name">Male</ion-label>
-                    <button ion-button icon-only clear>
-                        <ion-icon  class="female"  src="assets/icon/icon_female.svg" ></ion-icon>
-                    </button>
-                    <ion-label class="gender-name">Female</ion-label>
-                </ion-item>
-          </ion-col>
-          </ion-row>
-          <ion-row>
-              <ion-col size="8">
-                <ion-item lines="none">
-                    <ion-icon src="assets/icon/icon_age.svg" class="ion-no-margin catagory-icon" slot="start"></ion-icon>
-                    <ion-label class="ion-no-margin catagory-label">Age</ion-label>
-                    <ion-select placeholder="" class="ion-no-padding age-select-box">
-                        <ion-select-option value="25">25</ion-select-option>
-                        <ion-select-option value="26">26</ion-select-option>
-                        <ion-select-option value="27">27</ion-select-option>
-                        <ion-select-option value="26">28</ion-select-option>
-                      </ion-select>
-                </ion-item>
-          </ion-col>
-          </ion-row>
-          <ion-row>
-              <ion-col size="6">
-                <ion-item class="ion-text-center">
-                    <ion-icon src="assets/icon/icon_weight.svg" class="ion-no-margin catagory-icon" slot="start"></ion-icon>
-                    <ion-label class="ion-no-margin catagory-label">Weight</ion-label>
-                    <button ion-button icon-only clear>
-                        <ion-icon class="male"  src="assets/icon/icon_minus.svg"></ion-icon>
-                    </button>
-                    <ion-text class="user-weight ion-align-self-center">20</ion-text>
-                    <button ion-button icon-only clear>
-                        <ion-icon  class="female"  src="assets/icon/icon_plus.svg" ></ion-icon>
-                    </button>
-                </ion-item>
-              </ion-col>
-              <ion-col size="6">
-                  <ion-item lines="none">
-                      <ion-icon src="assets/icon/icon_height.svg" class="ion-no-margin catagory-icon" slot="start"></ion-icon>
-                      <ion-label class="ion-no-margin catagory-label">Height</ion-label>
-                      <ion-select placeholder="" class="ion-no-padding height-select-box">
-                          <ion-select-option value="5.8">5.8</ion-select-option>
-                          <ion-select-option value="5.2">5.2</ion-select-option>
-                          <ion-select-option value="6.1">6.1</ion-select-option>
-                          <ion-select-option value="7">7</ion-select-option>
-                        </ion-select>
-                  </ion-item>
-                </ion-col>
-          </ion-row>
-          <ion-row>
-              <ion-col size="12">
-                <ion-item lines="none">
-                    <ion-icon src="assets/icon/icon_health.svg" class="ion-no-margin catagory-icon" slot="start"></ion-icon>
-                    <ion-label class="ion-no-margin catagory-label">Present Health State</ion-label>
-                    <ion-select placeholder="" class="ion-no-padding health-select-box">
-                        <ion-select-option value="25">25</ion-select-option>
-                        <ion-select-option value="26">26</ion-select-option>
-                        <ion-select-option value="27">27</ion-select-option>
-                        <ion-select-option value="26">28</ion-select-option>
-                      </ion-select>
-                </ion-item>
-          </ion-col>
-          </ion-row>
-          <ion-row>
-              <ion-col size="12">
-                <ion-item lines="none">
-                    <ion-icon src="assets/icon/icon_fitness.svg" class="ion-no-margin catagory-icon" slot="start"></ion-icon>
-                    <ion-label class="ion-no-margin catagory-label">Fitness Objective</ion-label>
-                    <ion-select value="03" class="ion-no-padding health-select-box">
-                        <ion-select-option value="01">Alice in Chains</ion-select-option>
-                        <ion-select-option value="02">Green Day</ion-select-option>
-                        <ion-select-option value="03">Nirvana</ion-select-option>
-                        <ion-select-option value="04">Pearl Jam</ion-select-option>
-                        <ion-select-option value="05">Smashing Pumpkins</ion-select-option>
-                        <ion-select-option value="06">Soundgarden</ion-select-option>
-                        <ion-select-option value="07">Stone Temple Pilots</ion-select-option>
-                      </ion-select>
-                </ion-item>
-          </ion-col>
-          </ion-row>
-          </ion-grid>
-      </ion-slide>
+  <ion-slides [options]="profileFormSliderOpts"  #profileFormSlider>
+    <ion-slide>
+      <ion-card>
+          <ion-card-content class="ion-no-padding">
+            <form [formGroup]="registrationForm" (ngSubmit)="submit()">
+          <ion-list mode="ios">
+              <ion-item lines="inset">
+                  <ion-icon src="assets/icon/icon_name.svg" class="ion-no-margin input-icon" slot="start"></ion-icon>
+                  <ion-label position="floating">Name</ion-label>
+                  <ion-input  inputmode="text" formControlName="name"></ion-input>
+              </ion-item>
+              <div *ngFor="let error of errorMessages.name" class="ion-text-left ion-padding-start">
+                  <ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
+                    <small class="error-message">{{error.message}}</small>
+                  </ng-container>
+                </div>
+              <ion-item lines="inset">
+                  <ion-icon src="assets/icon/icon_email.svg" class="ion-no-margin input-icon" slot="start"></ion-icon>
+                  <ion-label position="floating">Email</ion-label>
+                  <ion-input inputmode="email" formControlName="email"></ion-input>
+              </ion-item>
+              <div *ngFor="let error of errorMessages.email" class="ion-text-left ion-padding-start">
+                  <ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
+                    <small class="error-message">{{error.message}}</small>
+                  </ng-container>
+                </div>
+              <ion-item lines="inset">
+                  <ion-icon src="assets/icon/icon_mobile.svg" class="ion-no-margin input-icon" slot="start"></ion-icon>
+                  <ion-label position="floating">Mobile Number</ion-label>
+                  <ion-input readonly="true" inputmode="tel" formControlName="phone"></ion-input>
+              </ion-item>
+              <div *ngFor="let error of errorMessages.phone" class="ion-text-left ion-padding-start">
+                  <ng-container *ngIf="phone.hasError(error.type) && (phone.dirty || phone.touched)">
+                    <small class="error-message">{{error.message}}</small>
+                  </ng-container>
+                </div>
+              <ion-item-divider>
+                  <!-- <ion-label>
+                    Section B
+                  </ion-label> -->
+                </ion-item-divider>
+              <ion-radio-group formControlName="gender">
+              <ion-item lines="inset">
+                  <ion-icon src="assets/icon/icon_gender.svg" class="ion-no-margin"></ion-icon>
+                  <ion-label class="radio-gender-label">Gender</ion-label>
+                    <ion-radio mode="md" #male_radio  value="male"></ion-radio>
+                    <ion-label class="ion-text-center radio-label">Male</ion-label>
+                    <ion-radio mode="md" #female_radio value="female"></ion-radio>
+                    <ion-label class="ion-text-center radio-label">Female</ion-label>
+              </ion-item>
+            </ion-radio-group>
+              <ion-item lines="inset">
+                  <ion-icon src="assets/icon/icon_age.svg" class="ion-no-margin"></ion-icon>
+                  <ion-label class="radio-gender-label">Age</ion-label>
+                  <ion-input inputmode="age" formControlName="age"></ion-input>
+                      <!-- <ion-select class="ion-no-padding age-select-box" 
+                        name="age" multiple="false" formControlName="age">
+                          <ion-select-option value="25">25</ion-select-option>
+                          <ion-select-option value="26">26</ion-select-option>
+                          <ion-select-option value="27">27</ion-select-option>
+                          <ion-select-option value="26">28</ion-select-option>
+                      </ion-select> -->
+              </ion-item>
+              <ion-item lines="inset">
+                  <ion-icon src="assets/icon/icon_weight.svg" class="ion-no-margin"></ion-icon>
+                  <ion-label class="radio-gender-label">Weight</ion-label>
+                  <ion-input inputmode="height" formControlName="height"></ion-input>
+                      <!-- <ion-button fill="clear" (click)="decreaseWeight()"  icon-only  class="weight-icon-button ion-margin-start">
+                          <ion-icon class="size-icon" slot="icon-only" src="assets/icon/icon_minus.svg"></ion-icon>
+                      </ion-button>
+                      <ion-input readonly="true" inputmode="numeric" formControlName="weight" [value]="inputWeight" class="user-weight ion-text-center"></ion-input>
+                      <ion-button  fill="clear" (click)="increaseWeight()" icon-only clear class="weight-icon-button">
+                          <ion-icon  class="size-icon" slot="icon-only"  src="assets/icon/icon_plus.svg" ></ion-icon>
+                      </ion-button> -->
+              </ion-item>
+              <ion-item lines="inset">
+                  <ion-icon src="assets/icon/icon_height.svg" class="ion-no-margin" slot="start"></ion-icon>
+                  <ion-label class="radio-gender-label">Height</ion-label>
+                  <!-- <ion-select placeholder="Select Height" class="ion-no-padding weight-select-box"
+                  name="height" multiple="false" formControlName="height">
+                      <ion-select-option value="6">6</ion-select-option>
+                      <ion-select-option value="6.5">6.5</ion-select-option>
+                      <ion-select-option value="7.2">7.2</ion-select-option>
+                      <ion-select-option value="5">5</ion-select-option>
+                  </ion-select> -->
+                  <ion-input inputmode="height" formControlName="height"></ion-input>
+              </ion-item>
+              <ion-item lines="inset">
+                  <ion-icon src="assets/icon/icon_fitness.svg" class="ion-no-margin" slot="start"></ion-icon>
+                  <ion-label class="finess-label">Fitness Objective</ion-label>
+                  <ion-select placeholder="Select Goal" class="ion-no-padding fitness-select-box"
+                  name="goal" multiple="false" formControlName="goal">
+                      <ion-select-option value="fit">Fit</ion-select-option>
+                      <ion-select-option value="weight_gain">Weight Gain</ion-select-option>
+                      <ion-select-option value="reduce_body_fat">Reduce Body Fat</ion-select-option>
+                      <ion-select-option value="maintain_bmi">Maintain BMI</ion-select-option>
+                  </ion-select>
+              </ion-item>
+            </ion-list>
+            </form>
+          </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card>
+          <ion-card-header>
+              <ion-card-subtitle>You can Create Profile</ion-card-subtitle>
+              <ion-card-title>for every one in your family</ion-card-title>
+          </ion-card-header>
+        <ion-card-content>
+            <ion-grid >
+                <ion-row class="ion-justify-content-center">
+                  <ion-col>
+                      <ion-button  fill="clear" [ngClass]="{'button-activated' : buttonActive}">
+                        <span class="default-profile-text">Default Profile</span>
+                        <ion-icon src="assets/icon/icon_edit_name.svg" class="ion-no-margin edit-icon"></ion-icon>
+                        <ion-avatar class="small-avatar">
+                          <img src="assets/img/manage-profile/default_profile_img.svg">
+                        </ion-avatar>
+                        <ion-label class="small-label">
+                          <h2>Rahul Sharma</h2>
+                        </ion-label>
+                      </ion-button>
+                  </ion-col>
+                  <ion-col>
+                      <ion-button  fill="clear">
+                          <span class="default-profile-text ion-hide">Default Profile</span>
+                          <ion-avatar class="small-avatar">
+                            <img src="assets/img/manage-profile/default_profile_img.svg">
+                          </ion-avatar>
+                          <ion-label class="small-label">
+                            <h2>Aryan Sharma</h2>
+                          </ion-label>
+                        </ion-button>
+                  </ion-col>
+                  <ion-col >
+                      <ion-button  fill="clear" [ngClass]="{'button-activated' : buttonActive}">
+                        <span class="default-profile-text">Default Profile</span>
+                        <ion-avatar class="small-avatar">
+                          <img src="assets/img/manage-profile/default_profile_img.svg">
+                        </ion-avatar>
+                        <ion-label class="small-label">
+                          <h2>Rahul Sharma</h2>
+                        </ion-label>
+                      </ion-button>
+                  </ion-col>
+                  <ion-col >
+                      <ion-button  fill="clear">
+                          <span class="default-profile-text ion-hide">Default Profile</span>
+                          <ion-avatar class="small-avatar">
+                            <img src="assets/img/manage-profile/default_profile_img.svg">
+                          </ion-avatar>
+                          <ion-label class="small-label">
+                            <h2>Aryan Sharma</h2>
+                          </ion-label>
+                        </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
 
-      <ion-slide class="ion-padding white-background">
-        <ion-grid>
-          <ion-row>
-            <ion-col size="6">
-                <ion-button  fill="clear" [ngClass]="{'button-activated' : buttonActive}">
-                  <span class="default-profile-text">Default Profile</span>
-                  <ion-avatar class="small-avatar">
-                    <img src="assets/img/manage-profile/default_profile_img.svg">
-                  </ion-avatar>
-                  <ion-label class="small-label">
-                    <h2>Rahul Sharma</h2>
-                  </ion-label>
-                </ion-button>
-            </ion-col>
-            <ion-col size="6">
-                <ion-button  fill="clear">
-                    <span class="default-profile-text ion-hide">Default Profile</span>
-                    <ion-avatar class="small-avatar">
-                      <img src="assets/img/manage-profile/default_profile_img.svg">
-                    </ion-avatar>
-                    <ion-label class="small-label">
-                      <h2>Aryan Sharma</h2>
-                    </ion-label>
-                  </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <!-- <ion-segment mode="ios" color="tertiary" value="favorite">
-            <ion-segment-button value="call" class="ion-padding">
-              <ion-thumbnail>
-                  <img src="../../../assets/img/manage-profile/default_profile_img.svg">
-                </ion-thumbnail>
-              <ion-label>Rahul Sharma</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="favorite" class="ion-padding">
-              <ion-thumbnail>
-                  <img src="../../../assets/img/manage-profile/default_profile_img.svg">
-                </ion-thumbnail>
-                <ion-label>Aryan Sharma</ion-label>
-            </ion-segment-button>
-          </ion-segment> -->
-      </ion-slide>
- </ion-slides>
 </ion-content>
 <ion-footer mode="md" class="ion-no-border">
+    <form [formGroup]="registrationForm" (ngSubmit)="submit()">
     <ion-toolbar class="ion-text-center">
-        <ion-button  shape="round">Next</ion-button>
+        <ion-button  [disabled]="!registrationForm.valid" type="submit" shape="round">Next</ion-button>
     </ion-toolbar>
+    </form>
   </ion-footer>
