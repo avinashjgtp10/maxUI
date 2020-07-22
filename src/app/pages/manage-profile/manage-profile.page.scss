@@ -140,19 +140,21 @@ ion-content {
                     }
                     .age-select-box{
                         width: 25%;
+                        font-size: 14px;
                         padding-right: 5px;
                         padding-left: 30px;
                      }
                      .weight-select-box {
                         width: 70%;
+                        font-size: 14px;
                         padding-right: 5px;
-                        padding-left: 70px;
+                        padding-left: 65px;
                         border:none;
                      }
                      .fitness-select-box {
                         width: 50%;
+                        font-size: 14px;
                         padding-right: 5px;
-                        padding-left: 10px;
                         border:none;
                      }
                     .size-icon {
@@ -163,7 +165,11 @@ ion-content {
                        background-color: #FFFFFF;
                     }
                     .user-weight {
-                        max-width: 18%;
+                        max-width: 8%;
+                        font-size: 14px;
+                        font-weight: normal;
+                     }
+                     .user-weight-unit {
                         font-size: 14px;
                         font-weight: normal;
                      }
