@@ -6,7 +6,8 @@ import { ApiCallService } from "../../services/api/api-call.service";
 import {FormGroup,FormControl,Validators,FormArray, FormBuilder} from '@angular/forms';
 import { IonSlides } from '@ionic/angular';
 import { Storage } from "@ionic/storage";
-import { LoadingController } from '@ionic/angular';
+import { LoadingContollerService } from "../../services/loading/loading-contoller.service";
+declare var SMSReceive: any;
 @Component({
   selector: 'app-app-start',
   templateUrl: './app-start.page.html',
@@ -27,6 +28,9 @@ export class AppStartPage implements OnInit {
    mobileNumberEntered: string;
    showWrongOtpError: boolean = false;
    isOtpButtonDisabled: boolean = true;
+   showCall: boolean = false;
+   showHelp: boolean = false;
+   sliderPager: boolean = true;
    @ViewChild('loginSlider', { static: false }) loginSlider: IonSlides;
    @ViewChild('imageSlider', { static: false }) imageSlider: IonSlides;
    @ViewChild('ngOtpInput', { static: false}) ngOtpInput: any;
@@ -37,7 +41,7 @@ export class AppStartPage implements OnInit {
      inputClass:'otp-box',
      containerClass:'otp-container',
      isPasswordInput: false,
-     disableAutoFocus: false,
+     disableAutoFocus: true,
      placeholder: '',
      inputStyles: {
        'width': '60px',
@@ -76,7 +80,38 @@ export class AppStartPage implements OnInit {
     private activatedRoute:ActivatedRoute,
     public apiService: ApiCallService,
     private storage:Storage,
-    public loadingController: LoadingController) { 
+    public loadingService: LoadingContollerService) { 
+  }
+
+  start() {
+    SMSReceive.startWatch(
+      () => {
+        document.addEventListener('onSMSArrive', (e: any) => {
+          var IncomingSMS = e.data;
+          console.log('IncomingSMS',IncomingSMS);
+          this.processSMS(IncomingSMS);
+        });
+      },
+      () => { console.log('watch start failed') }
+    )
+  }
+
+  stop() {
+    SMSReceive.stopWatch(
+      () => { console.log('watch stopped') },
+      () => { console.log('watch stop failed') }
+    )
+  }
+
+  processSMS(data) {
+    if(data.address) {
+      let message = data.body;
+      let autoOtp = message.split(' ');
+      this.setVal(autoOtp[0]);
+      console.log('message',message);
+    } else {
+      this.stop();
+    }
   }
   
   slideToPrevious() {
@@ -95,8 +130,10 @@ export class AppStartPage implements OnInit {
       channel :"SMS",
       access: "client"
     }
+    this.loadingService.loadingPresent();
     this.storage.get('Session_Id').then((val) => {
       this.apiService.verifyOtp(args,val).subscribe((response: any) => {
+        this.loadingService.loadingDismiss();
         if(response.status === "success"){
             this.showWrongOtpError = false;
              this.route.navigate(["manage-profile"]);
@@ -107,6 +144,7 @@ export class AppStartPage implements OnInit {
               this.isOtpButtonDisabled = true;
           }
       }, (error) => {
+        this.loadingService.loadingDismiss();
         console.log("error",error);
         if(this.otp === myOtp){
           this.showWrongOtpError = false;
@@ -120,25 +158,16 @@ export class AppStartPage implements OnInit {
     });
     
   }
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      message: 'Please wait...',
-      duration: 3000
-    });
-    await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
-  }
   onSubmit(){
      this.mobileNumberEntered = this.form.value.mobileNumber;
     let args = {
       tel_number: `+91${this.mobileNumberEntered}`,
       channel :"SMS"
     }
-    this.presentLoading();
+    this.loadingService.loadingPresent();
     this.apiService.generateOtp(args).subscribe((response: any) => {
       console.log('response',response);
+      this.loadingService.loadingDismiss();
       if(response.Status === 'Success'){
            this.storage.set('Session_Id',response.Details);
            this.loginSlider.slideNext();
@@ -147,8 +176,10 @@ export class AppStartPage implements OnInit {
            this.showResendCounter = true;
            this.showResendAndGetCallButton = false;
            this.resendCounter = 30;
+           this.start();
       }
     }, (error) => {
+      this.loadingService.loadingDismiss();
       console.log("error",error);
     });
   }
@@ -157,8 +188,10 @@ export class AppStartPage implements OnInit {
       tel_number: `+91${this.mobileNumberEntered}`,
       channel :"SMS"
     }
+    this.loadingService.loadingPresent();
     this.apiService.generateOtp(args).subscribe((response: any) => {
       console.log('response',response);
+      this.loadingService.loadingDismiss();
       if(response.Status === 'Success'){
            this.storage.set('Session_Id',response.Details);
            this.setVal('');
@@ -168,6 +201,7 @@ export class AppStartPage implements OnInit {
            this.resendCounter = 30;
       }
     }, (error) => {
+      this.loadingService.loadingDismiss();
       console.log("error",error);
     });;
   }
@@ -176,17 +210,22 @@ export class AppStartPage implements OnInit {
       tel_number: `${this.mobileNumberEntered}`,
       channel :"voice"
     }
+    this.loadingService.loadingPresent();
     this.apiService.getCall(args).subscribe((response: any) => {
       console.log('response',response);
+      this.loadingService.loadingDismiss();
       if(response.Status === 'Success'){
         this.resendCounter = 60;
         this.loginSlider.slideNext();
+        this.showCall = true;
+        this.sliderPager = false;
         this.imageSlider.slideTo(4);
         this.imageSlider.lockSwipes(true);
         this.setVal('');
         this.timer();
       }
   }, (error) => {
+    this.loadingService.loadingDismiss();
     console.log("error",error);
   });
   }
@@ -214,6 +253,7 @@ export class AppStartPage implements OnInit {
       else {
         this.loginSlider.slideNext();
         this.imageSlider.lockSwipes(false);
+        this.showHelp = true;
         this.imageSlider.slideTo(5);
         this.imageSlider.lockSwipes(true);
       }

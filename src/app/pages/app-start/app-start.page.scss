@@ -1,6 +1,9 @@
 
 @import '../../shared/styles/default.scss';
-ion-content{
+ion-content{         
+     .align-img-to-bottom {
+         margin-top: 18vh;
+     }
     .container{
     .logo{
         width: 100px;
@@ -19,7 +22,7 @@ ion-content{
             background-position: 100% 18%; 
             height: 50vh;
             --bullet-background: #C4C4C4;
-            --bullet-background-active: #CD5441
+            --bullet-background-active: #CD5441;
         } 
     }
     .login-otp{

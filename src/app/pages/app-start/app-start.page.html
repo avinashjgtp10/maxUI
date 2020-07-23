@@ -4,16 +4,22 @@
       <img src="../../../assets/icon/logo.svg">
     </div>
     <div class="slider">
-      <ion-slides pager="true" [options]="slideOpts" id="mainSlider" #imageSlider>
+      <ion-slides pager="sliderPager" [options]="slideOpts" id="mainSlider" #imageSlider>
         <ion-slide>
-          <ion-img src="assets/img/women.svg"></ion-img>
+          <ion-img src="assets/img/women.png"></ion-img>
         </ion-slide>
         <ion-slide>
-            <ion-img src="assets/img/young_people_group.svg"></ion-img>
+            <ion-img src="assets/img/young_people_group.png"></ion-img>
           </ion-slide>
           <ion-slide>
-              <ion-img src="assets/img/old_people_group.svg"></ion-img>
-            </ion-slide>
+              <ion-img src="assets/img/old_people_group.png"></ion-img>
+          </ion-slide>
+          <ion-slide *ngIf="showCall" class="align-img-to-bottom">
+            <ion-img  src="assets/img/call.png"></ion-img>
+        </ion-slide>
+        <ion-slide *ngIf="showHelp" class="align-img-to-bottom">
+          <ion-img  src="assets/img/help.png"></ion-img>
+      </ion-slide>
       </ion-slides>
     </div>
     <div class="login-otp">

@@ -22,7 +22,7 @@
                   <ion-label position="floating">Name</ion-label>
                   <ion-input  inputmode="text" formControlName="name"></ion-input>
               </ion-item>
-              <div *ngFor="let error of errorMessages.name" class="ion-text-left ion-padding-start">
+              <div *ngFor="let error of errorMessages.name" class="ion-text-left ion-padding-start error-message-container">
                   <ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
                     <small class="error-message">{{error.message}}</small>
                   </ng-container>
@@ -32,7 +32,7 @@
                   <ion-label position="floating">Email</ion-label>
                   <ion-input inputmode="email" formControlName="email"></ion-input>
               </ion-item>
-              <div *ngFor="let error of errorMessages.email" class="ion-text-left ion-padding-start">
+              <div *ngFor="let error of errorMessages.email" class="ion-text-left ion-padding-start error-message-container">
                   <ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
                     <small class="error-message">{{error.message}}</small>
                   </ng-container>
@@ -42,7 +42,7 @@
                   <ion-label position="floating">Mobile Number</ion-label>
                   <ion-input readonly="true" inputmode="tel" formControlName="phone"></ion-input>
               </ion-item>
-              <div *ngFor="let error of errorMessages.phone" class="ion-text-left ion-padding-start">
+              <div *ngFor="let error of errorMessages.phone" class="ion-text-left ion-padding-start error-message-container">
                   <ng-container *ngIf="phone.hasError(error.type) && (phone.dirty || phone.touched)">
                     <small class="error-message">{{error.message}}</small>
                   </ng-container>
@@ -71,7 +71,7 @@
                           <ion-select-option value="26">28</ion-select-option>
                       </ion-select>
               </ion-item>
-              <ion-item lines="inset">
+              <ion-item lines="none">
                   <ion-icon src="assets/icon/icon_weight.svg" class="ion-no-margin"></ion-icon>
                   <ion-label class="radio-gender-label">Weight</ion-label>
                   <!-- <ion-input inputmode="height" formControlName="height"></ion-input> -->
@@ -94,7 +94,7 @@
                       <ion-select-option value="7.2">7.2 ft</ion-select-option>
                       <ion-select-option value="5">5 ft</ion-select-option>
                   </ion-select>
-                  <ion-input inputmode="height" formControlName="height"></ion-input>
+                  <!-- <ion-input inputmode="height" formControlName="height"></ion-input> -->
               </ion-item>
               <ion-item lines="inset">
                   <ion-icon src="assets/icon/icon_fitness.svg" class="ion-no-margin" slot="start"></ion-icon>
@@ -112,7 +112,7 @@
           </ion-card-content>
       </ion-card>
     </ion-slide>
-    <ion-slide>
+    <!-- <ion-slide>
       <ion-card>
           <ion-card-header>
               <ion-card-subtitle>You can Create Profile</ion-card-subtitle>
@@ -170,7 +170,7 @@
               </ion-grid>
         </ion-card-content>
       </ion-card>
-    </ion-slide>
+    </ion-slide> -->
   </ion-slides>
 
 </ion-content>

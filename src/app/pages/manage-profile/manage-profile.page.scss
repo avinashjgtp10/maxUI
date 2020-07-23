@@ -49,6 +49,7 @@ ion-content {
             ion-card{
                 width: 100%;
                 box-shadow: none;
+                padding-right: 20px;
                 ion-grid{
                     ion-row{
                         ion-col{
@@ -112,6 +113,9 @@ ion-content {
                 }
                 ion-item-divider {
                     background-color: #FFFFFF;
+                }
+                .error-message-container {
+                    padding-left: 50px;
                 }
                 .error-message {
                     color: #E02828;
