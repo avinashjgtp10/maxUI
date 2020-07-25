@@ -102,4 +102,8 @@
     <plugin name="cordova-plugin-sms-receive" spec="^1.0.2" />
     <engine name="android" spec="^8.1.0" />
     <engine name="ios" spec="^5.1.1" />
+    <plugin name="cordova-plugin-network-information" spec="^2.0.2" />
+    <plugin name="cordova-plugin-telerik-imagepicker" spec="^2.3.3">
+        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
+    </plugin>
 </widget>

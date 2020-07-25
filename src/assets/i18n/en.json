@@ -11,7 +11,9 @@
         "TITLE":"Login to continue",
         "OTP_MSG":"We will send you OTP on this number.",
         "VALIDATION_ERROR": "Number must be a 10 charector",
-        "AGREE_TERMS":"I Agree Terms And Conditions"
+        "AGREE_TERMS":"I Agree Terms And Conditions",
+        "SEND_OTP": "Send OTP",
+        "IN": "IN +91"
     },
     "VERIFY":{
         "TITLE":"Verify Mobile Number",
@@ -19,7 +21,9 @@
         "RESEND_CODE":"Resend code in",
         "VALIDATION_ERROR": "This OTP is incorrect, please try again",
         "BUTTON_VERIFY":"Verify",
-        "RESEND": "Resend code in 0:"
+        "RESEND": "Resend code in 0:",
+        "RESEND_SMS": "Resend sms",
+        "GET_CALL": "Get a Call"
     },
     "CONTACT":{
         "TITLE":"You’ll get a call in",

@@ -1,12 +1,10 @@
 <ion-header mode="md" class="ion-no-border">
     <ion-toolbar class="ion-text-center">
-        <!-- <ion-buttons slot="start">
-            <ion-back-button text="" icon="add"></ion-back-button>
-          </ion-buttons> -->
       <ion-title>Manage Profile</ion-title>
     </ion-toolbar>
-    <ion-avatar>
-      <img src="assets/img/manage-profile/default_profile_img.svg">
+    <ion-avatar (click)="getImages()">
+      <ion-img [src]="imageResponse || 'assets/img/manage-profile/avatar.svg'"></ion-img>
+      <ion-icon src="assets/img/manage-profile/edit_image_icon.svg" class="ion-no-margin edit-icon"></ion-icon>
     </ion-avatar>
   </ion-header>
 

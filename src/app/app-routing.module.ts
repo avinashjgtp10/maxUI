@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -8,8 +9,9 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'AppStartPage',
-    pathMatch: 'full'
+    redirectTo: 'manage-profile',
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
   },
   {
     path: 'app-start',
@@ -17,7 +19,8 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'dashboard-with-id',
@@ -25,7 +28,12 @@ const routes: Routes = [
   },
   {
     path: 'manage-profile',
-    loadChildren: () => import('./pages/manage-profile/manage-profile.module').then( m => m.ManageProfilePageModule)
+    loadChildren: () => import('./pages/manage-profile/manage-profile.module').then( m => m.ManageProfilePageModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'terms-and-condition',
+    loadChildren: () => import('./pages/terms-and-condition/terms-and-condition.module').then( m => m.TermsAndConditionPageModule)
   },
 ];
 

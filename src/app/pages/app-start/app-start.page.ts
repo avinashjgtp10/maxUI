@@ -20,7 +20,9 @@ export class AppStartPage implements OnInit {
       Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")
     ])
    });
-   resendCounter: number;
+   resendSMSCounter: number = 3;
+   serverError: string = '';
+   resendCounter: number = 30;
    otp: string;
    termsIsChecked: boolean = true;
    showResendCounter: boolean = false;
@@ -121,7 +123,11 @@ export class AppStartPage implements OnInit {
     this.ngOtpInput.setValue(val);
     this.ngOtpInputCall.setValue(val);
   }
+  openTermsPage() {
+    this.route.navigate(["terms-and-condition"]);
+  }
   checkOtpEntered(){
+    this.serverError = '';
     this.showWrongOtpError = false;
     let myOtp = '1234';
     let args = {
@@ -136,8 +142,11 @@ export class AppStartPage implements OnInit {
         this.loadingService.loadingDismiss();
         if(response.status === "success"){
             this.showWrongOtpError = false;
-             this.route.navigate(["manage-profile"]);
-             this.storage.set('User_Mobile_No',this.mobileNumberEntered);
+            this.storage.set('User_Data', response.data).then(() => {
+              this.route.navigate(["manage-profile"]);
+            }).catch((err)=> {
+              //this.serverError = err;
+           });
           } else {  
               this.setVal('');       
               this.showWrongOtpError = true;
@@ -146,6 +155,7 @@ export class AppStartPage implements OnInit {
       }, (error) => {
         this.loadingService.loadingDismiss();
         console.log("error",error);
+        this.serverError = error;
         if(this.otp === myOtp){
           this.showWrongOtpError = false;
            this.route.navigate(["manage-profile"]);
@@ -159,6 +169,7 @@ export class AppStartPage implements OnInit {
     
   }
   onSubmit(){
+    this.serverError = '';
      this.mobileNumberEntered = this.form.value.mobileNumber;
     let args = {
       tel_number: `+91${this.mobileNumberEntered}`,
@@ -169,43 +180,64 @@ export class AppStartPage implements OnInit {
       console.log('response',response);
       this.loadingService.loadingDismiss();
       if(response.Status === 'Success'){
-           this.storage.set('Session_Id',response.Details);
-           this.loginSlider.slideNext();
-           this.setVal('');
-           this.timerTick();
-           this.showResendCounter = true;
-           this.showResendAndGetCallButton = false;
-           this.resendCounter = 30;
-           this.start();
+           this.storage.set('Session_Id',response.Details).then(()=>{
+            this.loginSlider.slideNext();
+            this.setVal('');
+            this.timerTick();
+            this.showResendCounter = true;
+            this.showResendAndGetCallButton = false;
+            this.resendCounter = 30;
+            this.start();
+           }).catch((err)=> {
+           // this.serverError = err;
+        });
       }
     }, (error) => {
+      this.serverError = error;
       this.loadingService.loadingDismiss();
       console.log("error",error);
     });
   }
   resendOtp() {
-     let args = {
-      tel_number: `+91${this.mobileNumberEntered}`,
-      channel :"SMS"
-    }
-    this.loadingService.loadingPresent();
-    this.apiService.generateOtp(args).subscribe((response: any) => {
-      console.log('response',response);
-      this.loadingService.loadingDismiss();
-      if(response.Status === 'Success'){
-           this.storage.set('Session_Id',response.Details);
-           this.setVal('');
-           this.timerTick();
-           this.showResendCounter = true;
-           this.showResendAndGetCallButton = false;
-           this.resendCounter = 30;
+     this.serverError = '';
+     this.showWrongOtpError = false;
+     this.resendSMSCounter--;
+     console.log(' this.resendSMSCounter', this.resendSMSCounter);
+     if(this.resendSMSCounter) { 
+      let args = {
+        tel_number: `+91${this.mobileNumberEntered}`,
+        channel :"SMS"
       }
-    }, (error) => {
-      this.loadingService.loadingDismiss();
-      console.log("error",error);
-    });;
+      this.loadingService.loadingPresent();
+      this.apiService.generateOtp(args).subscribe((response: any) => {
+        console.log('response',response);
+        this.loadingService.loadingDismiss();
+        if(response.Status === 'Success'){
+             this.storage.set('Session_Id',response.Details).then(()=> {
+              this.setVal('');
+              this.timerTick();
+              this.showResendCounter = true;
+              this.showResendAndGetCallButton = false;
+              this.resendCounter = 30;
+             }).catch((err)=> {
+                // this.serverError = err;
+             });
+        }
+      }, (error) => {
+        this.serverError = error;
+        this.loadingService.loadingDismiss();
+        console.log("error",error);
+      });;
+     } else {
+      this.loginSlider.slideTo(4);
+      this.imageSlider.lockSwipes(false);
+      this.showHelp = true;
+      this.imageSlider.slideTo(5);
+      this.imageSlider.lockSwipes(true);
+     }
   }
   slideToGetCall(){
+    this.serverError = '';
     let args = {
       tel_number: `${this.mobileNumberEntered}`,
       channel :"voice"
@@ -225,6 +257,7 @@ export class AppStartPage implements OnInit {
         this.timer();
       }
   }, (error) => {
+    this.serverError = error;
     this.loadingService.loadingDismiss();
     console.log("error",error);
   });

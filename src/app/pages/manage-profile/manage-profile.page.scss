@@ -14,6 +14,12 @@ ion-toolbar {
             margin-bottom: 50px;
         }
     }
+    .edit-icon {
+        position: absolute;
+        font-size: 28px;
+        top: 0px;
+        right: 0px;
+    }
     ion-avatar{
         left: calc(50% - 100px/2 + 0px);
         position: absolute;
