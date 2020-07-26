@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
 import { IonSlides } from '@ionic/angular';
+import { Router,ActivatedRoute } from "@angular/router"
 import { Storage } from "@ionic/storage";
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 @Component({
@@ -33,15 +34,17 @@ export class ManageProfilePage implements OnInit {
     goal: ['',Validators.required],
   });
   constructor(private formBuilder: FormBuilder,
-              private storage:Storage, private imagePicker: ImagePicker) { }
+              private storage:Storage, private imagePicker: ImagePicker,
+              private route:Router) { }
 
   ngOnInit() {
     this.storage.get('User_Data').then((data: any)=> {
       this.registrationForm.controls.phone.setValue(data.phonenumber);
     }).catch((err)=> {
-      this.userMobileNumber = 0;
+     // this.userMobileNumber = 0;
+     this.registrationForm.controls.phone.setValue('3434334343');
     });
-   for(let i = 1; i <= this.ageCount; i++) {
+   for(let i = 10; i <= this.ageCount; i++) {
      this.ageOptions.push({ 
        value: i,
        displayName: `${i} Years`
@@ -114,8 +117,7 @@ export class ManageProfilePage implements OnInit {
   };
   public submit() {
     console.log(this.registrationForm.value);
-    this.profileFormSlider.slideNext();
-    this.profileFormSlider.lockSwipes(true);
+    this.route.navigate(['home']);
   }
   public decreaseWeight(){
    console.log('decrease weight');
