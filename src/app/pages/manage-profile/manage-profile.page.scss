@@ -21,14 +21,14 @@ ion-toolbar {
         right: 0px;
     }
     ion-avatar{
-        left: calc(50% - 100px/2 + 0px);
+        left: calc(50% - 90px/2);
         position: absolute;
        bottom:-25px;
         z-index: 10;
        width:100%;  
        height : 100%;  
-       max-width: 100px;  //any size
-       max-height: 100px; //any size 
+       max-width: 90px;  //any size
+       max-height: 90px; //any size 
     }
 }
 ion-footer {
@@ -119,6 +119,7 @@ ion-content {
                 }
                 ion-item-divider {
                     background-color: #FFFFFF;
+                    border: none;
                 }
                 .error-message-container {
                     padding-left: 50px;
@@ -126,6 +127,9 @@ ion-content {
                 .error-message {
                     color: #E02828;
                     font-size: 14px;
+                }
+                ion-range {
+                   
                 }
                 ion-radio-group {
                     .radio-label {
@@ -149,16 +153,16 @@ ion-content {
                         border-bottom: 1px solid rgba(56, 79, 125, 0.1);
                     }
                     .age-select-box{
-                        width: 25%;
+                        width: 35%;
                         font-size: 14px;
                         padding-right: 5px;
                         padding-left: 30px;
                      }
                      .weight-select-box {
-                        width: 70%;
+                        width: 50%;
                         font-size: 14px;
                         padding-right: 5px;
-                        padding-left: 65px;
+                        //padding-left: 65px;
                         border:none;
                      }
                      .fitness-select-box {
@@ -175,7 +179,7 @@ ion-content {
                        background-color: #FFFFFF;
                     }
                     .user-weight {
-                        max-width: 8%;
+                        max-width: 10%;
                         font-size: 14px;
                         font-weight: normal;
                      }
@@ -184,12 +188,13 @@ ion-content {
                         font-weight: normal;
                      }
                     ion-icon{
-                        position: relative;
+                        //position: relative;
                         margin-right: 15px;
                         font-size: 18px;
                     }
                     .input-icon {
-                        top:40px;
+                        //top:6vh;
+                        margin-top: 22px;
                     }
                     ion-label{
                         font-weight: normal;

@@ -3,7 +3,8 @@
       <ion-title>Manage Profile</ion-title>
     </ion-toolbar>
     <ion-avatar (click)="getImages()">
-      <ion-img [src]="imageResponse || 'assets/img/manage-profile/avatar.svg'"></ion-img>
+      <ion-img *ngIf="showImg" [src]="imageResponse ? imageResponse[0] : 'assets/img/manage-profile/avatar.svg'"></ion-img>
+      <ion-img *ngIf="!showImg" [src]="'assets/img/manage-profile/avatar.svg'"></ion-img>
       <ion-icon src="assets/img/manage-profile/edit_image_icon.svg" class="ion-no-margin edit-icon"></ion-icon>
     </ion-avatar>
   </ion-header>
@@ -14,9 +15,9 @@
       <ion-card>
           <ion-card-content class="ion-no-padding">
             <form [formGroup]="registrationForm" (ngSubmit)="submit()">
-          <ion-list mode="ios">
+          <ion-list>
               <ion-item lines="inset">
-                  <ion-icon src="assets/icon/icon_name.svg" class="ion-no-margin input-icon" slot="start"></ion-icon>
+                  <ion-icon src="assets/icon/icon_name.svg" class="input-icon" slot="start"></ion-icon>
                   <ion-label position="floating">Name</ion-label>
                   <ion-input  inputmode="text" formControlName="name"></ion-input>
               </ion-item>
@@ -26,7 +27,7 @@
                   </ng-container>
                 </div>
               <ion-item lines="inset">
-                  <ion-icon src="assets/icon/icon_email.svg" class="ion-no-margin input-icon" slot="start"></ion-icon>
+                  <ion-icon src="assets/icon/icon_email.svg" class="input-icon" slot="start"></ion-icon>
                   <ion-label position="floating">Email</ion-label>
                   <ion-input inputmode="email" formControlName="email"></ion-input>
               </ion-item>
@@ -36,7 +37,7 @@
                   </ng-container>
                 </div>
               <ion-item lines="inset">
-                  <ion-icon src="assets/icon/icon_mobile.svg" class="ion-no-margin input-icon" slot="start"></ion-icon>
+                  <ion-icon src="assets/icon/icon_mobile.svg" class="input-icon" slot="start"></ion-icon>
                   <ion-label position="floating">Mobile Number</ion-label>
                   <ion-input readonly="true" inputmode="tel" formControlName="phone"></ion-input>
               </ion-item>
@@ -63,10 +64,7 @@
                   <!-- <ion-input inputmode="age" formControlName="age"></ion-input> -->
                       <ion-select class="ion-no-padding age-select-box" 
                         name="age" multiple="false" formControlName="age">
-                          <ion-select-option value="25">25</ion-select-option>
-                          <ion-select-option value="26">26</ion-select-option>
-                          <ion-select-option value="27">27</ion-select-option>
-                          <ion-select-option value="26">28</ion-select-option>
+                          <ion-select-option *ngFor="let age of ageOptions" [value]="age.value">{{age.displayName}}</ion-select-option>
                       </ion-select>
               </ion-item>
               <ion-item lines="none">
@@ -76,7 +74,7 @@
                       <ion-button fill="clear" (click)="decreaseWeight()"  icon-only  class="weight-icon-button ion-margin-start">
                           <ion-icon class="size-icon" slot="icon-only" src="assets/icon/icon_minus.svg"></ion-icon>
                       </ion-button>
-                      <ion-input readonly="true" inputmode="numeric" formControlName="weight" [value]="inputWeight" class="user-weight ion-text-right"></ion-input>
+                      <ion-input readonly="true" inputmode="numeric" formControlName="weight" [value]="inputWeight" class="user-weight"></ion-input>
                        <ion-text class="user-weight-unit ion-text-center">Kg</ion-text>
                       <ion-button  fill="clear" (click)="increaseWeight()" icon-only clear class="weight-icon-button">
                           <ion-icon  class="size-icon" slot="icon-only"  src="assets/icon/icon_plus.svg" ></ion-icon>
@@ -92,7 +90,10 @@
                       <ion-select-option value="7.2">7.2 ft</ion-select-option>
                       <ion-select-option value="5">5 ft</ion-select-option>
                   </ion-select>
-                  <!-- <ion-input inputmode="height" formControlName="height"></ion-input> -->
+                  <!-- <ion-range class="ion-no-padding" min="4" max="10" step="1" snaps="true" ticks="true" pin="true">
+                      <ion-label slot="start">4'</ion-label>
+                      <ion-label slot="end">10'</ion-label>
+                    </ion-range> -->
               </ion-item>
               <ion-item lines="inset">
                   <ion-icon src="assets/icon/icon_fitness.svg" class="ion-no-margin" slot="start"></ion-icon>

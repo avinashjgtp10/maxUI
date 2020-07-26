@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~9.1.6",
     "@angular/platform-browser-dynamic": "~9.1.6",
     "@angular/router": "~9.1.6",
+    "@ionic-native/android-permissions": "^5.27.0",
     "@ionic-native/app-version": "^5.26.0",
     "@ionic-native/core": "^5.0.7",
     "@ionic-native/image-picker": "^5.27.0",
@@ -31,6 +32,7 @@
     "@ngx-translate/http-loader": "^5.0.0",
     "cordova-android": "^8.1.0",
     "cordova-ios": "^5.1.1",
+    "cordova-plugin-android-permissions": "^1.0.2",
     "cordova-plugin-app-version": "^0.1.9",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
@@ -91,7 +93,8 @@
       "cordova-plugin-network-information": {},
       "cordova-plugin-telerik-imagepicker": {
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": " "
-      }
+      },
+      "cordova-plugin-android-permissions": {}
     },
     "platforms": [
       "android",

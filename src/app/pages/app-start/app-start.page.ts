@@ -141,6 +141,7 @@ export class AppStartPage implements OnInit {
       this.apiService.verifyOtp(args,val).subscribe((response: any) => {
         this.loadingService.loadingDismiss();
         if(response.status === "success"){
+          console.log("success",response);
             this.showWrongOtpError = false;
             this.storage.set('User_Data', response.data).then(() => {
               this.route.navigate(["manage-profile"]);

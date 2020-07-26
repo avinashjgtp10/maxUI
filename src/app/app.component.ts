@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppVersion } from  '@ionic-native/app-version/ngx';
+
 
 
 @Component({
@@ -25,7 +25,9 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      setTimeout(()=> {
+        this.splashScreen.hide();
+      }, 5000);
     });
   }
 }

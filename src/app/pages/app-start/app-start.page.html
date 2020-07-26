@@ -27,15 +27,29 @@
         <ion-slide>
           <label class="process_header">{{'LOGIN.TITLE' | translate}}</label>
           <form [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
-            <div class="mobileNumberInput">
-              <div class="countryCode">{{'LOGIN.IN' | translate}}</div>
-              <div class="mobileNumber">
+            <!-- <div class="mobileNumberInput row">
+              <span class="countryCode col">{{'LOGIN.IN' | translate}}</span>
+              <span class="mobileNumber">
                 <ion-input type="tel" placeholder="Your Mobile Number" formControlName="mobileNumber"
                   [ngClass]="{'is-invalid':form.get('mobileNumber').touched && form.get('mobileNumber').invalid}"
                   id="mobileNumber"></ion-input>
                 
-              </div>
-            </div>
+              </span>
+            </div> -->
+             <grid class="mobileNumberInput ion-no-padding">
+               <ion-row class="ion-no-padding">
+                 <ion-col class="ion-no-padding ion-text-center" size="3">
+                    <div class="countryCode">{{'LOGIN.IN' | translate}}</div>
+                 </ion-col>
+                 <ion-col class="ion-no-padding" size="9">
+                    <div class="mobileNumber">
+                        <ion-input type="tel" placeholder="Your Mobile Number" formControlName="mobileNumber"
+                          [ngClass]="{'is-invalid':form.get('mobileNumber').touched && form.get('mobileNumber').invalid}"
+                          id="mobileNumber"></ion-input>
+                    </div>
+                 </ion-col>
+               </ion-row>
+             </grid>
             <div  *ngIf="form.get('mobileNumber').touched && form.get('mobileNumber').invalid" class="invalid-feedback">
               <div *ngIf="form.get('mobileNumber').errors.pattern" class="validationErr">{{'LOGIN.VALIDATION_ERROR' | translate}}</div>
             </div>

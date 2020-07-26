@@ -12,11 +12,14 @@ export class ManageProfilePage implements OnInit {
   inputWeight: number = 40;
   userMobileNumber: number;
   imageResponse: any;
+  showImg: boolean = false;
   options: any;
+  ageOptions: any = [];
+  ageCount: number = 60;
   @ViewChild('profileFormSlider', { static: false }) profileFormSlider: IonSlides;
   profileFormSliderOpts = {
     initialSlide: 0,
-    allowTouchMove: true,
+    allowTouchMove: false,
     speed: 400
   };
   registrationForm = this.formBuilder.group({
@@ -37,7 +40,13 @@ export class ManageProfilePage implements OnInit {
       this.registrationForm.controls.phone.setValue(data.phonenumber);
     }).catch((err)=> {
       this.userMobileNumber = 0;
-    })
+    });
+   for(let i = 1; i <= this.ageCount; i++) {
+     this.ageOptions.push({ 
+       value: i,
+       displayName: `${i} Years`
+     });
+   }
   }
   public getImages() {
     this.options = {
@@ -66,6 +75,11 @@ export class ManageProfilePage implements OnInit {
     this.imagePicker.getPictures(this.options).then((results) => {
       for (var i = 0; i < results.length; i++) {
         this.imageResponse.push('data:image/jpeg;base64,' + results[i]);
+      }
+      if(this.imageResponse[0]) {
+        this.showImg = true;
+      } else {
+        this.showImg = false;
       }
     }, (err) => {
       alert(err);
