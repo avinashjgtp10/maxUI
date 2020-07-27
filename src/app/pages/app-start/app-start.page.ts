@@ -6,7 +6,8 @@ import { ApiCallService } from "../../services/api/api-call.service";
 import {FormGroup,FormControl,Validators,FormArray, FormBuilder} from '@angular/forms';
 import { IonSlides } from '@ionic/angular';
 import { Storage } from "@ionic/storage";
-import { LoadingController } from '@ionic/angular';
+import { LoadingContollerService } from "../../services/loading/loading-contoller.service";
+declare var SMSReceive: any;
 @Component({
   selector: 'app-app-start',
   templateUrl: './app-start.page.html',
@@ -19,7 +20,9 @@ export class AppStartPage implements OnInit {
       Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")
     ])
    });
-   resendCounter: number;
+   resendSMSCounter: number = 3;
+   serverError: string = '';
+   resendCounter: number = 30;
    otp: string;
    termsIsChecked: boolean = true;
    showResendCounter: boolean = false;
@@ -27,6 +30,9 @@ export class AppStartPage implements OnInit {
    mobileNumberEntered: string;
    showWrongOtpError: boolean = false;
    isOtpButtonDisabled: boolean = true;
+   showCall: boolean = false;
+   showHelp: boolean = false;
+   sliderPager: boolean = true;
    @ViewChild('loginSlider', { static: false }) loginSlider: IonSlides;
    @ViewChild('imageSlider', { static: false }) imageSlider: IonSlides;
    @ViewChild('ngOtpInput', { static: false}) ngOtpInput: any;
@@ -37,7 +43,7 @@ export class AppStartPage implements OnInit {
      inputClass:'otp-box',
      containerClass:'otp-container',
      isPasswordInput: false,
-     disableAutoFocus: false,
+     disableAutoFocus: true,
      placeholder: '',
      inputStyles: {
        'width': '60px',
@@ -76,7 +82,38 @@ export class AppStartPage implements OnInit {
     private activatedRoute:ActivatedRoute,
     public apiService: ApiCallService,
     private storage:Storage,
-    public loadingController: LoadingController) { 
+    public loadingService: LoadingContollerService) { 
+  }
+
+  start() {
+    SMSReceive.startWatch(
+      () => {
+        document.addEventListener('onSMSArrive', (e: any) => {
+          var IncomingSMS = e.data;
+          console.log('IncomingSMS',IncomingSMS);
+          this.processSMS(IncomingSMS);
+        });
+      },
+      () => { console.log('watch start failed') }
+    )
+  }
+
+  stop() {
+    SMSReceive.stopWatch(
+      () => { console.log('watch stopped') },
+      () => { console.log('watch stop failed') }
+    )
+  }
+
+  processSMS(data) {
+    if(data.address) {
+      let message = data.body;
+      let autoOtp = message.split(' ');
+      this.setVal(autoOtp[0]);
+      console.log('message',message);
+    } else {
+      this.stop();
+    }
   }
   
   slideToPrevious() {
@@ -86,7 +123,11 @@ export class AppStartPage implements OnInit {
     this.ngOtpInput.setValue(val);
     this.ngOtpInputCall.setValue(val);
   }
+  openTermsPage() {
+    this.route.navigate(["terms-and-condition"]);
+  }
   checkOtpEntered(){
+    this.serverError = '';
     this.showWrongOtpError = false;
     let myOtp = '1234';
     let args = {
@@ -95,19 +136,27 @@ export class AppStartPage implements OnInit {
       channel :"SMS",
       access: "client"
     }
+    this.loadingService.loadingPresent();
     this.storage.get('Session_Id').then((val) => {
       this.apiService.verifyOtp(args,val).subscribe((response: any) => {
+        this.loadingService.loadingDismiss();
         if(response.status === "success"){
+          console.log("success",response);
             this.showWrongOtpError = false;
-             this.route.navigate(["manage-profile"]);
-             this.storage.set('User_Mobile_No',this.mobileNumberEntered);
+            this.storage.set('User_Data', response.data).then(() => {
+              this.route.navigate(["manage-profile"]);
+            }).catch((err)=> {
+              //this.serverError = err;
+           });
           } else {  
               this.setVal('');       
               this.showWrongOtpError = true;
               this.isOtpButtonDisabled = true;
           }
       }, (error) => {
+        this.loadingService.loadingDismiss();
         console.log("error",error);
+        this.serverError = error;
         if(this.otp === myOtp){
           this.showWrongOtpError = false;
            this.route.navigate(["manage-profile"]);
@@ -120,73 +169,97 @@ export class AppStartPage implements OnInit {
     });
     
   }
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      message: 'Please wait...',
-      duration: 3000
-    });
-    await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
-  }
   onSubmit(){
+    this.serverError = '';
      this.mobileNumberEntered = this.form.value.mobileNumber;
     let args = {
       tel_number: `+91${this.mobileNumberEntered}`,
       channel :"SMS"
     }
-    this.presentLoading();
+    this.loadingService.loadingPresent();
     this.apiService.generateOtp(args).subscribe((response: any) => {
       console.log('response',response);
+      this.loadingService.loadingDismiss();
       if(response.Status === 'Success'){
-           this.storage.set('Session_Id',response.Details);
-           this.loginSlider.slideNext();
-           this.setVal('');
-           this.timerTick();
-           this.showResendCounter = true;
-           this.showResendAndGetCallButton = false;
-           this.resendCounter = 30;
+           this.storage.set('Session_Id',response.Details).then(()=>{
+            this.loginSlider.slideNext();
+            this.setVal('');
+            this.timerTick();
+            this.showResendCounter = true;
+            this.showResendAndGetCallButton = false;
+            this.resendCounter = 30;
+            this.start();
+           }).catch((err)=> {
+           // this.serverError = err;
+        });
       }
     }, (error) => {
+      this.serverError = error;
+      this.loadingService.loadingDismiss();
       console.log("error",error);
     });
   }
   resendOtp() {
-     let args = {
-      tel_number: `+91${this.mobileNumberEntered}`,
-      channel :"SMS"
-    }
-    this.apiService.generateOtp(args).subscribe((response: any) => {
-      console.log('response',response);
-      if(response.Status === 'Success'){
-           this.storage.set('Session_Id',response.Details);
-           this.setVal('');
-           this.timerTick();
-           this.showResendCounter = true;
-           this.showResendAndGetCallButton = false;
-           this.resendCounter = 30;
+     this.serverError = '';
+     this.showWrongOtpError = false;
+     this.resendSMSCounter--;
+     console.log(' this.resendSMSCounter', this.resendSMSCounter);
+     if(this.resendSMSCounter) { 
+      let args = {
+        tel_number: `+91${this.mobileNumberEntered}`,
+        channel :"SMS"
       }
-    }, (error) => {
-      console.log("error",error);
-    });;
+      this.loadingService.loadingPresent();
+      this.apiService.generateOtp(args).subscribe((response: any) => {
+        console.log('response',response);
+        this.loadingService.loadingDismiss();
+        if(response.Status === 'Success'){
+             this.storage.set('Session_Id',response.Details).then(()=> {
+              this.setVal('');
+              this.timerTick();
+              this.showResendCounter = true;
+              this.showResendAndGetCallButton = false;
+              this.resendCounter = 30;
+             }).catch((err)=> {
+                // this.serverError = err;
+             });
+        }
+      }, (error) => {
+        this.serverError = error;
+        this.loadingService.loadingDismiss();
+        console.log("error",error);
+      });;
+     } else {
+      this.loginSlider.slideTo(4);
+      this.imageSlider.lockSwipes(false);
+      this.showHelp = true;
+      this.imageSlider.slideTo(5);
+      this.imageSlider.lockSwipes(true);
+     }
   }
   slideToGetCall(){
+    this.serverError = '';
     let args = {
       tel_number: `${this.mobileNumberEntered}`,
       channel :"voice"
     }
+    this.loadingService.loadingPresent();
     this.apiService.getCall(args).subscribe((response: any) => {
       console.log('response',response);
+      this.loadingService.loadingDismiss();
       if(response.Status === 'Success'){
         this.resendCounter = 60;
         this.loginSlider.slideNext();
+        this.showCall = true;
+        this.sliderPager = false;
         this.imageSlider.slideTo(4);
         this.imageSlider.lockSwipes(true);
         this.setVal('');
         this.timer();
       }
   }, (error) => {
+    this.serverError = error;
+    this.loadingService.loadingDismiss();
     console.log("error",error);
   });
   }
@@ -214,6 +287,7 @@ export class AppStartPage implements OnInit {
       else {
         this.loginSlider.slideNext();
         this.imageSlider.lockSwipes(false);
+        this.showHelp = true;
         this.imageSlider.slideTo(5);
         this.imageSlider.lockSwipes(true);
       }

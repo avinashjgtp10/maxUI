@@ -10,6 +10,7 @@ import { AppVersion } from '@ionic-native/app-version/ngx';
 
 
 import { AppComponent } from './app.component';
+import { ComponentsModule } from './components/components.module';
 //Routing
 import { AppRoutingModule } from './app-routing.module';
 //localitzion
@@ -19,7 +20,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 //Ionic Storage
 import { IonicStorageModule } from "@ionic/storage";
 import { SamplePipe } from './pipes/sample/sample.pipe';
-
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
 export function createTranslateLoader(http:HttpClient){
  return new TranslateHttpLoader(http,'assets/i18n/','.json');
@@ -32,6 +33,7 @@ export function createTranslateLoader(http:HttpClient){
   ReactiveFormsModule,
   IonicModule.forRoot(),
   AppRoutingModule,
+  ComponentsModule,
   HttpClientModule,
   IonicStorageModule.forRoot(),
   TranslateModule.forRoot({
@@ -45,6 +47,7 @@ export function createTranslateLoader(http:HttpClient){
     StatusBar,
     SplashScreen,
     AppVersion,
+    ImagePicker,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

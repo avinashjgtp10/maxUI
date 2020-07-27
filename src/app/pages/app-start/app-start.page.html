@@ -4,16 +4,22 @@
       <img src="../../../assets/icon/logo.svg">
     </div>
     <div class="slider">
-      <ion-slides pager="true" [options]="slideOpts" id="mainSlider" #imageSlider>
+      <ion-slides pager="sliderPager" [options]="slideOpts" id="mainSlider" #imageSlider>
         <ion-slide>
-          <ion-img src="assets/img/women.svg"></ion-img>
+          <ion-img src="assets/img/women.png"></ion-img>
         </ion-slide>
         <ion-slide>
-            <ion-img src="assets/img/young_people_group.svg"></ion-img>
+            <ion-img src="assets/img/young_people_group.png"></ion-img>
           </ion-slide>
           <ion-slide>
-              <ion-img src="assets/img/old_people_group.svg"></ion-img>
-            </ion-slide>
+              <ion-img src="assets/img/old_people_group.png"></ion-img>
+          </ion-slide>
+          <ion-slide *ngIf="showCall" class="align-img-to-bottom">
+            <ion-img  src="assets/img/call.png"></ion-img>
+        </ion-slide>
+        <ion-slide *ngIf="showHelp" class="align-img-to-bottom">
+          <ion-img  src="assets/img/help.png"></ion-img>
+      </ion-slide>
       </ion-slides>
     </div>
     <div class="login-otp">
@@ -21,28 +27,47 @@
         <ion-slide>
           <label class="process_header">{{'LOGIN.TITLE' | translate}}</label>
           <form [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
-            <div class="mobileNumberInput">
-              <div class="countryCode">IN +91</div>
-              <div class="mobileNumber">
+            <!-- <div class="mobileNumberInput row">
+              <span class="countryCode col">{{'LOGIN.IN' | translate}}</span>
+              <span class="mobileNumber">
                 <ion-input type="tel" placeholder="Your Mobile Number" formControlName="mobileNumber"
                   [ngClass]="{'is-invalid':form.get('mobileNumber').touched && form.get('mobileNumber').invalid}"
                   id="mobileNumber"></ion-input>
                 
-              </div>
-            </div>
+              </span>
+            </div> -->
+             <grid class="mobileNumberInput ion-no-padding">
+               <ion-row class="ion-no-padding">
+                 <ion-col class="ion-no-padding ion-text-center" size="3">
+                    <div class="countryCode">{{'LOGIN.IN' | translate}}</div>
+                 </ion-col>
+                 <ion-col class="ion-no-padding" size="9">
+                    <div class="mobileNumber">
+                        <ion-input type="tel" placeholder="Your Mobile Number" formControlName="mobileNumber"
+                          [ngClass]="{'is-invalid':form.get('mobileNumber').touched && form.get('mobileNumber').invalid}"
+                          id="mobileNumber"></ion-input>
+                    </div>
+                 </ion-col>
+               </ion-row>
+             </grid>
             <div  *ngIf="form.get('mobileNumber').touched && form.get('mobileNumber').invalid" class="invalid-feedback">
               <div *ngIf="form.get('mobileNumber').errors.pattern" class="validationErr">{{'LOGIN.VALIDATION_ERROR' | translate}}</div>
             </div>
             <p class="process_msg">{{'LOGIN.OTP_MSG' | translate}}</p>
-            <button class="setndOptBtn" [disabled]="!form.valid || !termsIsChecked">Send OTP</button>
+            <button class="setndOptBtn" [disabled]="!form.valid || !termsIsChecked">{{'LOGIN.SEND_OTP' | translate}}</button>
+            <div *ngIf="serverError" class="ion-text-left ion-padding-start error-message-container">
+                <ng-container >
+                  <small class="error-message">{{serverError}}</small>
+                </ng-container>
+            </div>
           </form>
-          <ion-item lines="none">
-              <ion-label>{{'LOGIN.AGREE_TERMS' | translate}}</ion-label>
-              <ion-checkbox  mode="md" [(ngModel)]="termsIsChecked" slot="start"></ion-checkbox>
-          </ion-item>
+          <div class="ion-margin-top ion-text-center terms-container">
+              <ion-checkbox class="ion-margin-end" mode="md" [(ngModel)]="termsIsChecked"></ion-checkbox>
+              <ion-label (click)="openTermsPage()" class="terms-link">{{'LOGIN.AGREE_TERMS' | translate}}</ion-label>
+          </div>
         </ion-slide>
         <ion-slide>
-          <ion-icon name="arrow-back-outline" button (click)="slideToPrevious()"></ion-icon>
+          <ion-icon name="arrow-back-outline"  (click)="slideToPrevious()"></ion-icon>
           <label class="verify_label">{{'VERIFY.TITLE' | translate}}</label>
           <p class="ion-text-center verify_msg">{{'VERIFY.OTP_MSG' | translate}}</p>
           <p class="ion-text-center mobile-num-text">{{mobileNumberEntered}}</p>
@@ -55,14 +80,19 @@
           <div *ngIf="showWrongOtpError" class="validationErr">{{'VERIFY.VALIDATION_ERROR' | translate}}</div>
           <p *ngIf="showResendCounter" class="ion-text-center showResendCounter">{{'VERIFY.RESEND' | translate}} {{resendCounter}}</p>
            <p *ngIf="showResendAndGetCallButton" text-center  class="ion-text-center resend_row_msg">
-             <ion-text color="danger" class="ion-padding-start ion-padding-end" (click)="resendOtp()">Resend sms</ion-text>Or
-             <ion-text color="dark" class="ion-padding-start ion-padding-end" (click)="slideToGetCall()">Get a Call</ion-text>
+             <ion-text color="danger" class="ion-padding-start ion-padding-end" (click)="resendOtp()">{{'VERIFY.RESEND_SMS' | translate}}</ion-text>Or
+             <ion-text color="dark" class="ion-padding-start ion-padding-end" (click)="slideToGetCall()">{{'VERIFY.GET_CALL' | translate}}</ion-text>
             </p>
           <button 
             [disabled]="isOtpButtonDisabled" 
             (click)="checkOtpEntered()" 
             class="setndOptBtn ion-no-margin">{{'VERIFY.BUTTON_VERIFY' | translate}}
           </button>
+          <div *ngIf="serverError" class="ion-text-left ion-padding-start error-message-container">
+              <ng-container >
+                <small class="error-message">{{serverError}}</small>
+              </ng-container>
+          </div>
         </ion-slide>
         <ion-slide>
           <label class="verify_label">{{'CONTACT.TITLE' | translate}}</label>
@@ -76,6 +106,11 @@
           </ion-item>
           <div *ngIf="showWrongOtpError" class="validationErr">{{'VERIFY.VALIDATION_ERROR' | translate}}</div>
           <button [disabled]="isOtpButtonDisabled" (click)="checkOtpEntered()" class="setndOptBtn ion-margin-top">{{'VERIFY.BUTTON_VERIFY' | translate}}</button>
+          <div *ngIf="serverError" class="ion-text-left ion-padding-start error-message-container">
+              <ng-container >
+                <small class="error-message">{{serverError}}</small>
+              </ng-container>
+          </div>
         </ion-slide>
         <ion-slide>
             <p class="ion-text-center contact-header">{{'SUPPORT.TITLE' | translate}}</p>
@@ -83,7 +118,7 @@
             <p class="ion-text-center verify_msg">{{'SUPPORT.REQUEST_MSG' | translate}}</p>
             <p class="ion-text-center">{{'SUPPORT.NUMBER' | translate}}</p>
             <button  (click)="contact()" class="setndOptBtn ion-margin-top">{{'SUPPORT.BUTTON_CONTACT' | translate}}</button>
-          </ion-slide>
+        </ion-slide>
       </ion-slides>
     </div>
   </div>

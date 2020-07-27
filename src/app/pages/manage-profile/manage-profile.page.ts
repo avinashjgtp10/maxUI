@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
 import { IonSlides } from '@ionic/angular';
+import { Router,ActivatedRoute } from "@angular/router"
 import { Storage } from "@ionic/storage";
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 @Component({
   selector: 'app-manage-profile',
   templateUrl: './manage-profile.page.html',
@@ -10,10 +12,15 @@ import { Storage } from "@ionic/storage";
 export class ManageProfilePage implements OnInit {
   inputWeight: number = 40;
   userMobileNumber: number;
+  imageResponse: any;
+  showImg: boolean = false;
+  options: any;
+  ageOptions: any = [];
+  ageCount: number = 60;
   @ViewChild('profileFormSlider', { static: false }) profileFormSlider: IonSlides;
   profileFormSliderOpts = {
     initialSlide: 0,
-    allowTouchMove: true,
+    allowTouchMove: false,
     speed: 400
   };
   registrationForm = this.formBuilder.group({
@@ -27,16 +34,59 @@ export class ManageProfilePage implements OnInit {
     goal: ['',Validators.required],
   });
   constructor(private formBuilder: FormBuilder,
-              private storage:Storage) { }
+              private storage:Storage, private imagePicker: ImagePicker,
+              private route:Router) { }
 
   ngOnInit() {
-    this.storage.get('User_Mobile_No').then((number: number)=> {
-      console.log('number',number);
-       this.userMobileNumber = number;
-       this.registrationForm.controls.phone.setValue(this.userMobileNumber);
+    this.storage.get('User_Data').then((data: any)=> {
+      this.registrationForm.controls.phone.setValue(data.phonenumber);
     }).catch((err)=> {
-      this.userMobileNumber = 0;
-    })
+     // this.userMobileNumber = 0;
+     this.registrationForm.controls.phone.setValue('3434334343');
+    });
+   for(let i = 10; i <= this.ageCount; i++) {
+     this.ageOptions.push({ 
+       value: i,
+       displayName: `${i} Years`
+     });
+   }
+  }
+  public getImages() {
+    this.options = {
+      // Android only. Max images to be selected, defaults to 15. If this is set to 1, upon
+      // selection of a single image, the plugin will return it.
+      maximumImagesCount: 1,
+
+      // max width and height to allow the images to be.  Will keep aspect
+      // ratio no matter what.  So if both are 800, the returned image
+      // will be at most 800 pixels wide and 800 pixels tall.  If the width is
+      // 800 and height 0 the image will be 800 pixels wide if the source
+      // is at least that wide.
+      width: 200,
+      //height: 200,
+
+      // quality of resized image, defaults to 100
+      quality: 100,
+
+      // output type, defaults to FILE_URIs.
+      // available options are 
+      // window.imagePicker.OutputType.FILE_URI (0) or 
+      // window.imagePicker.OutputType.BASE64_STRING (1)
+      outputType: 1
+    };
+    this.imageResponse = [];
+    this.imagePicker.getPictures(this.options).then((results) => {
+      for (var i = 0; i < results.length; i++) {
+        this.imageResponse.push('data:image/jpeg;base64,' + results[i]);
+      }
+      if(this.imageResponse[0]) {
+        this.showImg = true;
+      } else {
+        this.showImg = false;
+      }
+    }, (err) => {
+      alert(err);
+    });
   }
 
   public errorMessages = {
@@ -67,8 +117,7 @@ export class ManageProfilePage implements OnInit {
   };
   public submit() {
     console.log(this.registrationForm.value);
-    this.profileFormSlider.slideNext();
-    this.profileFormSlider.lockSwipes(true);
+    this.route.navigate(['home']);
   }
   public decreaseWeight(){
    console.log('decrease weight');

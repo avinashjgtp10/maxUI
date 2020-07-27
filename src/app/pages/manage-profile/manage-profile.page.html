@@ -1,12 +1,11 @@
 <ion-header mode="md" class="ion-no-border">
     <ion-toolbar class="ion-text-center">
-        <!-- <ion-buttons slot="start">
-            <ion-back-button text="" icon="add"></ion-back-button>
-          </ion-buttons> -->
       <ion-title>Manage Profile</ion-title>
     </ion-toolbar>
-    <ion-avatar>
-      <img src="assets/img/manage-profile/default_profile_img.svg">
+    <ion-avatar (click)="getImages()">
+      <ion-img *ngIf="showImg" [src]="imageResponse ? imageResponse[0] : 'assets/img/manage-profile/avatar.svg'"></ion-img>
+      <ion-img *ngIf="!showImg" [src]="'assets/img/manage-profile/avatar.svg'"></ion-img>
+      <ion-icon src="assets/img/manage-profile/edit_image_icon.svg" class="ion-no-margin edit-icon"></ion-icon>
     </ion-avatar>
   </ion-header>
 
@@ -16,44 +15,41 @@
       <ion-card>
           <ion-card-content class="ion-no-padding">
             <form [formGroup]="registrationForm" (ngSubmit)="submit()">
-          <ion-list mode="ios">
+          <ion-list>
               <ion-item lines="inset">
-                  <ion-icon src="assets/icon/icon_name.svg" class="ion-no-margin input-icon" slot="start"></ion-icon>
+                  <ion-icon src="assets/icon/icon_name.svg" class="input-icon" slot="start"></ion-icon>
                   <ion-label position="floating">Name</ion-label>
                   <ion-input  inputmode="text" formControlName="name"></ion-input>
               </ion-item>
-              <div *ngFor="let error of errorMessages.name" class="ion-text-left ion-padding-start">
+              <div *ngFor="let error of errorMessages.name" class="ion-text-left ion-padding-start error-message-container">
                   <ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
                     <small class="error-message">{{error.message}}</small>
                   </ng-container>
                 </div>
               <ion-item lines="inset">
-                  <ion-icon src="assets/icon/icon_email.svg" class="ion-no-margin input-icon" slot="start"></ion-icon>
+                  <ion-icon src="assets/icon/icon_email.svg" class="input-icon" slot="start"></ion-icon>
                   <ion-label position="floating">Email</ion-label>
                   <ion-input inputmode="email" formControlName="email"></ion-input>
               </ion-item>
-              <div *ngFor="let error of errorMessages.email" class="ion-text-left ion-padding-start">
+              <div *ngFor="let error of errorMessages.email" class="ion-text-left ion-padding-start error-message-container">
                   <ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
                     <small class="error-message">{{error.message}}</small>
                   </ng-container>
                 </div>
               <ion-item lines="inset">
-                  <ion-icon src="assets/icon/icon_mobile.svg" class="ion-no-margin input-icon" slot="start"></ion-icon>
+                  <ion-icon src="assets/icon/icon_mobile.svg" class="input-icon" slot="start"></ion-icon>
                   <ion-label position="floating">Mobile Number</ion-label>
                   <ion-input readonly="true" inputmode="tel" formControlName="phone"></ion-input>
               </ion-item>
-              <div *ngFor="let error of errorMessages.phone" class="ion-text-left ion-padding-start">
+              <div *ngFor="let error of errorMessages.phone" class="ion-text-left ion-padding-start error-message-container">
                   <ng-container *ngIf="phone.hasError(error.type) && (phone.dirty || phone.touched)">
                     <small class="error-message">{{error.message}}</small>
                   </ng-container>
                 </div>
               <ion-item-divider>
-                  <!-- <ion-label>
-                    Section B
-                  </ion-label> -->
                 </ion-item-divider>
               <ion-radio-group formControlName="gender">
-              <ion-item lines="inset">
+              <ion-item lines="none">
                   <ion-icon src="assets/icon/icon_gender.svg" class="ion-no-margin"></ion-icon>
                   <ion-label class="radio-gender-label">Gender</ion-label>
                     <ion-radio mode="md" #male_radio  value="male"></ion-radio>
@@ -62,47 +58,48 @@
                     <ion-label class="ion-text-center radio-label">Female</ion-label>
               </ion-item>
             </ion-radio-group>
-              <ion-item lines="inset">
+              <ion-item lines="none">
                   <ion-icon src="assets/icon/icon_age.svg" class="ion-no-margin"></ion-icon>
                   <ion-label class="radio-gender-label">Age</ion-label>
-                  <ion-input inputmode="age" formControlName="age"></ion-input>
-                      <!-- <ion-select class="ion-no-padding age-select-box" 
+                  <!-- <ion-input inputmode="age" formControlName="age"></ion-input> -->
+                      <ion-select class="ion-no-padding age-select-box" 
                         name="age" multiple="false" formControlName="age">
-                          <ion-select-option value="25">25</ion-select-option>
-                          <ion-select-option value="26">26</ion-select-option>
-                          <ion-select-option value="27">27</ion-select-option>
-                          <ion-select-option value="26">28</ion-select-option>
-                      </ion-select> -->
+                          <ion-select-option *ngFor="let age of ageOptions" [value]="age.value">{{age.displayName}}</ion-select-option>
+                      </ion-select>
               </ion-item>
-              <ion-item lines="inset">
+              <ion-item lines="none">
                   <ion-icon src="assets/icon/icon_weight.svg" class="ion-no-margin"></ion-icon>
                   <ion-label class="radio-gender-label">Weight</ion-label>
-                  <ion-input inputmode="height" formControlName="height"></ion-input>
-                      <!-- <ion-button fill="clear" (click)="decreaseWeight()"  icon-only  class="weight-icon-button ion-margin-start">
+                  <!-- <ion-input inputmode="height" formControlName="height"></ion-input> -->
+                      <ion-button fill="clear" (click)="decreaseWeight()"  icon-only  class="weight-icon-button ion-margin-start">
                           <ion-icon class="size-icon" slot="icon-only" src="assets/icon/icon_minus.svg"></ion-icon>
                       </ion-button>
-                      <ion-input readonly="true" inputmode="numeric" formControlName="weight" [value]="inputWeight" class="user-weight ion-text-center"></ion-input>
+                      <ion-input readonly="true" inputmode="numeric" formControlName="weight" [value]="inputWeight" class="user-weight"></ion-input>
+                       <ion-text class="user-weight-unit ion-text-center">Kg</ion-text>
                       <ion-button  fill="clear" (click)="increaseWeight()" icon-only clear class="weight-icon-button">
                           <ion-icon  class="size-icon" slot="icon-only"  src="assets/icon/icon_plus.svg" ></ion-icon>
-                      </ion-button> -->
+                      </ion-button>
               </ion-item>
               <ion-item lines="inset">
                   <ion-icon src="assets/icon/icon_height.svg" class="ion-no-margin" slot="start"></ion-icon>
                   <ion-label class="radio-gender-label">Height</ion-label>
-                  <!-- <ion-select placeholder="Select Height" class="ion-no-padding weight-select-box"
-                  name="height" multiple="false" formControlName="height">
-                      <ion-select-option value="6">6</ion-select-option>
-                      <ion-select-option value="6.5">6.5</ion-select-option>
-                      <ion-select-option value="7.2">7.2</ion-select-option>
-                      <ion-select-option value="5">5</ion-select-option>
-                  </ion-select> -->
-                  <ion-input inputmode="height" formControlName="height"></ion-input>
+                  <ion-select placeholder="Select Height" class="ion-no-padding weight-select-box"
+                  name="height" multiple="false" formControlName="height" slot="end">
+                      <ion-select-option value="6">6 ft</ion-select-option>
+                      <ion-select-option value="6.5">6.5 ft</ion-select-option>
+                      <ion-select-option value="7.2">7.2 ft</ion-select-option>
+                      <ion-select-option value="5">5 ft</ion-select-option>
+                  </ion-select>
+                  <!-- <ion-range class="ion-no-padding" min="4" max="10" step="1" snaps="true" ticks="true" pin="true">
+                      <ion-label slot="start">4'</ion-label>
+                      <ion-label slot="end">10'</ion-label>
+                    </ion-range> -->
               </ion-item>
               <ion-item lines="inset">
                   <ion-icon src="assets/icon/icon_fitness.svg" class="ion-no-margin" slot="start"></ion-icon>
                   <ion-label class="finess-label">Fitness Objective</ion-label>
                   <ion-select placeholder="Select Goal" class="ion-no-padding fitness-select-box"
-                  name="goal" multiple="false" formControlName="goal">
+                  name="goal" multiple="false" formControlName="goal" slot="end">
                       <ion-select-option value="fit">Fit</ion-select-option>
                       <ion-select-option value="weight_gain">Weight Gain</ion-select-option>
                       <ion-select-option value="reduce_body_fat">Reduce Body Fat</ion-select-option>
@@ -114,7 +111,7 @@
           </ion-card-content>
       </ion-card>
     </ion-slide>
-    <ion-slide>
+    <!-- <ion-slide>
       <ion-card>
           <ion-card-header>
               <ion-card-subtitle>You can Create Profile</ion-card-subtitle>
@@ -172,7 +169,7 @@
               </ion-grid>
         </ion-card-content>
       </ion-card>
-    </ion-slide>
+    </ion-slide> -->
   </ion-slides>
 
 </ion-content>
