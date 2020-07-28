@@ -83,17 +83,9 @@
               <ion-item lines="inset">
                   <ion-icon src="assets/icon/icon_height.svg" class="ion-no-margin" slot="start"></ion-icon>
                   <ion-label class="radio-gender-label">Height</ion-label>
-                  <ion-select placeholder="Select Height" class="ion-no-padding weight-select-box"
-                  name="height" multiple="false" formControlName="height" slot="end">
-                      <ion-select-option value="6">6 ft</ion-select-option>
-                      <ion-select-option value="6.5">6.5 ft</ion-select-option>
-                      <ion-select-option value="7.2">7.2 ft</ion-select-option>
-                      <ion-select-option value="5">5 ft</ion-select-option>
-                  </ion-select>
-                  <!-- <ion-range class="ion-no-padding" min="4" max="10" step="1" snaps="true" ticks="true" pin="true">
-                      <ion-label slot="start">4'</ion-label>
-                      <ion-label slot="end">10'</ion-label>
-                    </ion-range> -->
+                    <div class="custom-slider">
+                      <ng5-slider [(value)]="height" [options]="opt" style="margin-bottom: 1rem;"></ng5-slider>
+                    </div> 
               </ion-item>
               <ion-item lines="inset">
                   <ion-icon src="assets/icon/icon_fitness.svg" class="ion-no-margin" slot="start"></ion-icon>
@@ -177,6 +169,11 @@
     <form [formGroup]="registrationForm" (ngSubmit)="submit()">
     <ion-toolbar class="ion-text-center">
         <ion-button  [disabled]="!registrationForm.valid" type="submit" shape="round">Next</ion-button>
+        <div *ngIf="serverError" class="ion-text-center error-message-container">
+          <ng-container >
+            <small class="error-message">{{serverError}}</small>
+          </ng-container>
+         </div>
     </ion-toolbar>
     </form>
   </ion-footer>

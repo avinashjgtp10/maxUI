@@ -1,4 +1,49 @@
 @import '../../shared/styles/default.scss';
+::ng-deep {
+    .custom-slider .ng5-slider .ng5-slider-bar {
+      background: #A6AAB4;
+      height: 2px;
+    }
+    .custom-slider .ng5-slider .ng5-slider-selection {
+      background: #E02828;
+    }
+  
+    .custom-slider .ng5-slider .ng5-slider-pointer {
+      width: 8px;
+      height: 16px;
+      top: auto; /* to remove the default positioning */
+      bottom: 0;
+      background-color: #E02828;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+    }
+  
+    .custom-slider .ng5-slider .ng5-slider-pointer:after {
+      display: none;
+    }
+  
+    .custom-slider .ng5-slider .ng5-slider-bubble {
+      bottom: 14px;
+    }
+  
+    .custom-slider .ng5-slider .ng5-slider-limit {
+      font-weight: bold;
+      color: #E02828;
+    }
+  
+    .custom-slider .ng5-slider .ng5-slider-tick {
+      width: 1px;
+      height: 10px;
+      margin-left: 4px;
+      border-radius: 0;
+      background: #A6AAB4;
+      top: -1px;
+    }
+  
+    .custom-slider .ng5-slider .ng5-slider-tick.ng5-slider-selected {
+      background: #E02828;
+    }
+  }
 ion-header {
 --ion-background-color: #F3F4F3;
 ion-toolbar {
@@ -45,7 +90,12 @@ ion-footer {
             --background: #E02828;
             --color: #FFFFFF;
         }
+        .error-message {
+            color: #E02828;
+            font-size: 14px;
+        }
     }
+   
 }
 
 ion-content {
@@ -128,8 +178,8 @@ ion-content {
                     color: #E02828;
                     font-size: 14px;
                 }
-                ion-range {
-                   
+                .custom-slider {
+                  width: 70%;
                 }
                 ion-radio-group {
                     .radio-label {

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1095598341589",
+    "firebase_url": "https://maxui-86971.firebaseio.com",
+    "project_id": "maxui-86971",
+    "storage_bucket": "maxui-86971.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095598341589:android:16f370110749172085115c",
+        "android_client_info": {
+          "package_name": "com.ionic.maxui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095598341589-1ha7uu3sje8qsm1kc6n084n0heh5rkti.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWCrmSpe4ZNgQLIeVJWQEnzoabZSjo79E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095598341589-1ha7uu3sje8qsm1kc6n084n0heh5rkti.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

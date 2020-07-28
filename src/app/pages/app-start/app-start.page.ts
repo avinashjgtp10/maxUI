@@ -7,6 +7,7 @@ import {FormGroup,FormControl,Validators,FormArray, FormBuilder} from '@angular/
 import { IonSlides } from '@ionic/angular';
 import { Storage } from "@ionic/storage";
 import { LoadingContollerService } from "../../services/loading/loading-contoller.service";
+import { NavController } from '@ionic/angular';
 declare var SMSReceive: any;
 @Component({
   selector: 'app-app-start',
@@ -82,7 +83,8 @@ export class AppStartPage implements OnInit {
     private activatedRoute:ActivatedRoute,
     public apiService: ApiCallService,
     private storage:Storage,
-    public loadingService: LoadingContollerService) { 
+    public loadingService: LoadingContollerService,
+    private navController: NavController) { 
   }
 
   start() {
@@ -144,7 +146,11 @@ export class AppStartPage implements OnInit {
           console.log("success",response);
             this.showWrongOtpError = false;
             this.storage.set('User_Data', response.data).then(() => {
-              this.route.navigate(["manage-profile"]);
+              if(response.data.userDesc === 'old') {
+                this.navController.navigateRoot(['home']);
+              } else {
+                this.navController.navigateRoot(['manage-profile']);
+              }
             }).catch((err)=> {
               //this.serverError = err;
            });
@@ -228,7 +234,7 @@ export class AppStartPage implements OnInit {
         this.serverError = error;
         this.loadingService.loadingDismiss();
         console.log("error",error);
-      });;
+      });
      } else {
       this.loginSlider.slideTo(4);
       this.imageSlider.lockSwipes(false);
