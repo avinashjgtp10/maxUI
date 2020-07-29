@@ -29,7 +29,13 @@ export class AppComponent {
       this.storage.get('User_Data').then((data: any)=> {
         if ( data && data.token) {
           console.log('Logged In');
-         this.navController.navigateRoot(['home']);
+          if(data.userDesc === 'old') {
+            this.navController.navigateRoot(['home']);
+          } else {
+            console.log('InComplete or New');
+            this.navController.navigateRoot(['home']);
+           // this.navController.navigateRoot(['manage-profile']);
+          }
           } else {
             this.navController.navigateRoot(['app-start']);
           }

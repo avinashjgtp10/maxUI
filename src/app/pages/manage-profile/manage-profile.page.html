@@ -1,5 +1,9 @@
 <ion-header mode="md" class="ion-no-border">
     <ion-toolbar class="ion-text-center">
+        <ion-button *ngIf="isEditProfile" fill="clear" size="small" 
+            slot="end" (click)="saveEditProfile()" [disabled]="!registrationForm.valid">
+            <ion-icon slot="icon-only" name="save-outline"></ion-icon>
+        </ion-button>
       <ion-title>Manage Profile</ion-title>
     </ion-toolbar>
     <ion-avatar (click)="getImages()">
@@ -103,69 +107,10 @@
           </ion-card-content>
       </ion-card>
     </ion-slide>
-    <!-- <ion-slide>
-      <ion-card>
-          <ion-card-header>
-              <ion-card-subtitle>You can Create Profile</ion-card-subtitle>
-              <ion-card-title>for every one in your family</ion-card-title>
-          </ion-card-header>
-        <ion-card-content>
-            <ion-grid >
-                <ion-row class="ion-justify-content-center">
-                  <ion-col>
-                      <ion-button  fill="clear" [ngClass]="{'button-activated' : buttonActive}">
-                        <span class="default-profile-text">Default Profile</span>
-                        <ion-icon src="assets/icon/icon_edit_name.svg" class="ion-no-margin edit-icon"></ion-icon>
-                        <ion-avatar class="small-avatar">
-                          <img src="assets/img/manage-profile/default_profile_img.svg">
-                        </ion-avatar>
-                        <ion-label class="small-label">
-                          <h2>Rahul Sharma</h2>
-                        </ion-label>
-                      </ion-button>
-                  </ion-col>
-                  <ion-col>
-                      <ion-button  fill="clear">
-                          <span class="default-profile-text ion-hide">Default Profile</span>
-                          <ion-avatar class="small-avatar">
-                            <img src="assets/img/manage-profile/default_profile_img.svg">
-                          </ion-avatar>
-                          <ion-label class="small-label">
-                            <h2>Aryan Sharma</h2>
-                          </ion-label>
-                        </ion-button>
-                  </ion-col>
-                  <ion-col >
-                      <ion-button  fill="clear" [ngClass]="{'button-activated' : buttonActive}">
-                        <span class="default-profile-text">Default Profile</span>
-                        <ion-avatar class="small-avatar">
-                          <img src="assets/img/manage-profile/default_profile_img.svg">
-                        </ion-avatar>
-                        <ion-label class="small-label">
-                          <h2>Rahul Sharma</h2>
-                        </ion-label>
-                      </ion-button>
-                  </ion-col>
-                  <ion-col >
-                      <ion-button  fill="clear">
-                          <span class="default-profile-text ion-hide">Default Profile</span>
-                          <ion-avatar class="small-avatar">
-                            <img src="assets/img/manage-profile/default_profile_img.svg">
-                          </ion-avatar>
-                          <ion-label class="small-label">
-                            <h2>Aryan Sharma</h2>
-                          </ion-label>
-                        </ion-button>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-        </ion-card-content>
-      </ion-card>
-    </ion-slide> -->
   </ion-slides>
 
 </ion-content>
-<ion-footer mode="md" class="ion-no-border">
+<ion-footer *ngIf="!isEditProfile" mode="md" class="ion-no-border">
     <form [formGroup]="registrationForm" (ngSubmit)="submit()">
     <ion-toolbar class="ion-text-center">
         <ion-button  [disabled]="!registrationForm.valid" type="submit" shape="round">Next</ion-button>

@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
   public items: any = [];
+  isExpanded: boolean = false;
   constructor() {
     this.items = [
       { expanded: false },

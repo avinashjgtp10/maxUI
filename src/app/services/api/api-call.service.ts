@@ -92,4 +92,23 @@ export class ApiCallService {
         )
     }
 
+      // Update Profile
+      updateProfileData(data,c_id): Observable<JSON> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json')
+        return this.http
+          .put<JSON>(this.base_path + `/client/${c_id}`, JSON.stringify(data), {headers: headers})
+          .pipe(
+            catchError(this.handleError)
+          )
+      }
+
+       // Get Profile
+       getProfileData(c_id): Observable<JSON> {
+        return this.http
+          .get<JSON>(this.base_path + `/client/${c_id}`)
+          .pipe(
+            catchError(this.handleError)
+          )
+      }
+
 }

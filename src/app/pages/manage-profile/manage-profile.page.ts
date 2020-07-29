@@ -15,6 +15,7 @@ import { NavController } from '@ionic/angular';
 })
 export class ManageProfilePage implements OnInit {
   inputWeight: number = 40;
+  isEditProfile: boolean = false;
   userMobileNumber: number;
   imageResponse: any;
   serverError: string = '';
@@ -88,9 +89,14 @@ export class ManageProfilePage implements OnInit {
               private navController: NavController) { }
 
   ngOnInit() {
+     if(localStorage.getItem('c_id')) {
+      this.isEditProfile = true;
+      this.getProfileData();
+     }
     this.storage.get('User_Data').then((data: any)=> {
       this.registrationForm.controls.phone.setValue(data.phonenumber);
     }).catch((err)=> {
+      this.serverError = err;
     });
    for(let i = 10; i <= this.ageCount; i++) {
      this.ageOptions.push({ 
@@ -98,6 +104,48 @@ export class ManageProfilePage implements OnInit {
        displayName: `${i} Years`
      });
    }
+  }
+  getProfileData() {
+    this.loadingService.loadingPresent();
+    this.serverError = '';
+    this.apiService.getProfileData(localStorage.getItem('c_id')).subscribe((response: any) => {
+      console.log('response',response);
+      this.loadingService.loadingDismiss();
+    }, (error) => {
+      this.serverError = error;
+      this.loadingService.loadingDismiss();
+      console.log("error",error);
+    });
+  }
+  saveEditProfile() {
+    this.loadingService.loadingPresent();
+    this.serverError = '';
+    this.storage.get('User_Data').then((data: any)=> {
+      if (data && data.token) {
+        let args = {
+          c_email :this.registrationForm.value.email,
+          c_gender :this.registrationForm.value.gender,
+          c_age : this.registrationForm.value.age,
+          c_weight: this.registrationForm.value.weight,
+          c_height: this.height,
+          u_id : data.id,
+          c_fitnessobjective :this.registrationForm.value.goal,
+          c_name :this.registrationForm.value.name
+        }
+        console.log('args',args);
+        this.apiService.updateProfileData(args,localStorage.getItem('c_id')).subscribe((response: any) => {
+          console.log('response',response);
+          this.loadingService.loadingDismiss();
+        }, (error) => {
+          this.serverError = error;
+          this.loadingService.loadingDismiss();
+          console.log("error",error);
+        });
+        } else {
+          this.loadingService.loadingDismiss();
+          this.serverError = "Something Went Wrong. Please Try Again Later";
+        }
+    });
   }
   public getImages() {
     this.options = {
