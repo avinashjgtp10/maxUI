@@ -1,0 +1,26 @@
+ion-header {
+    height: 8rem;
+    border: none;
+    background-color: #F3F4F3;
+    ion-toolbar{
+       --background: #F3F4F3;
+        padding-top: 30px;
+
+       ion-item{
+        --background: #F3F4F3;
+        ion-avatar{
+            width: 39px;
+            height: 39px;
+        }
+        ion-title{
+            font-weight: 500;
+            font-size: 18px;
+            color: #000000;
+        }
+        ion-icon {
+            width: 40px;
+            height: 40px;
+        }
+       }
+    }
+}

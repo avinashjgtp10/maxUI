@@ -3,15 +3,30 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Storage } from "@ionic/storage";
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiCallService {  
   // API path
-  base_path = 'https://pristine-lake-clark-35296.herokuapp.com/api/v1/otp';
+  base_path = 'https://pristine-lake-clark-35296.herokuapp.com/api/v1';
 
   constructor(private http: HttpClient, private storage:Storage) { }
 
+  getTokenData() {
+    return new Promise((resolve, reject) => {
+      this.storage.get('User_Data').then((data: any)=> {
+        if ( data && data.token) {
+          resolve(data.token);
+          } else {
+           reject();
+          }
+      }).catch((err)=>{
+        reject();
+      })
+    });
+   
+  }
    // Http Options
    httpOptions = {
     headers: new HttpHeaders({
@@ -37,31 +52,60 @@ export class ApiCallService {
   };
 
   
-    // Create a new item
+    // Generate Otp
     generateOtp(item): Observable<JSON> {
       return this.http
-        .post<JSON>(this.base_path + '/send', JSON.stringify(item), this.httpOptions)
+        .post<JSON>(this.base_path + '/otp/send', JSON.stringify(item), this.httpOptions)
         .pipe(
           catchError(this.handleError)
         )
     }
 
-     // Create a new item
+     // Verify Otp
      verifyOtp(item,sessionId:string): Observable<String> {     
        let headers = new HttpHeaders().set('Content-Type', 'application/json')
                                       .set('session_id', sessionId);
        console.log('headers',headers);
       return this.http
-        .post<String>(this.base_path + '/verify', JSON.stringify(item), {headers: headers })
+        .post<String>(this.base_path + '/otp/verify', JSON.stringify(item), {headers: headers })
         .pipe(
           catchError(this.handleError)
         )
     }
 
-      // Create a new item
+      // Get Call
       getCall(item): Observable<String> {
         return this.http
-          .post<String>(this.base_path + '/call', JSON.stringify(item), this.httpOptions)
+          .post<String>(this.base_path + '/otp/call', JSON.stringify(item), this.httpOptions)
+          .pipe(
+            catchError(this.handleError)
+          )
+      }
+
+     // Store Profile
+     storeProfileData(data): Observable<JSON> {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json')
+      return this.http
+        .post<JSON>(this.base_path + '/client', JSON.stringify(data), {headers: headers})
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
+
+      // Update Profile
+      updateProfileData(data,c_id): Observable<JSON> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json')
+        return this.http
+          .put<JSON>(this.base_path + `/client/${c_id}`, JSON.stringify(data), {headers: headers})
+          .pipe(
+            catchError(this.handleError)
+          )
+      }
+
+       // Get Profile
+       getProfileData(c_id): Observable<JSON> {
+        return this.http
+          .get<JSON>(this.base_path + `/client/${c_id}`)
           .pipe(
             catchError(this.handleError)
           )

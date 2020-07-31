@@ -3,7 +3,11 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { IonSlides } from '@ionic/angular';
 import { Router,ActivatedRoute } from "@angular/router"
 import { Storage } from "@ionic/storage";
+import { ApiCallService } from "../../services/api/api-call.service";
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { Options } from 'ng5-slider';
+import { LoadingContollerService } from "../../services/loading/loading-contoller.service";
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-manage-profile',
   templateUrl: './manage-profile.page.html',
@@ -11,12 +15,56 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
 })
 export class ManageProfilePage implements OnInit {
   inputWeight: number = 40;
+  isEditProfile: boolean = false;
   userMobileNumber: number;
   imageResponse: any;
+  serverError: string = '';
   showImg: boolean = false;
   options: any;
   ageOptions: any = [];
   ageCount: number = 60;
+  height: number = 4.5;
+  opt: Options = {
+    floor: 4,
+    ceil: 7,
+    showTicks: true,
+    translate: (value: number): string => {
+      return  value + 'ft';
+    },
+      stepsArray: [
+      {value: 4},
+      {value: 4.1},
+      {value: 4.2},
+      {value: 4.3},
+      {value: 4.4},
+      {value: 4.5, legend: '4.5ft'},
+      {value: 4.6},
+      {value: 4.7},
+      {value: 4.8},
+      {value: 4.9},
+      {value: 5},
+      {value: 5.1},
+      {value: 5.2},
+      {value: 5.3},
+      {value: 5.4},
+      {value: 5.5, legend: '5.5ft'},
+      {value: 5.6},
+      {value: 5.7},
+      {value: 5.8},
+      {value: 5.9},
+      {value: 6},
+      {value: 6.1},
+      {value: 6.2},
+      {value: 6.3},
+      {value: 6.4},
+      {value: 6.5, legend: '6.5ft'},
+      {value: 6.6},
+      {value: 6.7},
+      {value: 6.8},
+      {value: 6.9},
+      {value: 7},
+    ]
+  };
   @ViewChild('profileFormSlider', { static: false }) profileFormSlider: IonSlides;
   profileFormSliderOpts = {
     initialSlide: 0,
@@ -29,20 +77,26 @@ export class ManageProfilePage implements OnInit {
     phone: ['',  [Validators.required,Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$')]],
     gender: ['male',Validators.required],
     age: ['',Validators.required],
-    height: ['',Validators.required],
+    // height: ['',Validators.required],
     weight: [this.inputWeight,Validators.required],
     goal: ['',Validators.required],
   });
   constructor(private formBuilder: FormBuilder,
               private storage:Storage, private imagePicker: ImagePicker,
-              private route:Router) { }
+              private route:Router,
+              public apiService: ApiCallService,
+              public loadingService: LoadingContollerService,
+              private navController: NavController) { }
 
   ngOnInit() {
+     if(localStorage.getItem('c_id')) {
+      this.isEditProfile = true;
+      this.getProfileData();
+     }
     this.storage.get('User_Data').then((data: any)=> {
       this.registrationForm.controls.phone.setValue(data.phonenumber);
     }).catch((err)=> {
-     // this.userMobileNumber = 0;
-     this.registrationForm.controls.phone.setValue('3434334343');
+      this.serverError = err;
     });
    for(let i = 10; i <= this.ageCount; i++) {
      this.ageOptions.push({ 
@@ -51,27 +105,60 @@ export class ManageProfilePage implements OnInit {
      });
    }
   }
+  getProfileData() {
+    this.loadingService.loadingPresent();
+    this.serverError = '';
+    this.apiService.getProfileData(localStorage.getItem('c_id')).subscribe((response: any) => {
+      console.log('response',response);
+      this.registrationForm.controls.name.setValue(response.c_name);
+      this.registrationForm.controls.email.setValue(response.c_email);
+      this.registrationForm.controls.gender.setValue(response.c_gender);
+      this.registrationForm.controls.age.setValue(parseInt(response.c_age));
+      this.registrationForm.controls.weight.setValue(parseInt(response.c_weight));
+      this.height = parseInt(response.c_height);
+      this.registrationForm.controls.goal.setValue(response.c_fitnessobjective);
+      this.loadingService.loadingDismiss();
+    }, (error) => {
+      this.serverError = error;
+      this.loadingService.loadingDismiss();
+      console.log("error",error);
+    });
+  }
+  saveEditProfile() {
+    this.loadingService.loadingPresent();
+    this.serverError = '';
+    this.storage.get('User_Data').then((data: any)=> {
+      if (data && data.token) {
+        let args = {
+          c_email :this.registrationForm.value.email,
+          c_gender :this.registrationForm.value.gender,
+          c_age : this.registrationForm.value.age,
+          c_weight: this.registrationForm.value.weight,
+          c_height: this.height,
+          u_id : data.id,
+          c_fitnessobjective :this.registrationForm.value.goal,
+          c_name :this.registrationForm.value.name
+        }
+        console.log('args',args);
+        this.apiService.updateProfileData(args,localStorage.getItem('c_id')).subscribe((response: any) => {
+          console.log('response',response);
+          this.loadingService.loadingDismiss();
+        }, (error) => {
+          this.serverError = error;
+          this.loadingService.loadingDismiss();
+          console.log("error",error);
+        });
+        } else {
+          this.loadingService.loadingDismiss();
+          this.serverError = "Something Went Wrong. Please Try Again Later";
+        }
+    });
+  }
   public getImages() {
     this.options = {
-      // Android only. Max images to be selected, defaults to 15. If this is set to 1, upon
-      // selection of a single image, the plugin will return it.
       maximumImagesCount: 1,
-
-      // max width and height to allow the images to be.  Will keep aspect
-      // ratio no matter what.  So if both are 800, the returned image
-      // will be at most 800 pixels wide and 800 pixels tall.  If the width is
-      // 800 and height 0 the image will be 800 pixels wide if the source
-      // is at least that wide.
       width: 200,
-      //height: 200,
-
-      // quality of resized image, defaults to 100
       quality: 100,
-
-      // output type, defaults to FILE_URIs.
-      // available options are 
-      // window.imagePicker.OutputType.FILE_URI (0) or 
-      // window.imagePicker.OutputType.BASE64_STRING (1)
       outputType: 1
     };
     this.imageResponse = [];
@@ -108,16 +195,41 @@ export class ManageProfilePage implements OnInit {
     age: [
       { type: 'required', message: 'Age selection is required' }
     ],
-    height: [
-      { type: 'required', message: 'Height selection is required' }
-    ],
     goal: [
       { type: 'required', message: 'Goal selection is required' }
     ],
   };
   public submit() {
-    console.log(this.registrationForm.value);
-    this.route.navigate(['home']);
+    this.loadingService.loadingPresent();
+    this.serverError = '';
+    this.storage.get('User_Data').then((data: any)=> {
+      if (data && data.token) {
+        let args = {
+          c_email :this.registrationForm.value.email,
+          c_gender :this.registrationForm.value.gender,
+          c_age : this.registrationForm.value.age,
+          c_weight: this.registrationForm.value.weight,
+          c_height: this.height,
+          u_id : data.id,
+          c_fitnessobjective :this.registrationForm.value.goal,
+          c_name :this.registrationForm.value.name
+        }
+        console.log('args',args);
+        this.apiService.storeProfileData(args).subscribe((response: any) => {
+          console.log('response',response);
+          this.loadingService.loadingDismiss();
+          localStorage.setItem('c_id',response.c_id);
+          this.navController.navigateRoot(['home']);
+        }, (error) => {
+          this.serverError = error;
+          this.loadingService.loadingDismiss();
+          console.log("error",error);
+        });
+        } else {
+          this.loadingService.loadingDismiss();
+          this.serverError = "Something Went Wrong. Please Try Again Later";
+        }
+    });
   }
   public decreaseWeight(){
    console.log('decrease weight');

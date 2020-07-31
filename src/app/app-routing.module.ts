@@ -9,9 +9,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'manage-profile',
-    pathMatch: 'full',
-    canActivate: [AuthGuard]
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
   {
     path: 'app-start',
@@ -20,7 +19,6 @@ const routes: Routes = [
   {
     path: 'manage-profile',
     loadChildren: () => import('./pages/manage-profile/manage-profile.module').then( m => m.ManageProfilePageModule),
-    canActivate: [AuthGuard]
   },
   {
     path: 'terms-and-condition',
@@ -28,7 +26,11 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'calorie-tracker',
+    loadChildren: () => import('./pages/calorie-tracker/calorie-tracker.module').then( m => m.CalorieTrackerPageModule)
   }
 ];
 

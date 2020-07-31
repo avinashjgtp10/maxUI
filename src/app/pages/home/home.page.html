@@ -1,9 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Home</ion-title>
+      <ion-item lines="none"> 
+          <ion-avatar slot="start">
+            <img src="assets/img/manage-profile/avatar.svg">
+          </ion-avatar>
+          <ion-title class="ion-no-padding">Hi Rahul !</ion-title>
+          <ion-icon src="assets/icon/icon_notifications.svg" class="input-icon" slot="end"></ion-icon>
+        </ion-item>
   </ion-toolbar>
+  <app-drop-down-capsule (openActionSheet)="actionSheet($event)">
+    </app-drop-down-capsule>
 </ion-header>
 
 <ion-content>
-
+   
 </ion-content>

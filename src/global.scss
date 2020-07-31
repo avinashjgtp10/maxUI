@@ -39,3 +39,16 @@
   display: flex;
   justify-content: space-between;
 }
+
+// Action Sheet Style
+.my-custom-class {
+  .action-sheet-group {
+      border-top-left-radius: 25px;
+      border-top-right-radius: 25px;
+  }
+  .action-sheet-title {
+    font-weight: normal;
+    font-size: 16px;
+    color: rgba(68, 68, 68, 0.8);
+  }
+  }

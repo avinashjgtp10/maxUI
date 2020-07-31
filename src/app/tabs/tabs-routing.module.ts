@@ -17,7 +17,7 @@ const routes: Routes = [
       },
       {
         path: 'tab3',
-        loadChildren: () => import('../pages/my-plans/my-plans.module').then(m => m.MyPlansPageModule)
+        loadChildren: () => import('../pages/calorie-tracker/calorie-tracker.module').then(m => m.CalorieTrackerPageModule)
       },
       {
         path: 'tab4',

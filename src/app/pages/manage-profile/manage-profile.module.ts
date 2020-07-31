@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { ManageProfilePageRoutingModule } from './manage-profile-routing.module';
-
+import { Ng5SliderModule } from 'ng5-slider';
 import { ManageProfilePage } from './manage-profile.page';
 import { TranslateModule } from "@ngx-translate/core";
 import { ReactiveFormsModule} from '@angular/forms';
@@ -16,6 +16,7 @@ import { ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     IonicModule,
     TranslateModule,
+    Ng5SliderModule,
     ReactiveFormsModule,
     ManageProfilePageRoutingModule
   ],

@@ -83,17 +83,9 @@
               <ion-item lines="inset">
                   <ion-icon src="assets/icon/icon_height.svg" class="ion-no-margin" slot="start"></ion-icon>
                   <ion-label class="radio-gender-label">Height</ion-label>
-                  <ion-select placeholder="Select Height" class="ion-no-padding weight-select-box"
-                  name="height" multiple="false" formControlName="height" slot="end">
-                      <ion-select-option value="6">6 ft</ion-select-option>
-                      <ion-select-option value="6.5">6.5 ft</ion-select-option>
-                      <ion-select-option value="7.2">7.2 ft</ion-select-option>
-                      <ion-select-option value="5">5 ft</ion-select-option>
-                  </ion-select>
-                  <!-- <ion-range class="ion-no-padding" min="4" max="10" step="1" snaps="true" ticks="true" pin="true">
-                      <ion-label slot="start">4'</ion-label>
-                      <ion-label slot="end">10'</ion-label>
-                    </ion-range> -->
+                    <div class="custom-slider">
+                      <ng5-slider [(value)]="height" [options]="opt" style="margin-bottom: 1rem;"></ng5-slider>
+                    </div> 
               </ion-item>
               <ion-item lines="inset">
                   <ion-icon src="assets/icon/icon_fitness.svg" class="ion-no-margin" slot="start"></ion-icon>
@@ -111,72 +103,19 @@
           </ion-card-content>
       </ion-card>
     </ion-slide>
-    <!-- <ion-slide>
-      <ion-card>
-          <ion-card-header>
-              <ion-card-subtitle>You can Create Profile</ion-card-subtitle>
-              <ion-card-title>for every one in your family</ion-card-title>
-          </ion-card-header>
-        <ion-card-content>
-            <ion-grid >
-                <ion-row class="ion-justify-content-center">
-                  <ion-col>
-                      <ion-button  fill="clear" [ngClass]="{'button-activated' : buttonActive}">
-                        <span class="default-profile-text">Default Profile</span>
-                        <ion-icon src="assets/icon/icon_edit_name.svg" class="ion-no-margin edit-icon"></ion-icon>
-                        <ion-avatar class="small-avatar">
-                          <img src="assets/img/manage-profile/default_profile_img.svg">
-                        </ion-avatar>
-                        <ion-label class="small-label">
-                          <h2>Rahul Sharma</h2>
-                        </ion-label>
-                      </ion-button>
-                  </ion-col>
-                  <ion-col>
-                      <ion-button  fill="clear">
-                          <span class="default-profile-text ion-hide">Default Profile</span>
-                          <ion-avatar class="small-avatar">
-                            <img src="assets/img/manage-profile/default_profile_img.svg">
-                          </ion-avatar>
-                          <ion-label class="small-label">
-                            <h2>Aryan Sharma</h2>
-                          </ion-label>
-                        </ion-button>
-                  </ion-col>
-                  <ion-col >
-                      <ion-button  fill="clear" [ngClass]="{'button-activated' : buttonActive}">
-                        <span class="default-profile-text">Default Profile</span>
-                        <ion-avatar class="small-avatar">
-                          <img src="assets/img/manage-profile/default_profile_img.svg">
-                        </ion-avatar>
-                        <ion-label class="small-label">
-                          <h2>Rahul Sharma</h2>
-                        </ion-label>
-                      </ion-button>
-                  </ion-col>
-                  <ion-col >
-                      <ion-button  fill="clear">
-                          <span class="default-profile-text ion-hide">Default Profile</span>
-                          <ion-avatar class="small-avatar">
-                            <img src="assets/img/manage-profile/default_profile_img.svg">
-                          </ion-avatar>
-                          <ion-label class="small-label">
-                            <h2>Aryan Sharma</h2>
-                          </ion-label>
-                        </ion-button>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-        </ion-card-content>
-      </ion-card>
-    </ion-slide> -->
   </ion-slides>
 
 </ion-content>
-<ion-footer mode="md" class="ion-no-border">
+<ion-footer  mode="md" class="ion-no-border">
     <form [formGroup]="registrationForm" (ngSubmit)="submit()">
     <ion-toolbar class="ion-text-center">
-        <ion-button  [disabled]="!registrationForm.valid" type="submit" shape="round">Next</ion-button>
+        <ion-button *ngIf="!isEditProfile" [disabled]="!registrationForm.valid" type="submit" shape="round">Next</ion-button>
+        <ion-button *ngIf="isEditProfile" [disabled]="!registrationForm.valid" (click)="saveEditProfile()" shape="round">Save</ion-button>
+        <div *ngIf="serverError" class="ion-text-center error-message-container">
+          <ng-container >
+            <small class="error-message">{{serverError}}</small>
+          </ng-container>
+         </div>
     </ion-toolbar>
     </form>
   </ion-footer>
