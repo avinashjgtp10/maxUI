@@ -26,8 +26,11 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'calorie-tracker',
+    loadChildren: () => import('./pages/calorie-tracker/calorie-tracker.module').then( m => m.CalorieTrackerPageModule)
   }
 ];
 

@@ -33,10 +33,11 @@ export class AppComponent {
             this.navController.navigateRoot(['home']);
           } else {
             console.log('InComplete or New');
-            this.navController.navigateRoot(['home']);
-           // this.navController.navigateRoot(['manage-profile']);
+           // this.navController.navigateRoot(['home']);
+            this.navController.navigateRoot(['manage-profile']);
           }
           } else {
+            //this.navController.navigateRoot(['home']);
             this.navController.navigateRoot(['app-start']);
           }
       });

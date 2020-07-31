@@ -8,7 +8,7 @@
           <ion-icon src="assets/icon/icon_notifications.svg" class="input-icon" slot="end"></ion-icon>
         </ion-item>
   </ion-toolbar>
-  <app-drop-down-capsule>
+  <app-drop-down-capsule (openActionSheet)="actionSheet($event)">
     </app-drop-down-capsule>
 </ion-header>
 

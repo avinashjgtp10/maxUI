@@ -1,9 +1,5 @@
 <ion-header mode="md" class="ion-no-border">
     <ion-toolbar class="ion-text-center">
-        <ion-button *ngIf="isEditProfile" fill="clear" size="small" 
-            slot="end" (click)="saveEditProfile()" [disabled]="!registrationForm.valid">
-            <ion-icon slot="icon-only" name="save-outline"></ion-icon>
-        </ion-button>
       <ion-title>Manage Profile</ion-title>
     </ion-toolbar>
     <ion-avatar (click)="getImages()">
@@ -110,10 +106,11 @@
   </ion-slides>
 
 </ion-content>
-<ion-footer *ngIf="!isEditProfile" mode="md" class="ion-no-border">
+<ion-footer  mode="md" class="ion-no-border">
     <form [formGroup]="registrationForm" (ngSubmit)="submit()">
     <ion-toolbar class="ion-text-center">
-        <ion-button  [disabled]="!registrationForm.valid" type="submit" shape="round">Next</ion-button>
+        <ion-button *ngIf="!isEditProfile" [disabled]="!registrationForm.valid" type="submit" shape="round">Next</ion-button>
+        <ion-button *ngIf="isEditProfile" [disabled]="!registrationForm.valid" (click)="saveEditProfile()" shape="round">Save</ion-button>
         <div *ngIf="serverError" class="ion-text-center error-message-container">
           <ng-container >
             <small class="error-message">{{serverError}}</small>

@@ -44,6 +44,17 @@
       background: #E02828;
     }
   }
+  .save-button {
+    width: 90%;
+    height: 45px;
+    margin-left: 20px;
+    text-transform: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    --background: #E02828;
+    --color: #FFFFFF;
+  }
 ion-header {
 --ion-background-color: #F3F4F3;
 ion-toolbar {

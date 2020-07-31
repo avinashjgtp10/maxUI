@@ -110,6 +110,13 @@ export class ManageProfilePage implements OnInit {
     this.serverError = '';
     this.apiService.getProfileData(localStorage.getItem('c_id')).subscribe((response: any) => {
       console.log('response',response);
+      this.registrationForm.controls.name.setValue(response.c_name);
+      this.registrationForm.controls.email.setValue(response.c_email);
+      this.registrationForm.controls.gender.setValue(response.c_gender);
+      this.registrationForm.controls.age.setValue(parseInt(response.c_age));
+      this.registrationForm.controls.weight.setValue(parseInt(response.c_weight));
+      this.height = parseInt(response.c_height);
+      this.registrationForm.controls.goal.setValue(response.c_fitnessobjective);
       this.loadingService.loadingDismiss();
     }, (error) => {
       this.serverError = error;
