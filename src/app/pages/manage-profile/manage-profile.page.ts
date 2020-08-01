@@ -219,16 +219,14 @@ export class ManageProfilePage implements OnInit {
           c_name :this.registrationForm.value.name
         }
         this.apiService.storeProfileData(args).subscribe((response: any) => {
-            let v = {...data};
-            v['userDesc'] = 'old';
-            console.log('v',v);
-            this.storage.set('User_Data',v).then((result)=>{
+          let value = {...response.data[0],'userDesc':response.userDesc};
+            this.storage.set('User_Data',value).then((res)=>{
+             localStorage.setItem('c_id',response.data[0].c_id);
+             this.loadingService.loadingDismiss();
+            }).catch((err)=> {
+              this.serverError = err;
               this.loadingService.loadingDismiss();
-              localStorage.setItem('c_id',response.c_id);
-              this.navController.navigateRoot(['home']);
-          }).catch((err)=> {
-                //database Error
-          });
+            });
         }, (error) => {
           this.serverError = error;
           this.loadingService.loadingDismiss();

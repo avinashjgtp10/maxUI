@@ -6,7 +6,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./calorie-tracker.page.scss'],
 })
 export class CalorieTrackerPage implements OnInit {
-  currentSegment: any = 'Breakfast';
+  currentSegment: any = 'Evening_Snack';
   segmentData: any = [ {
     segmentName:'Breakfast',
     segmentValue:'breakfast'

@@ -31,6 +31,14 @@ const routes: Routes = [
   {
     path: 'calorie-tracker',
     loadChildren: () => import('./pages/calorie-tracker/calorie-tracker.module').then( m => m.CalorieTrackerPageModule)
+  },
+  {
+    path: 'add-calorie',
+    loadChildren: () => import('./pages/add-calorie/add-calorie.module').then( m => m.AddCaloriePageModule)
+  },
+  {
+    path: 'insights',
+    loadChildren: () => import('./pages/insights/insights.module').then( m => m.InsightsPageModule)
   }
 ];
 

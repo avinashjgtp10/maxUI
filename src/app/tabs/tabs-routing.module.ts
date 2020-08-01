@@ -17,7 +17,7 @@ const routes: Routes = [
       },
       {
         path: 'tab3',
-        loadChildren: () => import('../pages/get-fit/get-fit.module').then(m => m.GetFitPageModule)
+        loadChildren: () => import('../pages/add-calorie/add-calorie.module').then(m => m.AddCaloriePageModule)
       },
       {
         path: 'tab4',
