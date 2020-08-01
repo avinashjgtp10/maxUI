@@ -17,7 +17,7 @@ const routes: Routes = [
       },
       {
         path: 'tab3',
-        loadChildren: () => import('../pages/calorie-tracker/calorie-tracker.module').then(m => m.CalorieTrackerPageModule)
+        loadChildren: () => import('../pages/get-fit/get-fit.module').then(m => m.GetFitPageModule)
       },
       {
         path: 'tab4',

@@ -3,8 +3,7 @@
       <ion-title>Manage Profile</ion-title>
     </ion-toolbar>
     <ion-avatar (click)="getImages()">
-      <ion-img *ngIf="showImg" [src]="imageResponse ? imageResponse[0] : 'assets/img/manage-profile/avatar.svg'"></ion-img>
-      <ion-img *ngIf="!showImg" [src]="'assets/img/manage-profile/avatar.svg'"></ion-img>
+      <ion-img [src]="imageUrl"></ion-img>
       <ion-icon src="assets/img/manage-profile/edit_image_icon.svg" class="ion-no-margin edit-icon"></ion-icon>
     </ion-avatar>
   </ion-header>

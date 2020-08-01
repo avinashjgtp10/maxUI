@@ -22,6 +22,7 @@ import { IonicStorageModule } from "@ionic/storage";
 import { SamplePipe } from './pipes/sample/sample.pipe';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
+
 export function createTranslateLoader(http:HttpClient){
  return new TranslateHttpLoader(http,'assets/i18n/','.json');
 }

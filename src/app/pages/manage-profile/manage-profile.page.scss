@@ -110,13 +110,14 @@ ion-footer {
 }
 
 ion-content {
+     overflow-y: scroll;
     --ion-background-color: #FFFFFF;
     ion-slides{
         ion-slide{
             ion-card{
                 width: 100%;
                 box-shadow: none;
-                padding-right: 20px;
+                padding-right: 15px;
                 ion-grid{
                     ion-row{
                         ion-col{
@@ -190,7 +191,7 @@ ion-content {
                     font-size: 14px;
                 }
                 .custom-slider {
-                  width: 70%;
+                  width: 80%;
                 }
                 ion-radio-group {
                     .radio-label {

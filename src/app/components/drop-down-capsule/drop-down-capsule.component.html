@@ -1,26 +1,28 @@
-<ion-card>
+<ion-card class="ion-no-margin card-pannel">
         <ion-item lines="none">
-           <ion-icon name="ellipse" slot="start" class="reduce-margin-right"></ion-icon>
-           <ion-label class="ion-no-padding">Track Your Health</ion-label>
-           <ion-text>Today 13 July</ion-text>
-           <ion-icon  (click)="toogglePannel()" src="assets/icon/icon_arrow.svg" slot="end"></ion-icon>
+           <ion-icon name="ellipse" slot="start" class="reduce-margin-right icon-size"></ion-icon>
+           <ion-label>                         
+                <h4 class="ion-no-padding item-lable">Calorie Tracker</h4>
+                <p class="item-data"><b>300</b> of <b>2250</b> Cal Eaten</p>
+           </ion-label>
+           <ion-icon  (click)="open()" class="icon-size" src="assets/icon/icon_add.svg" slot="end"></ion-icon>
         </ion-item>
        <ion-card-content #expandWrapper class='expand-wrapper' [class.collapsed]="!expanded" class="ion-no-padding">
             <ion-list>
-                <ion-item lines="none">
+                <!-- <ion-item lines="none">
                         <ion-icon name="ellipse" slot="start" class="reduce-margin-right"></ion-icon>
                         <ion-label>                         
                          <h4 class="ion-no-padding item-lable">Calorie Tracker</h4>
                          <p class="item-data">300 of 2250 Cal Eaten</p>
                         </ion-label>
                         <ion-icon  (click)="emit()" src="assets/icon/icon_add.svg" slot="end"></ion-icon>
-                </ion-item>
+                </ion-item> -->
                 <ion-item lines="none">
                         <ion-icon name="ellipse" slot="start" class="reduce-margin-right"></ion-icon>
                         <ion-label class="ion-no-padding">Water Tracker</ion-label>
-                        <ion-icon  (click)="addTracker()" src="assets/icon/icon_add.svg" slot="end"></ion-icon>
+                        <ion-icon  (click)="emit()" src="assets/icon/icon_add.svg" slot="end"></ion-icon>
                 </ion-item>
-                <ion-item lines="none">
+                <!-- <ion-item lines="none">
                         <ion-icon name="ellipse" slot="start" class="reduce-margin-right"></ion-icon>
                         <ion-label class="ion-no-padding">Weight Tracker</ion-label>
                         <ion-icon  (click)="addTracker()" src="assets/icon/icon_add.svg" slot="end"></ion-icon>
@@ -29,7 +31,14 @@
                         <ion-icon name="ellipse" slot="start" class="reduce-margin-right"></ion-icon>
                         <ion-label class="ion-no-padding">Handwash Tracker</ion-label>
                         <ion-icon  (click)="addTracker()" src="assets/icon/icon_add.svg" slot="end"></ion-icon>
-                </ion-item>
+                </ion-item> -->
             </ion-list>
        </ion-card-content>
+        <ion-item lines="none" class="footer-pannel">
+           <ion-label>                         
+                <h4 class="ion-no-padding item-lable">TRACK YOUR HEALTH</h4>
+                <p class="item-data">Add more trackers</p>
+           </ion-label>
+           <ion-icon  (click)="emit()" class="icon-size" src="assets/icon/icon_arrow.svg" slot="end"></ion-icon>
+        </ion-item>
 </ion-card>
