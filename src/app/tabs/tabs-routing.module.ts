@@ -13,7 +13,7 @@ const routes: Routes = [
       },
       {
         path: 'tab2',
-        loadChildren: () => import('../pages/get-fit/get-fit.module').then(m => m.GetFitPageModule)
+        loadChildren: () => import('../pages/insights/insights.module').then(m => m.InsightsPageModule)
       },
       {
         path: 'tab3',

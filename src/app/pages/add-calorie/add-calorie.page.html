@@ -5,85 +5,35 @@
         </ion-button>
       <ion-title class="ion-no-padding">Today</ion-title>
     </ion-toolbar>
-    <ion-slides pager="false" [options]="slideOpts">
-        <ion-slide>
-          <ion-button fill="clear" class="ion-no-padding">
+    <ion-slides pager="false" [options]="slideOpts" #dateSlider (ionSlideDidChange)="slideChanged($event)">
+        <ion-slide *ngFor="let date of dateSliderData; let d = index"> 
+          <ion-button fill="clear" (click)="slideToSelected(data,d)" class="ion-no-padding" [class.active-slide]="date.isSelected">
               <ion-label>
-                  <p>M</p>
-                  <ion-text>27</ion-text>
+                  <p>{{date.day}}</p>
+                  <ion-text>{{date.date}}</ion-text>
               </ion-label>
           </ion-button>
         </ion-slide>
-        <ion-slide>
-            <ion-button fill="clear">
-                <ion-label>
-                    <p>M</p>
-                    <ion-text>27</ion-text>
-                </ion-label>
-            </ion-button>
-        </ion-slide>
-        <ion-slide>
-            <ion-button fill="clear">
-                <ion-label>
-                    <p>M</p>
-                    <ion-text>27</ion-text>
-                </ion-label>
-            </ion-button>
-        </ion-slide>
-        <ion-slide>
-            <ion-button fill="clear">
-                <ion-label>
-                    <p>M</p>
-                    <ion-text>27</ion-text>
-                </ion-label>
-            </ion-button>
-          </ion-slide>
-          <ion-slide>
-              <ion-button fill="clear">
-                  <ion-label>
-                      <p>M</p>
-                      <ion-text>27</ion-text>
-                  </ion-label>
-              </ion-button>
-          </ion-slide>
-          <ion-slide>
-              <ion-button fill="clear">
-                  <ion-label>
-                      <p>M</p>
-                      <ion-text>27</ion-text>
-                  </ion-label>
-              </ion-button>
-          </ion-slide>
-          <ion-slide>
-              <ion-button fill="clear">
-                  <ion-label>
-                      <p>M</p>
-                      <ion-text>27</ion-text>
-                  </ion-label>
-              </ion-button>
-            </ion-slide>
-            <ion-slide>
-                <ion-button fill="clear">
-                    <ion-label>
-                        <p>M</p>
-                        <ion-text>27</ion-text>
-                    </ion-label>
-                </ion-button>
-            </ion-slide>
-            <ion-slide>
-                <ion-button fill="clear">
-                    <ion-label>
-                        <p>M</p>
-                        <ion-text>27</ion-text>
-                    </ion-label>
-                </ion-button>
-            </ion-slide>
       </ion-slides>
       <ion-item lines="none">
-          <ion-searchbar mode="ios" search-icon=“undefined” placeholder="Search for Food"></ion-searchbar>
+          <ion-searchbar mode="ios" (ionInput)="searchFood($event)"  search-icon=“undefined” placeholder="Search for Food" type="text"></ion-searchbar>
       </ion-item>
   </ion-header>
 
 <ion-content>
-
+  <ion-list>
+        <ion-list-header>
+                <ion-label>Frequently Tracked Foods</ion-label>
+        </ion-list-header>
+      <ion-item lines="none" *ngFor="let food of frequentlyFoodData; let i = index">
+        <ion-label slot="start">
+            <h4>{{food.name}}</h4>
+            <ion-text>{{food.quantity}}</ion-text>
+        </ion-label>
+        <ion-text  slot="end">{{food.calories}}</ion-text>
+         <ion-button (click)="foodSelected(food,i)" slot="end" fill="clear" size="small" class="ion-no-margin">
+              <ion-icon slot="icon-only"  [src]="food.isAdded ? 'assets/icon/icon_tick.svg' : 'assets/icon/icon_add.svg'"></ion-icon>
+        </ion-button>
+      </ion-item>
+  </ion-list>
 </ion-content>
