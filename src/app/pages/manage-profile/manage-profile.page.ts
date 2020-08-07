@@ -18,6 +18,7 @@ export class ManageProfilePage implements OnInit {
   isEditProfile: boolean = false;
   userMobileNumber: number;
   imageResponse: any;
+  imageUrl: string = 'assets/img/manage-profile/avatar.svg';
   serverError: string = '';
   showImg: boolean = false;
   options: any;
@@ -163,13 +164,16 @@ export class ManageProfilePage implements OnInit {
     };
     this.imageResponse = [];
     this.imagePicker.getPictures(this.options).then((results) => {
+      console.log('result',results);
       for (var i = 0; i < results.length; i++) {
         this.imageResponse.push('data:image/jpeg;base64,' + results[i]);
       }
-      if(this.imageResponse[0]) {
-        this.showImg = true;
-      } else {
+      if(results === 'OK') {
+        this.imageUrl = 'assets/img/manage-profile/avatar.svg';
         this.showImg = false;
+      } else {
+        this.imageUrl = this.imageResponse[0];
+        this.showImg = true;
       }
     }, (err) => {
       alert(err);
@@ -214,12 +218,15 @@ export class ManageProfilePage implements OnInit {
           c_fitnessobjective :this.registrationForm.value.goal,
           c_name :this.registrationForm.value.name
         }
-        console.log('args',args);
         this.apiService.storeProfileData(args).subscribe((response: any) => {
-          console.log('response',response);
-          this.loadingService.loadingDismiss();
-          localStorage.setItem('c_id',response.c_id);
-          this.navController.navigateRoot(['home']);
+          let value = {...response.data[0],'userDesc':response.userDesc};
+            this.storage.set('User_Data',value).then((res)=>{
+             localStorage.setItem('c_id',response.data[0].c_id);
+             this.loadingService.loadingDismiss();
+            }).catch((err)=> {
+              this.serverError = err;
+              this.loadingService.loadingDismiss();
+            });
         }, (error) => {
           this.serverError = error;
           this.loadingService.loadingDismiss();

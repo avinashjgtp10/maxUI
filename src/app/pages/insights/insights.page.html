@@ -1,0 +1,62 @@
+<ion-header class="ion-text-center ion-no-border">
+  <ion-toolbar>
+      <ion-button (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
+          <ion-icon slot="icon-only"  name="arrow-back-outline"></ion-icon>
+      </ion-button>
+  </ion-toolbar>
+  <ion-title class="ion-no-padding">Insights</ion-title>
+</ion-header>
+
+<ion-content>
+    <ion-segment mode="md" scrollable="true" [(ngModel)]="selectedSegment" (ionChange)="segmentChanged($event)">
+      <ion-segment-button *ngFor="let segment of segmentData;let i = index" [value]="segment.segmentValue">
+        <ion-label>{{segment.segmentName}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  <ng-container [ngSwitch]="selectedSegment">
+    <ion-card *ngSwitchCase="'all-meals'" class="ion-no-margin ion-no-border">
+     <ion-item lines="none" class="ion-margin-top">
+      <ion-label slot="start">Daily Calorie Trend</ion-label>
+      <ion-text>200 Kcal</ion-text>
+      <ion-button slot="end" fill="clear" size="small" class="ion-no-margin">
+        <ion-icon slot="icon-only"  src="assets/icon/icon_share.svg"></ion-icon>
+    </ion-button>
+     </ion-item>
+    </ion-card>
+  </ng-container>
+      <ion-item lines="none">
+          <div id="highcharts"></div>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>
+            <p>Calories
+                <ion-text class="ion-float-right">Ssdsss</ion-text>
+            </p>
+            <ion-progress-bar value="0.2"></ion-progress-bar>
+        </ion-label>
+        </ion-item>
+       <ion-item lines="none"> 
+        <ion-label>
+            <p>Fat
+                <ion-text class="ion-float-right">Ssdsss</ion-text>
+            </p>
+            <ion-progress-bar value="0.7"></ion-progress-bar>
+        </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+        <ion-label>
+            <p>Proteins
+                <ion-text class="ion-float-right">Ssdsss</ion-text>
+            </p>
+            <ion-progress-bar value="0.1"></ion-progress-bar>
+        </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+        <ion-label>
+            <p>Carbs
+                <ion-text class="ion-float-right">Ssdsss</ion-text>
+            </p>
+            <ion-progress-bar value="0.5"></ion-progress-bar>
+        </ion-label>
+        </ion-item>
+</ion-content>

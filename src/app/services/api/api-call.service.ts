@@ -111,4 +111,34 @@ export class ApiCallService {
           )
       }
 
+
+       // Get available Food Data
+       getAvailableFoodData(): Observable<JSON> {
+        return this.http
+          .get<JSON>(this.base_path + `/calorieItems`)
+          .pipe(
+            catchError(this.handleError)
+          )
+      }
+
+      // Store Food Data
+     storeFoodData(data, c_id): Observable<JSON> {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json')
+      return this.http
+        .post<JSON>(this.base_path + `/calorieTracker/${c_id}`, JSON.stringify(data), {headers: headers})
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
+
+
+       // Get User Food Data
+       getUserFoodData(toDate,fromDate,c_id): Observable<JSON> {
+        return this.http
+          .get<JSON>(this.base_path + `/calorieTracker/${c_id}?toDate=${toDate}&fromDate=${fromDate}`)
+          .pipe(
+            catchError(this.handleError)
+          )
+      }
+
 }

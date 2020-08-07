@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ProfileDataService } from './profile-data.service';
+import { DateProviderService } from './date-provider.service';
 
-describe('ProfileDataService', () => {
-  let service: ProfileDataService;
+describe('DateProviderService', () => {
+  let service: DateProviderService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ProfileDataService);
+    service = TestBed.inject(DateProviderService);
   });
 
   it('should be created', () => {

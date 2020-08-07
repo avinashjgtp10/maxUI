@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
+import { Storage } from "@ionic/storage";
+import { ModalController } from '@ionic/angular';
+import { CalorieTrackerPage } from '../calorie-tracker/calorie-tracker.page';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -9,7 +12,8 @@ export class HomePage implements OnInit {
   public items: any = [];
   isExpanded: boolean = false;
   trackersData: any = [];
-  constructor(public actionSheetController: ActionSheetController) {
+  constructor(public actionSheetController: ActionSheetController,
+    private storage:Storage, public modalController: ModalController) {
    }
   ngOnInit() {
     this.trackersData = [{
@@ -63,5 +67,13 @@ export class HomePage implements OnInit {
       }]
     });
     await actionSheet.present();
+  }
+
+ async calorieTracker() {
+    const modal = await this.modalController.create({
+      component: CalorieTrackerPage,
+      cssClass: 'my-custom-class'
+    });
+    return await modal.present();
   }
 }

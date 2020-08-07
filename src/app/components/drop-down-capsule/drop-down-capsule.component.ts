@@ -9,6 +9,7 @@ import { Component, AfterViewInit,OnInit, Input,Output,EventEmitter, ViewChild, 
 export class DropDownCapsuleComponent implements OnInit {
   @ViewChild("expandWrapper", { read: ElementRef }) expandWrapper: ElementRef;
   @Output() openActionSheet = new EventEmitter<object>();
+  @Output() openCalorieTracker = new EventEmitter<object>();
   expanded: boolean = false;
   expandHeight: string = "300px";
   tackersData: any = [];
@@ -42,6 +43,13 @@ export class DropDownCapsuleComponent implements OnInit {
       actionName:'Calorie'
     });
   }
+
+  open() {
+    this.openCalorieTracker.emit({
+      calorieTracker:'Breakfast'
+    });
+  }
+
 
   toogglePannel() {
     this.expanded = !this.expanded;
