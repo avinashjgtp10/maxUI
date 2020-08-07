@@ -1,15 +1,23 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as HighCharts from 'highcharts';
+import { ModalController } from '@ionic/angular';
+import { ApiCallService } from "../../services/api/api-call.service";
+import { ChartCalculationsService } from "../../services/chart/chart-calculations.service";
+import { LoadingContollerService } from "../../services/loading/loading-contoller.service";
+import * as moment from 'moment';
 @Component({
   selector: 'app-insights',
   templateUrl: './insights.page.html',
   styleUrls: ['./insights.page.scss'],
 })
 export class InsightsPage implements OnInit {
-  selectedSegment: any = 'all-meals';
+  selectedSegment: any = 'breakfast';
   segmentData: any = [];
   myChart: any
-  constructor() { }
+  constructor(public modalController: ModalController,
+    public apiService: ApiCallService,  
+    public chartCalcService: ChartCalculationsService,  
+    public loadingService: LoadingContollerService) { }
 
   ngOnInit() {
     this.segmentData = [{
@@ -37,7 +45,25 @@ export class InsightsPage implements OnInit {
       segmentValue: 'dinner'
     }];
   }
-  ngAfterViewInit() {
+  ionViewWillEnter() {
+    this.loadingService.loadingPresent();
+    let toDate = moment().format('DD/MM/YYYY');
+    let fromDate = moment().subtract(7, 'days').format('DD/MM/YYYY')
+   this.apiService.getUserFoodData(fromDate,toDate,localStorage.getItem('c_id')).subscribe((response: any) => {
+     this.chartCalcService.getCalculatedChartData(response,this.selectedSegment,7).then((data)=>{
+      console.log('data',data);
+      this.plotChart(data);
+      this.loadingService.loadingDismiss();
+     }).catch((err)=>{
+
+     })
+     console.log('response',response);
+   }, (error) => {
+     this.loadingService.loadingDismiss();
+     console.log("error",error);
+   });
+  }
+  plotChart(chart){
     this.myChart = HighCharts.chart('highcharts', {
       chart: {
         type: 'column'
@@ -77,7 +103,7 @@ export class InsightsPage implements OnInit {
         }]
       },
       xAxis: {
-        categories: ['Sun/26', 'Mon/27', 'Tue/28', 'Wed/29', 'Thu/30', 'Fri/31', 'Sat/01'],
+        categories: chart.legends,
         title: {
           text: ''
         },
@@ -110,13 +136,17 @@ export class InsightsPage implements OnInit {
         {
           name: '',
           type: undefined,
-          data: [45, 55, 69, 74, 91, 15, 32]
+          data: chart.data
         }
       ]
     });
     this.myChart.setSize(400, 300);
   }
-
+  closeModal() {
+    this.modalController.dismiss({
+      'dismissed': true
+    });
+  }
   segmentChanged(e) {
    this.myChart.series[0].update({
       name: '',

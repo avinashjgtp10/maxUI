@@ -6,21 +6,29 @@ import * as moment from 'moment';
 export class DateProviderService {
 
   constructor() { }
-
+  isToday(date){
+    const today = new Date();
+    return date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear();
+  };
   getTwoWeekDates(weekRange = -1) {
     return new Promise((resolve, reject) => {
       var weekStart = moment().add(weekRange, 'weeks').startOf('week');
       var days = [];
-      let today = moment().format('dd/DD');
+      let today = moment().toDate();
       for (var i = 0; i < 14; i++) {
-        days.push(weekStart.clone().add(i, 'day').format('dd/DD'));
+        days.push(weekStart.clone().add(i, 'day').toDate());
       }
       const weekData = days.map((v,i,a)=>{
-        let date = v.split('/');
-        if(moment(v).isSame(today)) {
+        var temp = moment(v).format('dd/DD');
+        var date = temp.split('/');
+        if(this.isToday(v)) {
           return {
             day:date[0],
             date: date[1],
+            dateFormatted: moment(v).format('DD/MM/YYYY'),
+            fullDate: v,
             index:i,
             isToday:true,
             isSelected:true
@@ -29,6 +37,8 @@ export class DateProviderService {
           return {
             day:date[0],
             date: date[1],
+            dateFormatted: moment(v).format('DD/MM/YYYY'),
+            fullDate: v,
             index:i,
             isToday:false,
             isSelected:false

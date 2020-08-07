@@ -1,7 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { DateProviderService } from "../../services/date/date-provider.service";
 import { IonSlides } from '@ionic/angular';
+import { ApiCallService } from "../../services/api/api-call.service";
+import { LoadingContollerService } from "../../services/loading/loading-contoller.service";
+
 @Component({
   selector: 'app-add-calorie',
   templateUrl: './add-calorie.page.html',
@@ -19,53 +23,45 @@ export class AddCaloriePage implements OnInit {
   activeSlide: any;
   selectedFoodData: any = [];
   toast: any;
-  constructor(public toastController: ToastController,  public dateService: DateProviderService,) { }
-
-  ngOnInit() {
-    this.dateService.getTwoWeekDates().then((dates)=>{
-      console.log('dates',dates);
-      this.dateSliderData = dates;
-      this.activeSlide = this.dateSliderData.filter((v,i,a) => {
-        if(v.isToday) {
-          return v;
-        }
-      })
-      console.log('activeSlide',this.activeSlide);
-      this.dateSlider.slideTo(this.activeSlide[0].index, 400).then(()=> {
-    });
-    });
-    this.frequentlyFoodData = [
-      {
-        name:'Rava Upama',
-        id:1,
-        quantity: '1 Katori',
-        isAdded: false,
-        calories: '170 Cals',
-      },
-      {
-        name:'Banana',
-        id: 4,
-        isAdded: false,
-        quantity: '1.0 Small (6"-7/8" long)',
-        calories: '340 Cals',
-      },
-      {
-        name:'Orange',
-        id: 6,
-        isAdded: false,
-        quantity: '1.0 large (3-1/4" dia)',
-        calories: '62 Cals',
-      },
-      {
-        name:'Green Tea',
-        id: 2,
-        isAdded: false,
-        quantity: '1 Glass',
-        calories: '89 Cals',
-      }
-    ];
+  constructor(public toastController: ToastController,  
+    public dateService: DateProviderService,
+    public modalController: ModalController,
+    public loadingService: LoadingContollerService,
+    public apiService: ApiCallService) {  
+    }
+  ionViewWillEnter() {
+    this.loadingService.loadingPresent();
+        this.apiService.getAvailableFoodData().subscribe((response: any) => {
+          console.log('response',response);
+          this.frequentlyFoodData = response;
+          this.dateService.getTwoWeekDates().then((dates)=>{
+            console.log('dates',dates);
+            this.dateSliderData = dates;
+            this.activeSlide = this.dateSliderData.filter((v,i,a) => {
+              if(v.isToday) {
+                return v;
+              }
+            });
+            console.log('activeSlide',this.activeSlide);
+            this.dateSlider.slideTo(this.activeSlide[0].index, 400).then(()=> {
+              this.loadingService.loadingDismiss();
+            });
+          });
+        }, (error) => {
+          this.loadingService.loadingDismiss();
+          console.log("error",error);
+        });
   }
-
+  ngOnInit() { 
+  }
+  ngAfterViewInit() {
+    
+  }
+  closeModal() {
+    this.modalController.dismiss({
+      'dismissed': true
+    });
+  }
   slideChanged(e) {
     console.log('e',e);
   }
@@ -78,16 +74,21 @@ export class AddCaloriePage implements OnInit {
           element.isSelected = false
          }
       });
+      this.activeSlide = this.dateSliderData.filter((v,i,a) => {
+        if(v.isSelected) {
+          return v;
+        }
+      })
+      console.log('activeSlide',this.activeSlide);
       // API Call
     });
   }
 
   foodSelected(food,i) {
-    let result = this.selectedFoodData.filter(e => (e.id === food.id || e.name === food.name));
+    let result = this.selectedFoodData.filter(e => (e.c_id === food.c_id));
     console.log('result',result);
     if (result.length > 0) {
-      let index = this.selectedFoodData.findIndex(item => (item.id === result[0].id));
-      console.log('index',index);
+      let index = this.selectedFoodData.findIndex(item => (item.c_id === result[0].c_id));
       this.selectedFoodData.splice(index,1);
       this.frequentlyFoodData[i].isAdded = false;
     } else {
@@ -97,6 +98,7 @@ export class AddCaloriePage implements OnInit {
 
     if(this.selectedFoodData.length) {
       this.presentToastWithOptions(this.selectedFoodData);
+      console.log('this.selectedFoodData',this.selectedFoodData);
      } else {
        this.toast.dismiss();
      }
@@ -112,6 +114,8 @@ export class AddCaloriePage implements OnInit {
      this.toast = await this.toastController.create({
       message: `${data.length} items selected`,
       position: 'bottom',
+      mode:'md',
+      cssClass: 'add-calorie-toast',
       keyboardClose: true,
       buttons: [
         {
@@ -119,15 +123,34 @@ export class AddCaloriePage implements OnInit {
           role: 'cancel',
           text: 'UNDO',
           handler: () => {
-            console.log('Undo clicked');
             this.selectedFoodData = [];
-            // this.dismissToast();
+            this.frequentlyFoodData.forEach((item) => {
+                 if(item.isAdded){
+                   item.isAdded = false;
+                 }
+            });
+            console.log('Undo clicked',this.frequentlyFoodData);
           }
         }, {
           side: 'end',
           text: 'DONE',
           handler: () => {
             console.log('Done clicked Api Call');
+            this.loadingService.loadingPresent();
+            let args = {
+              caloriesConsumption: this.selectedFoodData
+            }
+            this.selectedFoodData.forEach((item)=>{
+                item.date = this.activeSlide[0].dateFormatted
+            })
+            this.apiService.storeFoodData(args,localStorage.getItem('c_id')).subscribe((response: any) => {
+              console.log('response',response);
+              this.loadingService.loadingDismiss();
+              this.dismissToast();
+            }, (error) => {
+              this.loadingService.loadingDismiss();
+              console.log("error",error);
+            });
           }
         }
       ]

@@ -12,6 +12,9 @@ ion-header {
             
           }
         }
+        ion-title{
+            margin-right: 45px;
+        }
     }
     ion-slides {
         ion-slide{
@@ -63,6 +66,7 @@ ion-content {
                 font-weight: normal;
                 font-size: 14px;
                 color: #444444;
+                text-transform: capitalize;
             }
             ion-text{
                 font-weight: 300;

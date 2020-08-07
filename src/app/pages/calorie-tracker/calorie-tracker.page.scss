@@ -62,18 +62,46 @@ ion-content{
         }
     }
     ion-card {
+        box-shadow: none;
         ion-list {
             ion-list-header{
-                
+                ion-label{
+                    text-transform: capitalize;
+                }
+            }
+            ion-item {
+                --inner-padding-end: 0px;
+            }
+            ion-label{
+                h4 {
+                    font-weight: normal;
+                    font-size: 14px;
+                    color: #444444;
+                    text-transform: capitalize;
+                }
+                ion-text{
+                    font-weight: 300;
+                    font-size: 14px;
+                    color: rgba(68, 68, 68, 0.8);
+                    opacity: 0.8;
+                }
+            } 
+            ion-text {
+                margin-right:25px;
+                font-weight: 300;
+                font-size: 16px;
+                color: #444444;
             }
         }
     }
 }
 ion-footer{
+    height: 4rem;
     border: transparent;
     ion-toolbar{
         ion-button{
-            width:70%;
+            width:75%;
+            height:50px;
             --color: #000000;
         }
     }

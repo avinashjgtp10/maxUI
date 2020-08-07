@@ -1,93 +1,55 @@
 <ion-header>
   <ion-toolbar>
-      <ion-button (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
-          <ion-icon slot="icon-only"  name="arrow-back-outline"></ion-icon>
-      </ion-button>
+    <ion-button (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
+      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+    </ion-button>
     <ion-title class="ion-no-padding">Today</ion-title>
   </ion-toolbar>
   <ion-item lines="none" class="ion-no-padding">
-      <ion-label>
-        <p>1500 cal to reach your goal</p>
-        <ion-progress-bar value="0.2"></ion-progress-bar>
-      </ion-label>
-    </ion-item>
-    <ion-item lines="none" class="ion-no-padding">
-      <ion-button slot="start" fill="clear" size="small" shape="round" class="ion-no-margin">Experts Diet Plan for you</ion-button>
-      <ion-button slot="end" fill="outline" size="small" shape="round" class="ion-no-margin subscribe-button">Subscribe to Diet Plan</ion-button>
-    </ion-item>
+    <ion-label>
+      <p>1500 cal to reach your goal</p>
+      <ion-progress-bar value="0.2"></ion-progress-bar>
+    </ion-label>
+  </ion-item>
+  <ion-item lines="none" class="ion-no-padding">
+    <ion-button slot="start" fill="clear" size="small" shape="round" class="ion-no-margin">Experts Diet Plan for you
+    </ion-button>
+    <ion-button slot="end" fill="outline" size="small" shape="round" class="ion-no-margin subscribe-button">Subscribe to
+      Diet Plan</ion-button>
+  </ion-item>
 </ion-header>
 
 <ion-content>
-    <ion-segment mode="md" scrollable="true" (ionChange)="segmentChanged($event)" [value]="currentSegment">
-        <ion-segment-button value="Breakfast">
-          <ion-label>Breakfast</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="Morning_Snack">
-          <ion-label>Morning Snack</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="Lunch">
-            <ion-label>Lunch</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="Evening_Snack">
-            <ion-label>Evening Snack</ion-label>
-        </ion-segment-button>   
-        <ion-segment-button value="Dinner">
-            <ion-label>Dinner</ion-label>
-        </ion-segment-button>             
-      </ion-segment>
+  <ion-segment mode="md" scrollable="true" [(ngModel)]="selectedSegment" (ionChange)="segmentChanged($event)">
+    <ion-segment-button *ngFor="let segment of segmentData;let i = index" [value]="segment.segmentValue">
+      <ion-label>{{segment.segmentName}}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
-      <card [ngSwitch]="currentSegment">
-        <ion-list *ngSwitchCase="'Breakfast'">
-           <ion-list-header lines="full">
-             <ion-label>Breakfast</ion-label>
-             <ion-label class="ion-text-right">
-              <p>1081 OF 602 Cal</p>
-              </ion-label>
-             <ion-button fill="clear" size="small" class="ion-no-margin">
-              <ion-icon slot="icon-only"  src="assets/icon/icon_add.svg"></ion-icon>
-             </ion-button>
-           </ion-list-header>
-           <ion-item lines="none" class="ion-no-margin">
-             <ion-label slot="start" >
-               <h4>Rava</h4>
-               <p>1 Katori</p>
-             </ion-label>
-             <ion-text slot="end">170 Cal</ion-text>
-           </ion-item>
-           <ion-item lines="none" class="ion-no-margin">
-              <ion-label slot="start" >
-                <h4>Banana</h4>
-                <p>1 Piece</p>
-              </ion-label>
-              <ion-text slot="end">340 Cal</ion-text>
-            </ion-item>
-            <ion-item lines="none" class="ion-no-margin">
-                <ion-label slot="start" >
-                  <h4>Samosa</h4>
-                  <p>1 Piece</p>
-                </ion-label>
-                <ion-text slot="end">349 Cal</ion-text>
-              </ion-item>
-              <ion-item lines="none" class="ion-no-margin">
-                  <ion-label slot="start" >
-                    <h4>Orange</h4>
-                    <p>1 Piece</p>
-                  </ion-label>
-                  <ion-text slot="end">62 Cal</ion-text>
-                </ion-item>
-                <ion-item lines="none" class="ion-no-margin">
-                    <ion-label slot="start" >
-                      <h4>Green Tea</h4>
-                      <p>1 Cup</p>
-                    </ion-label>
-                    <ion-text slot="end">89 Cal</ion-text>
-                  </ion-item>
-        </ion-list>
-      </card>
+  <ion-card class="ion-no-margin ion-no-border">
+    <ion-list class="ion-no-border">
+      <ion-list-header lines="full">
+        <ion-label>{{selectedSegment}}</ion-label>
+        <ion-label class="ion-text-right">
+          <p>1081 OF 602 Cal</p>
+        </ion-label>
+        <ion-button (click)="openAddYourMeal()" fill="clear" size="small" class="ion-no-margin">
+          <ion-icon slot="icon-only" src="assets/icon/icon_red_add.svg"></ion-icon>
+        </ion-button>
+      </ion-list-header>
+      <ion-item lines="none" class="ion-no-margin" *ngFor="let food of consumedFoodData; let i = index">
+        <ion-label slot="start">
+          <h4>{{food.c_item}}</h4>
+          <p>{{food.c_amount}} Units</p>
+        </ion-label>
+        <ion-text slot="end">{{food.c_calories}} Cals</ion-text>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 </ion-content>
-<ion-footer>
+<ion-footer class="ion-no-border">
   <ion-toolbar class="ion-text-center">
-    <ion-button fill="outline" shape="round">
+    <ion-button (click)="openInsights()" fill="outline" shape="round">
       <ion-label>Insights</ion-label>
     </ion-button>
   </ion-toolbar>
