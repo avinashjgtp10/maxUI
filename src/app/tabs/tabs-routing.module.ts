@@ -13,11 +13,11 @@ const routes: Routes = [
       },
       {
         path: 'tab2',
-        loadChildren: () => import('../pages/insights/insights.module').then(m => m.InsightsPageModule)
+        loadChildren: () => import('../pages/get-fit/get-fit.module').then(m => m.GetFitPageModule)
       },
       {
         path: 'tab3',
-        loadChildren: () => import('../pages/add-calorie/add-calorie.module').then(m => m.AddCaloriePageModule)
+        loadChildren: () => import('../pages/my-plans/my-plans.module').then(m => m.MyPlansPageModule)
       },
       {
         path: 'tab4',
