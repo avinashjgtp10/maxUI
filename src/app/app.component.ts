@@ -27,7 +27,7 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.storage.get('User_Data').then((data: any)=> {
-        if ( data && data.token) {
+        if (data) {
           console.log('Logged In',data);
           if(data.userDesc === 'old') {
             this.navController.navigateRoot(['home']);

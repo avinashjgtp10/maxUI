@@ -223,6 +223,7 @@ export class ManageProfilePage implements OnInit {
             this.storage.set('User_Data',value).then((res)=>{
              localStorage.setItem('c_id',response.data[0].c_id);
              this.loadingService.loadingDismiss();
+             this.navController.navigateRoot(['home']);
             }).catch((err)=> {
               this.serverError = err;
               this.loadingService.loadingDismiss();
