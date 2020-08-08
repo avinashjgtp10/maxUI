@@ -29,7 +29,7 @@ export class CalorieTrackerPage implements OnInit {
     },
     {
       segmentName: 'Morning Snack',
-      segmentValue: 'morning snack'
+      segmentValue: 'morning_snack'
     },
     {
       segmentName: 'Lunch',
@@ -37,7 +37,7 @@ export class CalorieTrackerPage implements OnInit {
     },
     {
       segmentName: 'Evening Snack',
-      segmentValue: 'evening snack'
+      segmentValue: 'evening_snack'
     },
     {
       segmentName: 'Dinner',
@@ -45,32 +45,35 @@ export class CalorieTrackerPage implements OnInit {
     }];
   }
   ionViewWillEnter() {
-    this.loadingService.loadingPresent();
-     let date = moment().format('DD/MM/YYYY');
-    this.apiService.getUserFoodData(date,date,localStorage.getItem('c_id')).subscribe((response: any) => {
-      this.backUpConsumedData = response;
-      this.consumedFoodData = this.backUpConsumedData.filter((item,i,a)=> {
-          return item.c_category.includes(this.selectedSegment);
-      });
-      this.loadingService.loadingDismiss();
-      console.log('response',response);
-      console.log('this.consumedFoodData',this.consumedFoodData);
-      console.log('this.backUpConsumedData',this.backUpConsumedData);
-    }, (error) => {
-      this.loadingService.loadingDismiss();
-      console.log("error",error);
-    });
+    this.updateData();
   }
   closeModal() {
     this.modalController.dismiss({
       'dismissed': true
     });
   }
+  updateData(){
+    this.loadingService.loadingPresent();
+    let date = moment().format('DD/MM/YYYY');
+   this.apiService.getUserFoodData(date,date,localStorage.getItem('c_id')).subscribe((response: any) => {
+     this.backUpConsumedData = response;
+     this.consumedFoodData = this.backUpConsumedData.filter((item,i,a)=> {
+         return item.consumed_category === this.selectedSegment;
+     });
+     this.loadingService.loadingDismiss();
+     console.log('response',response);
+     console.log('this.consumedFoodData',this.consumedFoodData);
+     console.log('this.backUpConsumedData',this.backUpConsumedData);
+   }, (error) => {
+     this.loadingService.loadingDismiss();
+     console.log("error",error);
+   });
+  }
   segmentChanged(e) {
     console.log(e);
     this.consumedFoodData = [];
     this.consumedFoodData = this.backUpConsumedData.filter((item,i,a)=> {
-      return item.c_category.includes(this.selectedSegment);
+      return item.consumed_category === this.selectedSegment;
     });
     console.log('this.consumedFoodData',this.consumedFoodData);
     console.log('this.backUpConsumedData',this.backUpConsumedData);
@@ -78,8 +81,17 @@ export class CalorieTrackerPage implements OnInit {
   async openAddYourMeal() {
     const modal = await this.modalController.create({
       component: AddCaloriePage,
+      componentProps: {
+        'selectedSegment': this.selectedSegment
+      },
       cssClass: 'my-custom-class'
     });
+    modal.onDidDismiss().then((data) => {
+      console.log(data);
+      if(data.data.isRefresh){
+        this.updateData();
+      }
+     });
     return await modal.present();
   }
 

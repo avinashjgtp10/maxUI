@@ -11,8 +11,9 @@ import * as moment from 'moment';
   styleUrls: ['./insights.page.scss'],
 })
 export class InsightsPage implements OnInit {
-  selectedSegment: any = 'breakfast';
+  selectedSegment: any = 'all_meals';
   segmentData: any = [];
+  aggragatedFoodData: any = [];
   myChart: any
   constructor(public modalController: ModalController,
     public apiService: ApiCallService,  
@@ -22,7 +23,7 @@ export class InsightsPage implements OnInit {
   ngOnInit() {
     this.segmentData = [{
       segmentName: 'All Meals',
-      segmentValue: 'all-meals'
+      segmentValue: 'all_meals'
     },
     {
       segmentName: 'Breakfast',
@@ -30,7 +31,7 @@ export class InsightsPage implements OnInit {
     },
     {
       segmentName: 'Morning Snack',
-      segmentValue: 'morning-snack'
+      segmentValue: 'morning_snack'
     },
     {
       segmentName: 'Lunch',
@@ -38,7 +39,7 @@ export class InsightsPage implements OnInit {
     },
     {
       segmentName: 'Evening Snack',
-      segmentValue: 'evening-snack'
+      segmentValue: 'evening_snack'
     },
     {
       segmentName: 'Dinner',
@@ -49,15 +50,16 @@ export class InsightsPage implements OnInit {
     this.loadingService.loadingPresent();
     let toDate = moment().format('DD/MM/YYYY');
     let fromDate = moment().subtract(7, 'days').format('DD/MM/YYYY')
-   this.apiService.getUserFoodData(fromDate,toDate,localStorage.getItem('c_id')).subscribe((response: any) => {
-     this.chartCalcService.getCalculatedChartData(response,this.selectedSegment,7).then((data)=>{
+   this.apiService.getUserFoodData(toDate,fromDate,localStorage.getItem('c_id')).subscribe((response: any) => {
+     this.aggragatedFoodData = response;
+     console.log('responce',response);
+     this.chartCalcService.getCalculatedChartData(this.aggragatedFoodData,this.selectedSegment,7).then((data)=>{
       console.log('data',data);
       this.plotChart(data);
       this.loadingService.loadingDismiss();
      }).catch((err)=>{
-
+      this.loadingService.loadingDismiss();
      })
-     console.log('response',response);
    }, (error) => {
      this.loadingService.loadingDismiss();
      console.log("error",error);
@@ -72,7 +74,7 @@ export class InsightsPage implements OnInit {
         text: ''
       },
       legend: {
-        itemDistance: 10,
+        itemDistance: 8,
         title: {
           text: ''
         },
@@ -80,7 +82,8 @@ export class InsightsPage implements OnInit {
       responsive: {
         rules: [{
           condition: {
-            maxWidth: 500
+            maxWidth: 400,
+            maxHeight: 450,
           },
           // Make the labels less space demanding on mobile
           chartOptions: {
@@ -103,7 +106,7 @@ export class InsightsPage implements OnInit {
         }]
       },
       xAxis: {
-        categories: chart.legends,
+        categories: chart.formattedLegends,
         title: {
           text: ''
         },
@@ -120,7 +123,7 @@ export class InsightsPage implements OnInit {
       plotOptions: {
         column: {
           pointWidth: 30,
-          color: '#F6F6F6'
+          color: '#A5A5A5'
         },
         series: {
           borderWidth: 0,
@@ -140,7 +143,7 @@ export class InsightsPage implements OnInit {
         }
       ]
     });
-    this.myChart.setSize(400, 300);
+   // this.myChart.setSize(350, 400);
   }
   closeModal() {
     this.modalController.dismiss({
@@ -148,11 +151,15 @@ export class InsightsPage implements OnInit {
     });
   }
   segmentChanged(e) {
-   this.myChart.series[0].update({
-      name: '',
-      type: undefined,
-      data: [15, 35, 19, 90, 45, 10, 32]
-   });
+    //this.loadingService.loadingPresent();
+    this.chartCalcService.getCalculatedChartData(this.aggragatedFoodData,this.selectedSegment,7).then((chartData:any)=>{
+      console.log('chartData',chartData);
+      this.myChart.series[0].update({
+      data: chartData.data
+      });
+     // this.loadingService.loadingDismiss();
+     }).catch((err)=>{
+     });
   }
 
 }

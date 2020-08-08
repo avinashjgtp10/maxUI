@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { DateProviderService } from "../../services/date/date-provider.service";
@@ -13,6 +13,7 @@ import { LoadingContollerService } from "../../services/loading/loading-contolle
 })
 export class AddCaloriePage implements OnInit {
   @ViewChild('dateSlider', { static: false }) dateSlider: IonSlides;
+  @Input() selectedSegment: string;
   slideOpts = {
     initialSlide: 0,
     slidesPerView: 7,
@@ -30,6 +31,7 @@ export class AddCaloriePage implements OnInit {
     public apiService: ApiCallService) {  
     }
   ionViewWillEnter() {
+    console.log('Selected Segment', this.selectedSegment);
     this.loadingService.loadingPresent();
         this.apiService.getAvailableFoodData().subscribe((response: any) => {
           console.log('response',response);
@@ -57,9 +59,9 @@ export class AddCaloriePage implements OnInit {
   ngAfterViewInit() {
     
   }
-  closeModal() {
+  closeModal(refresh = false) {
     this.modalController.dismiss({
-      'dismissed': true
+      isRefresh: refresh
     });
   }
   slideChanged(e) {
@@ -141,12 +143,14 @@ export class AddCaloriePage implements OnInit {
               caloriesConsumption: this.selectedFoodData
             }
             this.selectedFoodData.forEach((item)=>{
-                item.date = this.activeSlide[0].dateFormatted
+                item.date = this.activeSlide[0].dateFormatted,
+                item.consumed_category = this.selectedSegment
             })
             this.apiService.storeFoodData(args,localStorage.getItem('c_id')).subscribe((response: any) => {
               console.log('response',response);
               this.loadingService.loadingDismiss();
               this.dismissToast();
+              this.closeModal(true);
             }, (error) => {
               this.loadingService.loadingDismiss();
               console.log("error",error);
