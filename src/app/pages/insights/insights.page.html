@@ -27,33 +27,41 @@
         <ion-item lines="none">
             <ion-label>
                 <p>Calories
-                    <ion-text class="ion-float-right">900 of 1081 Cal</ion-text>
+                    <ion-text class="ion-float-right">{{calorieConsumed}} of {{calorieEstimated}}</ion-text>
                 </p>
-                <ion-progress-bar value="0.2"></ion-progress-bar>
+                <ion-progress-bar [value]="calorieBar"></ion-progress-bar>
             </ion-label>
         </ion-item>
         <ion-item lines="none">
             <ion-label>
                 <p>Proteins
-                    <ion-text class="ion-float-right">48 of 87.5 g</ion-text>
+                    <ion-text class="ion-float-right">{{proteinsConsumed}} of {{proteinsEstimated}}</ion-text>
                 </p>
-                <ion-progress-bar value="0.1"></ion-progress-bar>
+                <ion-progress-bar [value]="proteinBar"></ion-progress-bar>
             </ion-label>
         </ion-item>
         <ion-item lines="none">
             <ion-label>
                 <p>Carbs
-                    <ion-text class="ion-float-right">68.5 of 65 g</ion-text>
+                    <ion-text class="ion-float-right">{{carbsConsumed}} of {{carbsEstimated}}</ion-text>
                 </p>
-                <ion-progress-bar value="0.5"></ion-progress-bar>
+                <ion-progress-bar [value]="carbsBar"></ion-progress-bar>
             </ion-label>
         </ion-item>
         <ion-item lines="none">
             <ion-label>
                 <p>Fat
-                    <ion-text class="ion-float-right">55 of 75 g</ion-text>
+                    <ion-text class="ion-float-right">{{fatConsumed}} of {{fatEstimated}}</ion-text>
                 </p>
-                <ion-progress-bar value="0.7"></ion-progress-bar>
+                <ion-progress-bar [value]="fatBar"></ion-progress-bar>
+            </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+            <ion-label>
+                <p>Fiber
+                    <ion-text class="ion-float-right">{{fiberConsumed}} of {{fiberEstimated}}</ion-text>
+                </p>
+                <ion-progress-bar [value]="fiberBar"></ion-progress-bar>
             </ion-label>
         </ion-item>
     </ion-card>

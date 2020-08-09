@@ -3,8 +3,9 @@ import { ModalController } from '@ionic/angular';
 import { AddCaloriePage } from '../add-calorie/add-calorie.page';
 import { InsightsPage } from '../insights/insights.page';
 import { ApiCallService } from "../../services/api/api-call.service";
-import { ChartCalculationsService } from "../../services/chart/chart-calculations.service";
 import { LoadingContollerService } from "../../services/loading/loading-contoller.service";
+import { DateProviderService } from "../../services/date/date-provider.service";
+
 import * as moment from 'moment';
 
 @Component({
@@ -17,9 +18,14 @@ export class CalorieTrackerPage implements OnInit {
   segmentData: any = [];
   backUpConsumedData: any = [];
   consumedFoodData: any = [];
+  allEstimatedData: any = {};
+  calorieEstimated: number = 0;
+  calorieConsumed: number = 0;
+  otherMealfactor: number = 0.2;
   constructor(public modalController: ModalController,
     public apiService: ApiCallService,  
-    public loadingService: LoadingContollerService) { }
+    public loadingService: LoadingContollerService,
+    public dateService: DateProviderService) { }
 
   ngOnInit() {
     this.segmentData = [
@@ -55,28 +61,35 @@ export class CalorieTrackerPage implements OnInit {
   updateData(){
     this.loadingService.loadingPresent();
     let date = moment().format('DD/MM/YYYY');
-   this.apiService.getUserFoodData(date,date,localStorage.getItem('c_id')).subscribe((response: any) => {
-     this.backUpConsumedData = response;
-     this.consumedFoodData = this.backUpConsumedData.filter((item,i,a)=> {
-         return item.consumed_category === this.selectedSegment;
-     });
-     this.loadingService.loadingDismiss();
-     console.log('response',response);
-     console.log('this.consumedFoodData',this.consumedFoodData);
-     console.log('this.backUpConsumedData',this.backUpConsumedData);
-   }, (error) => {
-     this.loadingService.loadingDismiss();
-     console.log("error",error);
+    this.dateService.getEstiamateOfCalorieConsumption().then((data:any)=>{
+      console.log('data',data);
+      this.allEstimatedData = {...data};
+      this.apiService.getUserFoodData(date,date,localStorage.getItem('c_id')).subscribe((response: any) => {
+        this.backUpConsumedData = response;
+        this.consumedFoodData = this.backUpConsumedData.filter((item,i,a)=> {
+            return item.consumed_category === this.selectedSegment;
+        });
+        this.calculateConsumption();
+        this.loadingService.loadingDismiss();
+        console.log('response',response);
+      }, (error) => {
+        this.loadingService.loadingDismiss();
+        console.log("error",error);
+      });
    });
   }
+  calculateConsumption() {
+    this.calorieConsumed = this.consumedFoodData.reduce((acc,obj) => {
+      return acc + parseFloat(obj.c_calories);
+    }, 0);
+    this.calorieEstimated = (this.allEstimatedData.calorieEstimate).toFixed(2) * this.otherMealfactor;
+  }
   segmentChanged(e) {
-    console.log(e);
     this.consumedFoodData = [];
     this.consumedFoodData = this.backUpConsumedData.filter((item,i,a)=> {
       return item.consumed_category === this.selectedSegment;
     });
-    console.log('this.consumedFoodData',this.consumedFoodData);
-    console.log('this.backUpConsumedData',this.backUpConsumedData);
+    this.calculateConsumption();
    }
   async openAddYourMeal() {
     const modal = await this.modalController.create({
@@ -87,7 +100,6 @@ export class CalorieTrackerPage implements OnInit {
       cssClass: 'my-custom-class'
     });
     modal.onDidDismiss().then((data) => {
-      console.log(data);
       if(data.data.isRefresh){
         this.updateData();
       }
@@ -98,6 +110,9 @@ export class CalorieTrackerPage implements OnInit {
   async openInsights() {
     const modal = await this.modalController.create({
       component: InsightsPage,
+      componentProps: {
+        'allEstimatedData': this.allEstimatedData
+      },
       cssClass: 'my-custom-class'
     });
     return await modal.present();

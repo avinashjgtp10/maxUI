@@ -34,7 +34,6 @@ export class HomePage implements OnInit {
      }];
   }
   async actionSheet(data:object){
-    console.log('data',data);
     const actionSheet = await this.actionSheetController.create({
       header: 'What meal would you like to track?',
       cssClass: 'my-custom-class',
