@@ -16,7 +16,7 @@
         </ion-slide>
       </ion-slides>
       <ion-item lines="none">
-          <ion-searchbar mode="ios" (ionInput)="searchFood($event)"  search-icon=“undefined” placeholder="Search for Food" type="text"></ion-searchbar>
+          <ion-searchbar inputmode="text" type="text" mode="ios" debounce="700" (ionInput)="searchFood($event)"  search-icon=“undefined” placeholder="Search for Food" type="text"></ion-searchbar>
       </ion-item>
   </ion-header>
 
@@ -35,5 +35,8 @@
               <ion-icon slot="icon-only"  [src]="food.isAdded ? 'assets/icon/icon_tick.svg' : 'assets/icon/icon_add.svg'"></ion-icon>
         </ion-button>
       </ion-item>
+      <ion-toolbar *ngIf="!frequentlyFoodData.length" class="ion-text-center" lines="none">
+        <p>No items Present</p>
+      </ion-toolbar>
   </ion-list>
 </ion-content>

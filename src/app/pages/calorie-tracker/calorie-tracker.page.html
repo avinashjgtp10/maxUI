@@ -31,19 +31,29 @@
       <ion-list-header lines="full">
         <ion-label>{{selectedSegment}}</ion-label>
         <ion-label class="ion-text-right">
-          <p>{{calorieConsumed}} OF {{calorieEstimated}} Cal</p>
+          <p>{{calorieConsumed | fixedValue}} OF {{calorieEstimated | fixedValue}} Cal</p>
         </ion-label>
         <ion-button (click)="openAddYourMeal()" fill="clear" size="small" class="ion-no-margin">
           <ion-icon slot="icon-only" src="assets/icon/icon_red_add.svg"></ion-icon>
         </ion-button>
       </ion-list-header>
-      <ion-item lines="none" class="ion-no-margin" *ngFor="let food of consumedFoodData; let i = index">
-        <ion-label slot="start">
-          <h4>{{food.c_item}}</h4>
-          <p>{{food.c_amount}} Units</p>
-        </ion-label>
-        <ion-text slot="end">{{food.c_calories}} Cals</ion-text>
-      </ion-item>
+      <ion-item-sliding *ngFor="let food of consumedFoodData; let i = index">
+        <ion-item lines="none" class="ion-no-margin">
+          <ion-label slot="start" (click)="openPicker(food)">
+            <h4>{{food.c_item}}</h4>
+            <p>{{food.c_amount}} Units</p>
+          </ion-label>
+          <ion-text slot="end">{{food.c_calories}} Cals</ion-text>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="danger">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+          <ion-item-option>
+            <ion-icon slot="icon-only" name="star"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-list>
   </ion-card>
 </ion-content>

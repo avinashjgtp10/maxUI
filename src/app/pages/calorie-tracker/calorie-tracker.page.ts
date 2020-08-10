@@ -5,7 +5,8 @@ import { InsightsPage } from '../insights/insights.page';
 import { ApiCallService } from "../../services/api/api-call.service";
 import { LoadingContollerService } from "../../services/loading/loading-contoller.service";
 import { DateProviderService } from "../../services/date/date-provider.service";
-
+import { PickerController } from "@ionic/angular";
+import { PickerOptions } from "@ionic/core";
 import * as moment from 'moment';
 
 @Component({
@@ -22,10 +23,29 @@ export class CalorieTrackerPage implements OnInit {
   calorieEstimated: number = 0;
   calorieConsumed: number = 0;
   otherMealfactor: number = 0.2;
+  numColumns:number = 2;
+  numOptions:number =5 
+  gadgets: any[] = [
+    [
+      "Samsung Note 10",
+      "OnePlus 7T",
+      "Redmi Note8",
+      "Oppo Reno3 Pro",
+      "VIVO V11 Pro"
+    ],
+    [
+      "ASUS ZenBook Pro",
+      "Lenovo IdeaPad",
+      "Acer Nitro",
+      "Dell G3",
+      "MSI Gamming GF75 Thin"
+    ]
+  ];
   constructor(public modalController: ModalController,
     public apiService: ApiCallService,  
     public loadingService: LoadingContollerService,
-    public dateService: DateProviderService) { }
+    public dateService: DateProviderService,
+    private pickerController: PickerController) { }
 
   ngOnInit() {
     this.segmentData = [
@@ -58,6 +78,60 @@ export class CalorieTrackerPage implements OnInit {
       'dismissed': true
     });
   }
+  async openPicker(item){
+    let options: PickerOptions = {
+      keyboardClose:true,
+      animated: true,
+      mode:'ios',
+      buttons: [
+          {
+            text: "Cancel",
+            role: 'cancel'
+          },
+          {
+            text:'Ok',
+            handler:(value:any) => {
+              console.log(value);
+            }
+          }
+        ],
+        columns:this.getColumns(item)
+  };
+  let picker = await this.pickerController.create(options);
+  picker.present()
+  }
+  getColumns(item){
+    let columns=[];
+    for(let i =0 ;i < this.numColumns;i++){
+        columns.push({
+            name:`col -${i}`,
+            options: this.getColumnOptions(i,item)
+        })
+    }
+    return columns;
+}
+getColumnOptions(columIndex:number,item){
+  let options = [];
+  if(columIndex === 0) {
+    for(let i=1;i < 200;i++){
+      let value = (i / 4).toFixed(2);
+      options.push({
+          text: `${value}`,
+          value:value
+      })
+     }
+  }
+  else {
+    for(let i=0;i < item.c_measure.length;i++){
+      options.push({
+          text: item.c_measure[i],
+          value: item.c_measure[i]
+      })
+     }
+  }
+  
+  return options;
+}
   updateData(){
     this.loadingService.loadingPresent();
     let date = moment().format('DD/MM/YYYY');

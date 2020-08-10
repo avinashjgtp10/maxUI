@@ -141,4 +141,13 @@ export class ApiCallService {
           )
       }
 
+        // Search User Food Data
+        searchUserFoodData(searchKey): Observable<JSON> {
+          return this.http
+            .get<JSON>(this.base_path + `/calorieItems?search=${searchKey}`)
+            .pipe(
+              catchError(this.handleError)
+            )
+        }
+
 }

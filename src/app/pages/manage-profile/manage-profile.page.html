@@ -91,12 +91,21 @@
                   <ion-label class="finess-label">Fitness Objective</ion-label>
                   <ion-select placeholder="Select Goal" class="ion-no-padding fitness-select-box"
                   name="goal" multiple="false" formControlName="goal" slot="end">
-                      <ion-select-option value="fit">Fit</ion-select-option>
                       <ion-select-option value="weight_gain">Weight Gain</ion-select-option>
                       <ion-select-option value="weight_maintain">Weight Maintain</ion-select-option>
                       <ion-select-option value="weight_loss">Weight Loss</ion-select-option>
                   </ion-select>
               </ion-item>
+              <ion-item lines="inset">
+                <ion-icon src="assets/icon/icon_fitness.svg" class="ion-no-margin" slot="start"></ion-icon>
+                <ion-label class="finess-label">Daily Activity</ion-label>
+                <ion-select placeholder="Select Activity" class="ion-no-padding fitness-select-box"
+                name="activity" multiple="false" formControlName="activity" slot="end">
+                    <ion-select-option value="sedantry">Sedantry</ion-select-option>
+                    <ion-select-option value="moderate">Moderate</ion-select-option>
+                    <ion-select-option value="high">Highly Active</ion-select-option>
+                </ion-select>
+            </ion-item>
             </ion-list>
             </form>
           </ion-card-content>
