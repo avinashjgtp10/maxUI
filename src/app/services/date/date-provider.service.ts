@@ -27,6 +27,16 @@ export class DateProviderService {
     'weight_maintain': 0.8,
     'weight_gain': 1,
  }
+  activityCalc_male = {
+    'sedantry': 1.325,
+    'moderate': 1.6,
+    'high': 1.8,
+  }
+  activityCalc_female = {
+    'sedantry': 1.2,
+    'moderate': 1.5,
+    'high': 1.725,
+  }
   constructor(private storage: Storage, public apiService: ApiCallService) { }
   isToday(date){
     const today = new Date();
@@ -77,7 +87,9 @@ export class DateProviderService {
       this.getUserdata().then((userData:any)=>{
        console.log('userData',userData);
        let REE;
+       let totalCalorie;
        let proteinFactor;
+       let activityFactor;
        let resultObj = {};
        switch(userData.gender) {
          case('male'):
@@ -85,6 +97,8 @@ export class DateProviderService {
          let htCalculation_male = this.heightMultiplier * userData.heightInCm;
          let ageCalculation_male = this.ageMultiplier * userData.age;
          REE = wgCalculation_male + htCalculation_male - ageCalculation_male + this.maleOffset;
+         activityFactor = parseFloat(this.activityCalc_male[userData.activity] ? this.activityCalc_male[userData.activity] : 1);
+         totalCalorie = REE * activityFactor;
          proteinFactor = parseFloat(this.proteinCalc_male[userData.goal] ? this.proteinCalc_male[userData.goal] : 1);
          this.proteinConsumption = proteinFactor * userData.weight;
          this.carbsConsumption = parseFloat((REE / 4).toFixed(2));
@@ -95,7 +109,7 @@ export class DateProviderService {
           carbsEstimate: this.carbsConsumption,
           fatsEstimate: this.fatsConsumption,
           fiberEstimate: this.fiberConsumption,
-          calorieEstimate: REE 
+          calorieEstimate: totalCalorie 
         }
         resolve(resultObj);
          break;
@@ -105,6 +119,8 @@ export class DateProviderService {
          let htCalculation_female = this.heightMultiplier * userData.heightInCm;
          let ageCalculation_female = this.ageMultiplier * userData.age;
          REE = wgCalculation_female + htCalculation_female - ageCalculation_female - this.femaleOffset;
+         activityFactor = parseFloat(this.activityCalc_female[userData.activity] ? this.activityCalc_female[userData.activity] : 1);
+         totalCalorie = REE * activityFactor;
          proteinFactor = parseFloat(this.proteinCalc_female[userData.goal] ? this.proteinCalc_female[userData.goal] : 1);
          this.proteinConsumption = proteinFactor * userData.weight;
          this.carbsConsumption = parseFloat((REE / 4).toFixed(2));
@@ -115,7 +131,7 @@ export class DateProviderService {
            carbsEstimate: this.carbsConsumption,
            fatsEstimate: this.fatsConsumption,
            fiberEstimate: this.fiberConsumption,
-           calorieEstimate: REE 
+           calorieEstimate: totalCalorie 
          }
          resolve(resultObj);
          break;
@@ -141,6 +157,7 @@ export class DateProviderService {
           heightInCm: heightInCm,
           goal: data.c_fitnessobjective,
           gender: data.c_gender,
+          activity: data.c_exercise
         }
         resolve(userdata);
       },  (error) => {

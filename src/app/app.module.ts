@@ -19,7 +19,6 @@ import { TranslateModule,TranslateCompiler, TranslateLoader } from "@ngx-transla
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 //Ionic Storage
 import { IonicStorageModule } from "@ionic/storage";
-import { SamplePipe } from './pipes/sample/sample.pipe';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
 
@@ -27,7 +26,7 @@ export function createTranslateLoader(http:HttpClient){
  return new TranslateHttpLoader(http,'assets/i18n/','.json');
 }
 @NgModule({
-  declarations: [AppComponent, SamplePipe],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [
   BrowserModule,

@@ -27,7 +27,7 @@
         <ion-item lines="none">
             <ion-label>
                 <p>Calories
-                    <ion-text class="ion-float-right">{{calorieConsumed}} of {{calorieEstimated}}</ion-text>
+                    <ion-text class="ion-float-right">{{calorieConsumed | fixedValue}} of {{calorieEstimated | fixedValue}}</ion-text>
                 </p>
                 <ion-progress-bar [value]="calorieBar"></ion-progress-bar>
             </ion-label>
@@ -35,7 +35,7 @@
         <ion-item lines="none">
             <ion-label>
                 <p>Proteins
-                    <ion-text class="ion-float-right">{{proteinsConsumed}} of {{proteinsEstimated}}</ion-text>
+                    <ion-text class="ion-float-right">{{proteinsConsumed | fixedValue }} of {{proteinsEstimated | fixedValue}}</ion-text>
                 </p>
                 <ion-progress-bar [value]="proteinBar"></ion-progress-bar>
             </ion-label>
@@ -43,7 +43,7 @@
         <ion-item lines="none">
             <ion-label>
                 <p>Carbs
-                    <ion-text class="ion-float-right">{{carbsConsumed}} of {{carbsEstimated}}</ion-text>
+                    <ion-text class="ion-float-right">{{carbsConsumed | fixedValue }} of {{carbsEstimated | fixedValue}}</ion-text>
                 </p>
                 <ion-progress-bar [value]="carbsBar"></ion-progress-bar>
             </ion-label>
@@ -51,7 +51,7 @@
         <ion-item lines="none">
             <ion-label>
                 <p>Fat
-                    <ion-text class="ion-float-right">{{fatConsumed}} of {{fatEstimated}}</ion-text>
+                    <ion-text class="ion-float-right">{{fatConsumed | fixedValue }} of {{fatEstimated | fixedValue}}</ion-text>
                 </p>
                 <ion-progress-bar [value]="fatBar"></ion-progress-bar>
             </ion-label>
@@ -59,7 +59,7 @@
         <ion-item lines="none">
             <ion-label>
                 <p>Fiber
-                    <ion-text class="ion-float-right">{{fiberConsumed}} of {{fiberEstimated}}</ion-text>
+                    <ion-text class="ion-float-right">{{fiberConsumed | fixedValue}} of {{fiberEstimated | fixedValue}}</ion-text>
                 </p>
                 <ion-progress-bar [value]="fiberBar"></ion-progress-bar>
             </ion-label>

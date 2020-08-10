@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { DateProviderService } from "../../services/date/date-provider.service";
@@ -32,32 +32,30 @@ export class AddCaloriePage implements OnInit {
     }
   ionViewWillEnter() {
     console.log('Selected Segment', this.selectedSegment);
-    this.loadingService.loadingPresent();
-        this.apiService.getAvailableFoodData().subscribe((response: any) => {
-          console.log('response',response);
-          this.frequentlyFoodData = response;
-          this.dateService.getTwoWeekDates().then((dates)=>{
-            console.log('dates',dates);
-            this.dateSliderData = dates;
-            this.activeSlide = this.dateSliderData.filter((v,i,a) => {
-              if(v.isToday) {
-                return v;
-              }
-            });
-            console.log('activeSlide',this.activeSlide);
-            this.dateSlider.slideTo(this.activeSlide[0].index, 400).then(()=> {
-              this.loadingService.loadingDismiss();
-            });
-          });
-        }, (error) => {
-          this.loadingService.loadingDismiss();
-          console.log("error",error);
-        });
+    this.getAllFoodData();
   }
   ngOnInit() { 
   }
-  ngAfterViewInit() {
-    
+  getAllFoodData(){
+    this.loadingService.loadingPresent();
+    this.apiService.getAvailableFoodData().subscribe((response: any) => {
+      console.log('response',response);
+      this.frequentlyFoodData = response;
+      this.dateService.getTwoWeekDates().then((dates)=>{
+        this.dateSliderData = dates;
+        this.activeSlide = this.dateSliderData.filter((v,i,a) => {
+          if(v.isToday) {
+            return v;
+          }
+        });
+        this.dateSlider.slideTo(this.activeSlide[0].index, 400).then(()=> {
+          this.loadingService.loadingDismiss();
+        });
+      });
+    }, (error) => {
+      this.loadingService.loadingDismiss();
+      console.log("error",error);
+    });
   }
   closeModal(refresh = false) {
     this.modalController.dismiss({
@@ -104,6 +102,27 @@ export class AddCaloriePage implements OnInit {
      } else {
        this.toast.dismiss();
      }
+  }
+  searchFood(event) {
+  const searchTerm = (event.srcElement.value).trim();;
+  console.log('searchTerm',searchTerm);
+
+     if(searchTerm === ''){
+       this.getAllFoodData();
+       return;
+     }
+
+    if (searchTerm.length < 2) {
+      return;
+    }
+    this.loadingService.loadingPresent();
+     this.apiService.searchUserFoodData(searchTerm).subscribe((data)=>{
+       console.log('data',data);
+       this.frequentlyFoodData = data;
+       this.loadingService.loadingDismiss();
+     }, (error)=> {
+      this.loadingService.loadingDismiss();
+     });
   }
   dismissToast() {
    this.toast.dismiss();

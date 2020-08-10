@@ -81,10 +81,10 @@ export class ManageProfilePage implements OnInit {
     // height: ['',Validators.required],
     weight: [this.inputWeight,Validators.required],
     goal: ['',Validators.required],
+    activity: ['',Validators.required],
   });
   constructor(private formBuilder: FormBuilder,
               private storage:Storage, private imagePicker: ImagePicker,
-              private route:Router,
               public apiService: ApiCallService,
               public loadingService: LoadingContollerService,
               private navController: NavController) { }
@@ -118,6 +118,7 @@ export class ManageProfilePage implements OnInit {
       this.registrationForm.controls.weight.setValue(parseInt(response.c_weight));
       this.height = parseInt(response.c_height);
       this.registrationForm.controls.goal.setValue(response.c_fitnessobjective);
+      this.registrationForm.controls.activity.setValue(response.c_exercise);
       this.loadingService.loadingDismiss();
     }, (error) => {
       this.serverError = error;
@@ -136,8 +137,9 @@ export class ManageProfilePage implements OnInit {
           c_age : this.registrationForm.value.age,
           c_weight: this.registrationForm.value.weight,
           c_height: this.height,
-          u_id : data.id,
+          u_id : data.u_id,
           c_fitnessobjective :this.registrationForm.value.goal,
+          c_exercise :this.registrationForm.value.activity,
           c_name :this.registrationForm.value.name
         }
         console.log('args',args);
@@ -202,6 +204,9 @@ export class ManageProfilePage implements OnInit {
     goal: [
       { type: 'required', message: 'Goal selection is required' }
     ],
+    activity: [
+      { type: 'required', message: 'Activity selection is required' }
+    ],
   };
   public submit() {
     this.loadingService.loadingPresent();
@@ -216,10 +221,11 @@ export class ManageProfilePage implements OnInit {
           c_height: this.height,
           u_id : data.id,
           c_fitnessobjective :this.registrationForm.value.goal,
+          c_exercise :this.registrationForm.value.activity,
           c_name :this.registrationForm.value.name
         }
         this.apiService.storeProfileData(args).subscribe((response: any) => {
-          let value = {...response.data[0],'userDesc':response.userDesc};
+          let value = {...response.data[0],'userDesc':response.userDesc, 'phonenumber':data.phonenumber , 'token':data.token };
             this.storage.set('User_Data',value).then((res)=>{
              localStorage.setItem('c_id',response.data[0].c_id);
              this.loadingService.loadingDismiss();
