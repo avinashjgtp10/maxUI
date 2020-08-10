@@ -5,9 +5,7 @@ import { ApiCallService } from "../../services/api/api-call.service";
 import { ChartCalculationsService } from "../../services/chart/chart-calculations.service";
 import { LoadingContollerService } from "../../services/loading/loading-contoller.service";
 import { DateProviderService } from "../../services/date/date-provider.service";
-
 import * as moment from 'moment';
-import { timingSafeEqual } from 'crypto';
 @Component({
   selector: 'app-insights',
   templateUrl: './insights.page.html',
