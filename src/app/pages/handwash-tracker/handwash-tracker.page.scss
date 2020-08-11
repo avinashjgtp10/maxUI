@@ -1,0 +1,25 @@
+ion-header {
+    height: 5rem;
+    background-color: #FFFFFF;;
+    ion-toolbar{
+       --background: #FFFFFF;;
+        padding-top: 10px;
+        padding-right: 10px;
+        ion-button {
+          margin-right:10px;
+          --color:#000000;
+          ion-icon {
+            
+          }
+        }
+        ion-title{
+            font-weight: 500;
+            font-size: 18px;
+            color: #000000;
+        }
+        .input-icon {
+            width: 40px;
+            height: 40px;
+        }
+    }
+}

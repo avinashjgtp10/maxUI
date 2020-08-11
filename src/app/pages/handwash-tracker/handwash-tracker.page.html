@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
+      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title class="ion-no-padding">Today</ion-title>
+    <ion-icon src="assets/icon/icon_notifications.svg" class="input-icon" slot="end"></ion-icon>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+<ion-card class="ion-no-margin">
+  <round-progress
+  [current]="7"
+  [max]="16"
+  [color]="'#E02828'"
+  [background]="'#C4C4C4'"
+  [radius]="125"
+  [stroke]="4"
+  [semicircle]="true"
+  [rounded]="true"
+  [clockwise]="true"
+  [responsive]="false"
+  [duration]="600"
+  [animation]="'easeInOutQuart'"
+  [animationDelay]="0"
+  (onRender)="doSomethingWithCurrentValue($event)"></round-progress>
+</ion-card>
+</ion-content>

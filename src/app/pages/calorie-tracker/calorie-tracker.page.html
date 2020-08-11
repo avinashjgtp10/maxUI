@@ -41,13 +41,13 @@
         <ion-item lines="none" class="ion-no-margin">
           <ion-label slot="start" (click)="openPicker(food)">
             <h4>{{food.c_item}}</h4>
-            <p>{{food.c_amount}} Units</p>
+            <ion-text>{{food.c_amount}} {{food.c_clientmeasure}}</ion-text>
           </ion-label>
           <ion-text slot="end">{{food.c_calories}} Cals</ion-text>
         </ion-item>
         <ion-item-options side="end">
           <ion-item-option color="danger">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
+            <ion-icon slot="icon-only" name="trash" (click)="deleteItem(food)"></ion-icon>
           </ion-item-option>
           <ion-item-option>
             <ion-icon slot="icon-only" name="star"></ion-icon>

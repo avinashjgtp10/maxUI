@@ -79,6 +79,9 @@ export class CalorieTrackerPage implements OnInit {
     });
   }
   async openPicker(item){
+    let selectedIndex1 = parseFloat(item.c_amount) * 4;
+    selectedIndex1 = parseFloat(selectedIndex1.toFixed(2));
+   let selectedIndex2 = item.c_measure.indexOf(item.c_clientmeasure)
     let options: PickerOptions = {
       keyboardClose:true,
       animated: true,
@@ -91,13 +94,15 @@ export class CalorieTrackerPage implements OnInit {
           {
             text:'Ok',
             handler:(value:any) => {
-              console.log(value);
+              this.updateItemCalculations(value,item);
             }
           }
         ],
         columns:this.getColumns(item)
   };
   let picker = await this.pickerController.create(options);
+  picker.columns[0].selectedIndex = selectedIndex1 - 1;
+  picker.columns[1].selectedIndex = selectedIndex2 - 1;
   picker.present()
   }
   getColumns(item){
@@ -113,7 +118,7 @@ export class CalorieTrackerPage implements OnInit {
 getColumnOptions(columIndex:number,item){
   let options = [];
   if(columIndex === 0) {
-    for(let i=1;i < 200;i++){
+    for(let i=1;i < 1000;i++){
       let value = (i / 4).toFixed(2);
       options.push({
           text: `${value}`,
@@ -131,6 +136,13 @@ getColumnOptions(columIndex:number,item){
   }
   
   return options;
+}
+updateItemCalculations(value, item){
+  console.log(value);
+  console.log(item);
+}
+deleteItem(food) {
+  
 }
   updateData(){
     this.loadingService.loadingPresent();
