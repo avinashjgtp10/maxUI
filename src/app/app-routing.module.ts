@@ -39,6 +39,10 @@ const routes: Routes = [
   {
     path: 'insights',
     loadChildren: () => import('./pages/insights/insights.module').then( m => m.InsightsPageModule)
+  },
+  {
+    path: 'handwash-tracker',
+    loadChildren: () => import('./pages/handwash-tracker/handwash-tracker.module').then( m => m.HandwashTrackerPageModule)
   }
 ];
 

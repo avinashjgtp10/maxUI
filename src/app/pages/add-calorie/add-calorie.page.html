@@ -28,7 +28,7 @@
       <ion-item lines="none" *ngFor="let food of frequentlyFoodData; let i = index">
         <ion-label slot="start">
             <h4>{{food.c_item}}</h4>
-            <ion-text>{{food.c_amount}}</ion-text>
+            <ion-text>{{food.c_amount}} {{food.c_clientmeasure}}</ion-text>
         </ion-label>
         <ion-text  slot="end">{{food.c_calories}} Cals</ion-text>
          <ion-button (click)="foodSelected(food,i)" slot="end" fill="clear" size="small" class="ion-no-margin">

@@ -19,6 +19,7 @@ export class AddCaloriePage implements OnInit {
     slidesPerView: 7,
     speed: 400
   };
+  clientId:string = localStorage.getItem('c_id');
   dateSliderData: any = [];
   frequentlyFoodData: any = [];
   activeSlide: any;
@@ -162,8 +163,10 @@ export class AddCaloriePage implements OnInit {
               caloriesConsumption: this.selectedFoodData
             }
             this.selectedFoodData.forEach((item)=>{
-                item.date = this.activeSlide[0].dateFormatted,
-                item.consumed_category = this.selectedSegment
+                let now = new Date();
+                item.date = this.activeSlide[0].dateFormatted;
+                item.consumed_category = this.selectedSegment;
+                item.co_id = parseInt(this.clientId) + item.c_id + now.getTime();
             })
             this.apiService.storeFoodData(args,localStorage.getItem('c_id')).subscribe((response: any) => {
               console.log('response',response);
