@@ -150,4 +150,23 @@ export class ApiCallService {
             )
         }
 
+      // Update Food Item
+      updateFoodItem(data,c_id,co_id): Observable<JSON> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json')
+        return this.http
+          .put<JSON>(this.base_path + `/updateTracker/${c_id}/${co_id}`, JSON.stringify(data), {headers: headers})
+          .pipe(
+            catchError(this.handleError)
+          )
+      }
+
+       // Delete Food Item
+       deleteFoodItem(c_id,co_id): Observable<JSON> {
+        return this.http
+          .delete<JSON>(this.base_path + `/deleteCaloreConsumption/${c_id}/${co_id}`)
+          .pipe(
+            catchError(this.handleError)
+          )
+      }
+
 }
