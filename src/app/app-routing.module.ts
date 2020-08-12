@@ -39,6 +39,10 @@ const routes: Routes = [
   {
     path: 'insights',
     loadChildren: () => import('./pages/insights/insights.module').then( m => m.InsightsPageModule)
+  },
+  {
+    path: 'water-tracker',
+    loadChildren: () => import('./pages/water-tracker/water-tracker.module').then( m => m.WaterTrackerPageModule)
   }
 ];
 

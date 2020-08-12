@@ -1,0 +1,75 @@
+@import '../../shared/styles/default.scss';
+ion-header {
+    height: auto;
+    border: none;
+    background-color: #F3F4F3;
+    ion-toolbar{
+       --background: #F3F4F3;
+        padding-top: 10px;
+        ion-button {
+          margin-right:10px;
+          --color:#000000;
+          ion-icon {
+            
+          }
+        }
+    }
+}
+
+.water-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    align-items: center;
+
+    .circle {
+        border-radius: 50% ;
+        width: 28px;
+        height: 28px;
+        text-align: center;
+        color: $btnBackgroud;
+        font-size: 30px;
+        border: 1px solid grey;
+        line-height: 19px;
+        font-weight: 700;
+        margin-left: 25%;
+    }
+}
+.today-tip{
+    border: 1px solid;
+    margin: 5%;
+    padding: 0 5% 0 5%;
+    border-radius: 20px;
+    p{
+        font-style: italic;
+        color: gray;
+    }
+    .tip{
+        font-weight: bold;
+        color: black;
+    }
+}
+.daily-intake{
+    margin: 0 5% 0 5%;
+    font-size: large;
+    p{
+        span{
+            float: right;
+            ion-icon{
+                font-size: x-large
+            }
+        }
+    }
+    span{
+        float: right;
+        color: gray;
+        font-size: 14px;
+    }
+}
+#highcharts {
+    width: 100%;
+    height: 400px
+}
+
+
+

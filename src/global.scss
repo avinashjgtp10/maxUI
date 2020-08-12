@@ -60,3 +60,12 @@
   --button-color:#FFFFFF;
   --color: #FFFFFF;
 }
+.action-sheet-component{
+  --height: 40%;
+  align-items: flex-end;
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
+  .modal-wrapper{
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+  }
+}

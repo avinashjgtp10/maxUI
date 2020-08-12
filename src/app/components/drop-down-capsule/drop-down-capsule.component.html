@@ -1,44 +1,28 @@
+
 <ion-card class="ion-no-margin card-pannel">
-        <ion-item lines="none">
-           <ion-icon name="ellipse" slot="start" class="reduce-margin-right icon-size"></ion-icon>
-           <ion-label>                         
-                <h4 class="ion-no-padding item-lable">Calorie Tracker</h4>
-                <p class="item-data"><b>300</b> of <b>2250</b> Cal Eaten</p>
-           </ion-label>
-           <ion-icon  (click)="open()" class="icon-size" src="assets/icon/icon_add.svg" slot="end"></ion-icon>
-        </ion-item>
-       <ion-card-content #expandWrapper class='expand-wrapper' [class.collapsed]="!expanded" class="ion-no-padding">
-            <ion-list>
-                <!-- <ion-item lines="none">
-                        <ion-icon name="ellipse" slot="start" class="reduce-margin-right"></ion-icon>
-                        <ion-label>                         
-                         <h4 class="ion-no-padding item-lable">Calorie Tracker</h4>
-                         <p class="item-data">300 of 2250 Cal Eaten</p>
+   
+       <div *ngFor="let tracker of tackersData;">
+                <ion-item lines="none" *ngIf="tracker.show" >
+                         <ion-icon *ngIf="!tracker.isAdded" (click)="openTracker(tracker)" name="ellipse" slot="start" class="reduce-margin-right icon-size"></ion-icon>
+                        <div *ngIf="tracker.isAdded" class="reduce-margin-right icon-size">
+                                <circle-progress [percent]="(tracker.todaysValue/tracker.totalValue)*100" [radius]="13" 
+                                [backgroundPadding]="-2"[outerStrokeWidth]="2" [innerStrokeWidth]="0" [showTitle]="false" [showSubtitle]="false" [showImage]="false" [showUnits]="false"
+                                [outerStrokeColor]="tracker.color"  [backgroundColor] = "'#D2D2D2'"  [animation]="true" [animationDuration]="600" >
+                                </circle-progress>
+                        </div>
+                        <ion-label (click)="openTracker(tracker)">
+                                <h4 class="ion-no-padding item-lable">{{ tracker.name }}</h4>
+                                <p class="item-data" *ngIf="tracker.isAdded" ><b>{{ tracker.todaysValue }}</b> of <b>{{ tracker.totalValue }}</b> {{ tracker.UnitText}}</p>
                         </ion-label>
-                        <ion-icon  (click)="emit()" src="assets/icon/icon_add.svg" slot="end"></ion-icon>
-                </ion-item> -->
-                <ion-item lines="none">
-                        <ion-icon name="ellipse" slot="start" class="reduce-margin-right"></ion-icon>
-                        <ion-label class="ion-no-padding">Water Tracker</ion-label>
-                        <ion-icon  (click)="emit()" src="assets/icon/icon_add.svg" slot="end"></ion-icon>
+                        <ion-icon (click)="addTracker(tracker)" class="icon-size" [src]="tracker.isAdded ? 'assets/icon/icon_tick.svg' : 'assets/icon/icon_add.svg'" slot="end"></ion-icon>
                 </ion-item>
-                <!-- <ion-item lines="none">
-                        <ion-icon name="ellipse" slot="start" class="reduce-margin-right"></ion-icon>
-                        <ion-label class="ion-no-padding">Weight Tracker</ion-label>
-                        <ion-icon  (click)="addTracker()" src="assets/icon/icon_add.svg" slot="end"></ion-icon>
-                </ion-item>
-                <ion-item lines="none">
-                        <ion-icon name="ellipse" slot="start" class="reduce-margin-right"></ion-icon>
-                        <ion-label class="ion-no-padding">Handwash Tracker</ion-label>
-                        <ion-icon  (click)="addTracker()" src="assets/icon/icon_add.svg" slot="end"></ion-icon>
-                </ion-item> -->
-            </ion-list>
-       </ion-card-content>
+       </div>
         <ion-item lines="none" class="footer-pannel">
-           <ion-label>                         
-                <h4 class="ion-no-padding item-lable">TRACK YOUR HEALTH</h4>
-                <p class="item-data">Add more trackers</p>
-           </ion-label>
-           <ion-icon  (click)="emit()" class="icon-size" src="assets/icon/icon_arrow.svg" slot="end"></ion-icon>
+                <ion-label>
+                        <h4 class="ion-no-padding item-lable">TRACK YOUR HEALTH</h4>
+                        <p *ngIf="!expanded" class="item-data">Add more trackers</p>
+                        <p *ngIf="expanded" class="item-data">View Less</p>
+                </ion-label>
+                <ion-icon (click)="expandList()" class="icon-size" [ngClass]="{'rotate180': expanded}" src="assets/icon/icon_arrow.svg" slot="end"></ion-icon>
         </ion-item>
 </ion-card>

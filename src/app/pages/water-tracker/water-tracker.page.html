@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
+      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title class="ion-no-padding">Today</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="water-container">
+    <div >
+      <div class="circle"><span> - </span>
+      </div>
+      <div style="white-space: pre; color: gray">
+          <p style="margin-top: 15%;font-size: 13px;">250 ml</p>
+        </div>
+    </div>
+    <div>
+      <circle-progress [percent]="85" [radius]="80" [outerStrokeWidth]="6" [innerStrokeWidth]="0" title="1.2 L" subtitle="Drank so far" [showUnits]="false"
+        [outerStrokeColor]="'#E02828'" [innerStrokeColor]="'#C7E596'" [animation]="true" [animationDuration]="300" >
+      </circle-progress>
+      <div style="text-align: center">
+         <p (click)="openActionSheet()">Goal 8 L <ion-icon name="pencil-outline"  ></ion-icon></p>
+        </div>
+    </div>
+
+    
+
+    <div >
+      <div class="circle"><span> + </span>
+      </div>
+      <div style="white-space: pre; color: gray">
+        <p style="margin-top: 15%;font-size: 13px;">250 ml</p>
+      </div>
+    </div>
+  </div>
+  <div class="today-tip">
+      <p class="tip"> Today's Tip _____________________
+      </p>
+      <p> Drinking water in a sitting posture is better than running or standing posture
+      </p>
+  </div>
+  <div class="daily-intake">
+      <p>Daily Water Intake<span ><ion-icon src="assets/icon/icon_share.svg"></ion-icon></span></p>
+      <span >Last 7 days</span>
+    </div>
+    <ion-card>
+        <div id="highchartsWater"></div>
+      </ion-card>
+ 
+</ion-content>
