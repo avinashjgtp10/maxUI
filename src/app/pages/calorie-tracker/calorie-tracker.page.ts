@@ -109,7 +109,7 @@ export class CalorieTrackerPage implements OnInit {
     let columns=[];
     for(let i =0 ;i < this.numColumns;i++){
         columns.push({
-            name:`col -${i}`,
+            name: i,
             options: this.getColumnOptions(i,item)
         })
     }
@@ -122,7 +122,7 @@ getColumnOptions(columIndex:number,item){
       let value = (i / 4).toFixed(2);
       options.push({
           text: `${value}`,
-          value:value
+          value:parseFloat(value)
       })
      }
   }
@@ -137,12 +137,41 @@ getColumnOptions(columIndex:number,item){
   
   return options;
 }
-updateItemCalculations(value, item){
-  console.log(value);
-  console.log(item);
+updateItemCalculations(selectedValue, item){
+  let newValue = selectedValue[0].value;
+  let originalValue = parseFloat(item.c_amount);
+  let ratio = originalValue/newValue;
+  let newCalories = parseFloat(item.c_calories) / ratio;
+  let newFats = parseFloat(item.c_fats) / ratio;
+  let newCarbs = parseFloat(item.c_carbohydrates) / ratio;
+  let newFibers = parseFloat(item.c_fibres) / ratio;
+  let newProteins = parseFloat(item.c_proteins) / ratio;
+ 
+  item.c_calories = newCalories;
+  item.c_amount = newValue;
+  item.c_carbohydrates = newCarbs;
+  item.c_fibres = newFibers;
+  item.c_fats = newFats;
+  item.c_proteins = newProteins;
+
+  this.loadingService.loadingPresent();
+  this.apiService.updateFoodItem(item,localStorage.getItem('c_id'),item.co_id).subscribe((result)=>{
+    console.log(result);
+    this.loadingService.loadingDismiss();
+    this.updateData();
+  },(error)=>{
+    this.loadingService.loadingDismiss();
+  })
 }
 deleteItem(food) {
-  
+  this.loadingService.loadingPresent();
+  this.apiService.deleteFoodItem(localStorage.getItem('c_id'),food.co_id).subscribe((result)=>{
+     console.log(result);
+     this.loadingService.loadingDismiss();
+     this.updateData();
+  }, (error)=>{
+    this.loadingService.loadingDismiss();
+  });
 }
   updateData(){
     this.loadingService.loadingPresent();
