@@ -7,8 +7,8 @@
   </ion-toolbar>
   <ion-item lines="none" class="ion-no-padding">
     <ion-label>
-      <p>1500 cal to reach your goal</p>
-      <ion-progress-bar value="0.2"></ion-progress-bar>
+      <p><b>{{calorieToReach | fixedValue}} cal</b> to reach your goal</p>
+      <ion-progress-bar [value]="calorieProgressBar"></ion-progress-bar>
     </ion-label>
   </ion-item>
   <ion-item lines="none" class="ion-no-padding">
