@@ -7,7 +7,7 @@
     </ion-toolbar>
     <ion-slides pager="false" [options]="slideOpts" #dateSlider (ionSlideDidChange)="slideChanged($event)">
         <ion-slide *ngFor="let date of dateSliderData; let d = index"> 
-          <ion-button fill="clear" (click)="slideToSelected(data,d)" class="ion-no-padding" [class.active-slide]="date.isSelected">
+          <ion-button fill="clear"  (click)="slideToSelected(data,d)" class="ion-no-padding" [disabled]="date.isDisabled" [class.active-slide]="date.isSelected">
               <ion-label>
                   <p>{{date.day}}</p>
                   <ion-text>{{date.date}}</ion-text>

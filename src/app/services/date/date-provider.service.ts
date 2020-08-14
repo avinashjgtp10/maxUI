@@ -44,6 +44,9 @@ export class DateProviderService {
         date.getMonth() === today.getMonth() &&
         date.getFullYear() === today.getFullYear();
   };
+  inFuture(date) {
+    return date.setHours(0,0,0,0) > new Date().setHours(0,0,0,0)
+  };
   getTwoWeekDates(weekRange = -1) {
     return new Promise((resolve, reject) => {
       var weekStart = moment().add(weekRange, 'weeks').startOf('week');
@@ -55,6 +58,7 @@ export class DateProviderService {
       const weekData = days.map((v,i,a)=>{
         var temp = moment(v).format('dd/DD');
         var date = temp.split('/');
+        console.log(this.inFuture(v));
         if(this.isToday(v)) {
           return {
             day:date[0],
@@ -63,7 +67,19 @@ export class DateProviderService {
             fullDate: v,
             index:i,
             isToday:true,
-            isSelected:true
+            isSelected:true,
+            isDisabled: false
+          }
+        } else if(this.inFuture(v)){
+          return {
+            day:date[0],
+            date: date[1],
+            dateFormatted: moment(v).format('DD/MM/YYYY'),
+            fullDate: v,
+            index:i,
+            isToday:false,
+            isSelected:false,
+            isDisabled: true
           }
         } else {
           return {
@@ -73,7 +89,8 @@ export class DateProviderService {
             fullDate: v,
             index:i,
             isToday:false,
-            isSelected:false
+            isSelected:false,
+            isDisabled: false
           }
         }
       });
@@ -101,9 +118,9 @@ export class DateProviderService {
          totalCalorie = REE * activityFactor;
          proteinFactor = parseFloat(this.proteinCalc_male[userData.goal] ? this.proteinCalc_male[userData.goal] : 1);
          this.proteinConsumption = proteinFactor * userData.weight;
-         this.carbsConsumption = parseFloat((REE / 4).toFixed(2));
-         this.fatsConsumption = parseFloat((REE / 9).toFixed(2));
-         this.fiberConsumption = parseFloat(((REE / 1000) * 15).toFixed(2));
+         this.carbsConsumption = parseFloat(((totalCalorie * 0.55) / 4).toFixed(2));
+         this.fatsConsumption = parseFloat(((totalCalorie * 0.12)/ 9).toFixed(2));
+         this.fiberConsumption = parseFloat(((totalCalorie / 1000) * 15).toFixed(2));
          resultObj = {
           proteinEstimate: this.proteinConsumption,
           carbsEstimate: this.carbsConsumption,
@@ -123,9 +140,9 @@ export class DateProviderService {
          totalCalorie = REE * activityFactor;
          proteinFactor = parseFloat(this.proteinCalc_female[userData.goal] ? this.proteinCalc_female[userData.goal] : 1);
          this.proteinConsumption = proteinFactor * userData.weight;
-         this.carbsConsumption = parseFloat((REE / 4).toFixed(2));
-         this.fatsConsumption = parseFloat((REE / 9).toFixed(2));
-         this.fiberConsumption = parseFloat(((REE / 1000) * 15).toFixed(2));
+         this.carbsConsumption = parseFloat(((totalCalorie * 0.55) / 4).toFixed(2));
+         this.fatsConsumption = parseFloat(((totalCalorie * 0.12)/ 9).toFixed(2));
+         this.fiberConsumption = parseFloat(((totalCalorie / 1000) * 15).toFixed(2));
          resultObj = {
            proteinEstimate: this.proteinConsumption,
            carbsEstimate: this.carbsConsumption,

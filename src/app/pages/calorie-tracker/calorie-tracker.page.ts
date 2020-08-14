@@ -18,29 +18,22 @@ export class CalorieTrackerPage implements OnInit {
   selectedSegment: any = 'breakfast';
   segmentData: any = [];
   backUpConsumedData: any = [];
+  oneDayConsumedCalorie: any;
+  calorieToReach: any;
+  calorieProgressBar: number = 0;
   consumedFoodData: any = [];
   allEstimatedData: any = {};
   calorieEstimated: number = 0;
   calorieConsumed: number = 0;
+  mealPercetage: any = {
+    'breakfast': 0.25,
+    'morning_snack': 0.12,
+    'lunch':0.25,
+    'evening_snack': 0.12,
+    'dinner': 0.25
+  }
   otherMealfactor: number = 0.2;
   numColumns:number = 2;
-  numOptions:number =5 
-  gadgets: any[] = [
-    [
-      "Samsung Note 10",
-      "OnePlus 7T",
-      "Redmi Note8",
-      "Oppo Reno3 Pro",
-      "VIVO V11 Pro"
-    ],
-    [
-      "ASUS ZenBook Pro",
-      "Lenovo IdeaPad",
-      "Acer Nitro",
-      "Dell G3",
-      "MSI Gamming GF75 Thin"
-    ]
-  ];
   constructor(public modalController: ModalController,
     public apiService: ApiCallService,  
     public loadingService: LoadingContollerService,
@@ -181,6 +174,13 @@ deleteItem(food) {
       this.allEstimatedData = {...data};
       this.apiService.getUserFoodData(date,date,localStorage.getItem('c_id')).subscribe((response: any) => {
         this.backUpConsumedData = response;
+        if( this.backUpConsumedData.length){
+          this.oneDayConsumedCalorie = this.backUpConsumedData.reduce((acc,obj) => {
+            return acc + parseFloat(obj.c_calories);
+          }, 0);
+        } else {
+          this.oneDayConsumedCalorie = 0;
+        }
         this.consumedFoodData = this.backUpConsumedData.filter((item,i,a)=> {
             return item.consumed_category === this.selectedSegment;
         });
@@ -197,7 +197,13 @@ deleteItem(food) {
     this.calorieConsumed = this.consumedFoodData.reduce((acc,obj) => {
       return acc + parseFloat(obj.c_calories);
     }, 0);
-    this.calorieEstimated = (this.allEstimatedData.calorieEstimate).toFixed(2) * this.otherMealfactor;
+    this.calorieEstimated = (this.allEstimatedData.calorieEstimate).toFixed(2) * this.mealPercetage[this.selectedSegment];
+    this.calorieToReach = this.allEstimatedData.calorieEstimate - this.oneDayConsumedCalorie;
+    if(this.oneDayConsumedCalorie){
+      this.calorieProgressBar = this.oneDayConsumedCalorie / this.allEstimatedData.calorieEstimate;
+    } else {
+      this.calorieProgressBar = 0;
+    }
   }
   segmentChanged(e) {
     this.consumedFoodData = [];

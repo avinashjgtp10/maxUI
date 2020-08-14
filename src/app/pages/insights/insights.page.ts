@@ -16,7 +16,14 @@ export class InsightsPage implements OnInit {
   selectedSegment: any = 'all_meals';
   segmentData: any = [];
   dateRange: number = 7;
-  otherMealfactor: number = 0.2; /// 20% divided for other meals
+  mealPercetage: any = {
+    'breakfast': 0.25,
+    'morning_snack': 0.12,
+    'lunch':0.25,
+    'evening_snack': 0.12,
+    'dinner': 0.25
+  }
+  otherMealfactor: number = 0.25; /// 25% divided for other meals
   aggragatedFoodData: any = [];
    calorieConsumed: number = 0;
    fatConsumed: number = 0;
@@ -99,11 +106,11 @@ export class InsightsPage implements OnInit {
       this.proteinsEstimated = (this.allEstimatedData.proteinEstimate).toFixed(2) * this.dateRange;
       this.carbsEstimated =  (this.allEstimatedData.carbsEstimate).toFixed(2) * this.dateRange;
     } else {
-    this.calorieEstimated = (this.allEstimatedData.calorieEstimate).toFixed(2) * this.dateRange * this.otherMealfactor;
-    this.fatEstimated = (this.allEstimatedData.fatsEstimate).toFixed(2) * this.dateRange * this.otherMealfactor;
-    this.fiberEstimated = (this.allEstimatedData.fiberEstimate).toFixed(2) * this.dateRange * this.otherMealfactor;
-    this.proteinsEstimated = (this.allEstimatedData.proteinEstimate).toFixed(2) * this.dateRange * this.otherMealfactor;
-    this.carbsEstimated =  (this.allEstimatedData.carbsEstimate).toFixed(2) * this.dateRange * this.otherMealfactor;
+    this.calorieEstimated = (this.allEstimatedData.calorieEstimate).toFixed(2) * this.dateRange * this.mealPercetage[this.selectedSegment];
+    this.fatEstimated = (this.allEstimatedData.fatsEstimate).toFixed(2) * this.dateRange * this.mealPercetage[this.selectedSegment];
+    this.fiberEstimated = (this.allEstimatedData.fiberEstimate).toFixed(2) * this.dateRange * this.mealPercetage[this.selectedSegment];
+    this.proteinsEstimated = (this.allEstimatedData.proteinEstimate).toFixed(2) * this.dateRange * this.mealPercetage[this.selectedSegment];
+    this.carbsEstimated =  (this.allEstimatedData.carbsEstimate).toFixed(2) * this.dateRange * this.mealPercetage[this.selectedSegment];
     }
     this.progressBarCalculation();
          
