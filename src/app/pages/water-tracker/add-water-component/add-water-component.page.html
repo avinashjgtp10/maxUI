@@ -1,0 +1,37 @@
+
+
+<ion-content>
+ <div >
+    <p>Set your Water Goal</p>
+    <p class="p-numberGlasses">Add number of glasses</p>   
+</div>
+<div class="water-container">
+    <div >
+      <div class="circle"><span> - </span>
+      </div>
+    </div>
+    <div class="edit-water-value">
+         <p > 8  </p>
+    </div>
+
+    
+
+    <div class="plus-icon">
+      <div class="circle"><span> + </span>
+      </div>
+      <div style="white-space: pre; color: gray">
+       
+      </div>
+    </div>
+  </div>
+  <div >
+      <p class="p-numberGlasses" style="margin: 0">1 Glass = 250 ml</p>   
+  </div>
+  <div>
+      <button 
+        [disabled]="isOtpButtonDisabled" 
+        (click)="checkOtpEntered()" 
+        class="ion-no-margin">Update
+     </button>
+    </div>
+</ion-content>

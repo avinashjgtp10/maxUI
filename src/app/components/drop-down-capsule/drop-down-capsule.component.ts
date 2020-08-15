@@ -1,4 +1,4 @@
-import { Component, AfterViewInit,OnInit, Input,Output,EventEmitter, ViewChild,  ElementRef, Renderer2 } from "@angular/core";
+import { Component, OnInit,Output,EventEmitter } from "@angular/core";
 
 
 @Component({
@@ -7,52 +7,81 @@ import { Component, AfterViewInit,OnInit, Input,Output,EventEmitter, ViewChild, 
   styleUrls: ['./drop-down-capsule.component.scss'],
 })
 export class DropDownCapsuleComponent implements OnInit {
-  @ViewChild("expandWrapper", { read: ElementRef }) expandWrapper: ElementRef;
-  @Output() openActionSheet = new EventEmitter<object>();
-  @Output() openCalorieTracker = new EventEmitter<object>();
+  @Output() openTrackerDetail = new EventEmitter<object>();
   expanded: boolean = false;
-  expandHeight: string = "300px";
   tackersData: any = [];
-  constructor(public renderer: Renderer2) {
+  constructor() {
   }
   ngOnInit() {
       console.log('in');
-      this.tackersData = [{
+      this.tackersData = [
+        {
         name: 'Calorie Tracker',
-        data: '300 of 2250 Cal Eaten',
+        todaysValue: '300',
+        totalValue: '2250',
+        UnitText: 'Cal Eaten',
+        show: true,
+        isAdded: true,
+        trackerFunctionName: "calorieTracker",
+        color: "blue"
        },
        {
         name: 'Water Tracker',
-        data: '0 of 9 Glasses consumed',
+        todaysValue: '5',
+        totalValue: '8',
+        UnitText: 'glasses consumed',
+        show: false,
+        isAdded: false,
+        trackerFunctionName: "waterTracker",
+        color: '#E02828'
        },
        {
         name: 'Weight Tracker',
-        data: '76.07 kg',
+        todaysValue: '70',
+        totalValue: '80',
+        UnitText: 'Cal Eaten',
+        show: false,
+        isAdded: false,
+        trackerFunctionName: "weightTracker",
+        color: 'black'
        },
        {
         name: 'Handwash Tracker',
-        data: '6 of 12 washes done',
-       }];
+        todaysValue: '10',
+        totalValue: '15',
+        UnitText: 'hand washed',
+        show: false,
+        isAdded: false,
+        trackerFunctionName: "handwashTracker",
+        color: 'green'
+       },
+      ];
        console.log('this.tackersData',this.tackersData);
   }
   ngAfterViewInit() {
-    this.renderer.setStyle(this.expandWrapper.nativeElement, "max-height", this.expandHeight);
   }
-  emit() {
-    this.openActionSheet.emit({
-      actionName:'Calorie'
-    });
-  }
-
-  open() {
-    this.openCalorieTracker.emit({
-      calorieTracker:'Breakfast'
-    });
-  }
-
-
-  toogglePannel() {
+  expandList() {
     this.expanded = !this.expanded;
+    this.tackersData.map( (data, i) => {
+      if( i !== 0){
+        data.show = this.expanded;
+      }
+    });
   }
 
+  addTracker(tracker) {
+    if(!tracker.isAdded){
+      tracker.isAdded = true;
+    }else{
+      this.openTracker(tracker);
+    }
+  }
+
+  openTracker(tracker){
+    if(tracker.isAdded){
+      this.openTrackerDetail.emit({
+        actionName:tracker.trackerFunctionName
+      });
+    }
+  }
 }

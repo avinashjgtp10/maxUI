@@ -50,6 +50,7 @@
     "highcharts": "^8.1.2",
     "igniteui-angular": "^10.0.5",
     "moment": "^2.27.0",
+    "ng-circle-progress": "^1.5.1",
     "ng-otp-input": "^1.7.1",
     "ng5-slider": "^1.2.4",
     "rxjs": "~6.5.1",
