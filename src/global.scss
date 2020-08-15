@@ -60,6 +60,7 @@
   --button-color:#FFFFFF;
   --color: #FFFFFF;
 }
+
 .action-sheet-component{
   --height: 40%;
   align-items: flex-end;
@@ -68,4 +69,15 @@
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
   }
+}
+.date-slider-component{
+  --height: 66px;
+  align-items: baseline;
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
+  margin-top: 66px;
+  
+}
+.canvasjs-chart-canvas{
+  width: 100% !important;
+  height: 225px !important;
 }

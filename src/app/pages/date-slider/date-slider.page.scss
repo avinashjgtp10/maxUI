@@ -1,0 +1,28 @@
+ion-slides {
+    ion-slide{
+        text-align: center;
+        ion-button {
+            padding:0px;
+            width:35px;
+            height:55px;
+            //border: 1px solid black;
+            ion-label{
+                p {
+                    font-weight: normal;
+                    font-size: 14px;
+                    color: #2E3034;
+                }
+                ion-text {
+                    font-weight: normal;
+                    font-size: 14px;
+                    color: #8F92A1;
+                }
+            }
+        }
+        .active-slide {
+            background-color: #E8E8E8;
+            border: 1px solid #E0E0E0;
+            border-radius: 25px;
+        }
+    }
+}
