@@ -21,7 +21,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { IonicStorageModule } from "@ionic/storage";
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-
+import {RoundProgressModule} from 'angular-svg-round-progressbar';
 
 export function createTranslateLoader(http:HttpClient){
  return new TranslateHttpLoader(http,'assets/i18n/','.json');
@@ -36,6 +36,7 @@ export function createTranslateLoader(http:HttpClient){
   AppRoutingModule,
   ComponentsModule,
   HttpClientModule,
+  RoundProgressModule,
   IonicStorageModule.forRoot(),
   NgCircleProgressModule.forRoot({
   

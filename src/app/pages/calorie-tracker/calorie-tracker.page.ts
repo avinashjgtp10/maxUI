@@ -18,29 +18,22 @@ export class CalorieTrackerPage implements OnInit {
   selectedSegment: any = 'breakfast';
   segmentData: any = [];
   backUpConsumedData: any = [];
+  oneDayConsumedCalorie: any;
+  calorieToReach: any;
+  calorieProgressBar: number = 0;
   consumedFoodData: any = [];
   allEstimatedData: any = {};
   calorieEstimated: number = 0;
   calorieConsumed: number = 0;
+  mealPercetage: any = {
+    'breakfast': 0.25,
+    'morning_snack': 0.12,
+    'lunch':0.25,
+    'evening_snack': 0.12,
+    'dinner': 0.25
+  }
   otherMealfactor: number = 0.2;
   numColumns:number = 2;
-  numOptions:number =5 
-  gadgets: any[] = [
-    [
-      "Samsung Note 10",
-      "OnePlus 7T",
-      "Redmi Note8",
-      "Oppo Reno3 Pro",
-      "VIVO V11 Pro"
-    ],
-    [
-      "ASUS ZenBook Pro",
-      "Lenovo IdeaPad",
-      "Acer Nitro",
-      "Dell G3",
-      "MSI Gamming GF75 Thin"
-    ]
-  ];
   constructor(public modalController: ModalController,
     public apiService: ApiCallService,  
     public loadingService: LoadingContollerService,
@@ -79,6 +72,9 @@ export class CalorieTrackerPage implements OnInit {
     });
   }
   async openPicker(item){
+    let selectedIndex1 = parseFloat(item.c_amount) * 4;
+    selectedIndex1 = parseFloat(selectedIndex1.toFixed(2));
+   let selectedIndex2 = item.c_measure.indexOf(item.c_clientmeasure)
     let options: PickerOptions = {
       keyboardClose:true,
       animated: true,
@@ -91,20 +87,22 @@ export class CalorieTrackerPage implements OnInit {
           {
             text:'Ok',
             handler:(value:any) => {
-              console.log(value);
+              this.updateItemCalculations(value,item);
             }
           }
         ],
         columns:this.getColumns(item)
   };
   let picker = await this.pickerController.create(options);
+  picker.columns[0].selectedIndex = selectedIndex1 - 1;
+  picker.columns[1].selectedIndex = selectedIndex2 - 1;
   picker.present()
   }
   getColumns(item){
     let columns=[];
     for(let i =0 ;i < this.numColumns;i++){
         columns.push({
-            name:`col -${i}`,
+            name: i,
             options: this.getColumnOptions(i,item)
         })
     }
@@ -113,11 +111,11 @@ export class CalorieTrackerPage implements OnInit {
 getColumnOptions(columIndex:number,item){
   let options = [];
   if(columIndex === 0) {
-    for(let i=1;i < 200;i++){
+    for(let i=1;i < 1000;i++){
       let value = (i / 4).toFixed(2);
       options.push({
           text: `${value}`,
-          value:value
+          value:parseFloat(value)
       })
      }
   }
@@ -132,6 +130,42 @@ getColumnOptions(columIndex:number,item){
   
   return options;
 }
+updateItemCalculations(selectedValue, item){
+  let newValue = selectedValue[0].value;
+  let originalValue = parseFloat(item.c_amount);
+  let ratio = originalValue/newValue;
+  let newCalories = parseFloat(item.c_calories) / ratio;
+  let newFats = parseFloat(item.c_fats) / ratio;
+  let newCarbs = parseFloat(item.c_carbohydrates) / ratio;
+  let newFibers = parseFloat(item.c_fibres) / ratio;
+  let newProteins = parseFloat(item.c_proteins) / ratio;
+ 
+  item.c_calories = newCalories;
+  item.c_amount = newValue;
+  item.c_carbohydrates = newCarbs;
+  item.c_fibres = newFibers;
+  item.c_fats = newFats;
+  item.c_proteins = newProteins;
+
+  this.loadingService.loadingPresent();
+  this.apiService.updateFoodItem(item,localStorage.getItem('c_id'),item.co_id).subscribe((result)=>{
+    console.log(result);
+    this.loadingService.loadingDismiss();
+    this.updateData();
+  },(error)=>{
+    this.loadingService.loadingDismiss();
+  })
+}
+deleteItem(food) {
+  this.loadingService.loadingPresent();
+  this.apiService.deleteFoodItem(localStorage.getItem('c_id'),food.co_id).subscribe((result)=>{
+     console.log(result);
+     this.loadingService.loadingDismiss();
+     this.updateData();
+  }, (error)=>{
+    this.loadingService.loadingDismiss();
+  });
+}
   updateData(){
     this.loadingService.loadingPresent();
     let date = moment().format('DD/MM/YYYY');
@@ -140,6 +174,13 @@ getColumnOptions(columIndex:number,item){
       this.allEstimatedData = {...data};
       this.apiService.getUserFoodData(date,date,localStorage.getItem('c_id')).subscribe((response: any) => {
         this.backUpConsumedData = response;
+        if( this.backUpConsumedData.length){
+          this.oneDayConsumedCalorie = this.backUpConsumedData.reduce((acc,obj) => {
+            return acc + parseFloat(obj.c_calories);
+          }, 0);
+        } else {
+          this.oneDayConsumedCalorie = 0;
+        }
         this.consumedFoodData = this.backUpConsumedData.filter((item,i,a)=> {
             return item.consumed_category === this.selectedSegment;
         });
@@ -156,7 +197,13 @@ getColumnOptions(columIndex:number,item){
     this.calorieConsumed = this.consumedFoodData.reduce((acc,obj) => {
       return acc + parseFloat(obj.c_calories);
     }, 0);
-    this.calorieEstimated = (this.allEstimatedData.calorieEstimate).toFixed(2) * this.otherMealfactor;
+    this.calorieEstimated = (this.allEstimatedData.calorieEstimate).toFixed(2) * this.mealPercetage[this.selectedSegment];
+    this.calorieToReach = this.allEstimatedData.calorieEstimate - this.oneDayConsumedCalorie;
+    if(this.oneDayConsumedCalorie){
+      this.calorieProgressBar = this.oneDayConsumedCalorie / this.allEstimatedData.calorieEstimate;
+    } else {
+      this.calorieProgressBar = 0;
+    }
   }
   segmentChanged(e) {
     this.consumedFoodData = [];

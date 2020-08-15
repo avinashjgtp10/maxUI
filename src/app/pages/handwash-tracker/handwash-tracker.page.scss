@@ -1,0 +1,91 @@
+ion-header {
+    height: 5rem;
+    background-color: #FFFFFF;;
+    ion-toolbar{
+       --background: #FFFFFF;;
+        padding-top: 10px;
+        padding-right: 10px;
+        ion-button {
+          margin-right:10px;
+          --color:#000000;
+          ion-icon {
+            
+          }
+        }
+        ion-title{
+            font-weight: 500;
+            font-size: 18px;
+            color: #000000;
+        }
+        .input-icon {
+            width: 40px;
+            height: 40px;
+        }
+    }
+}
+ion-content{
+    ion-card{
+        box-shadow: none;
+        round-progress {
+             margin: 3rem auto 0 auto;
+        }
+        ion-list{
+            margin-top: 3rem;
+            border-top:1px solid #F7F7F7;
+            ion-list-header{
+                font-weight: normal;
+                font-size: 16px;
+                color: #444444;
+            }
+            ion-item{
+                ion-label{
+                    font-weight: 300;
+                    font-size: 16px;
+                    margin-right: 5px;
+                    color: rgba(68, 68, 68, 0.8);
+                    ion-text{
+                        color: #E02828;
+                    }
+                }
+                .time-text {
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: rgba(68, 68, 68, 0.8);
+                }
+            }
+        }
+        ion-grid{
+            position: absolute;
+            top: 20%;
+            left:24%;
+            ion-row{
+                ion-button{
+                    height: 50px;
+                    .handwash-add{
+                        width: 44px;
+                        height: 44px;
+                    }
+                }
+                ion-col{
+                    .handwash-icon{
+                      width: 52px;
+                      height: 44px;
+                    }
+                    ion-label{
+                        font-weight: bold;
+                        font-size: 22px;
+                        color: rgba(68, 68, 68, 0.8);
+                        ion-text{
+                           
+                        }
+                        p{
+                            font-weight: normal;
+                            font-size: 22px;
+                            color: rgba(68, 68, 68, 0.8);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

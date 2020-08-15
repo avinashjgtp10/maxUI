@@ -7,7 +7,7 @@
     </ion-toolbar>
     <ion-slides pager="false" [options]="slideOpts" #dateSlider (ionSlideDidChange)="slideChanged($event)">
         <ion-slide *ngFor="let date of dateSliderData; let d = index"> 
-          <ion-button fill="clear" (click)="slideToSelected(data,d)" class="ion-no-padding" [class.active-slide]="date.isSelected">
+          <ion-button fill="clear"  (click)="slideToSelected(data,d)" class="ion-no-padding" [disabled]="date.isDisabled" [class.active-slide]="date.isSelected">
               <ion-label>
                   <p>{{date.day}}</p>
                   <ion-text>{{date.date}}</ion-text>
@@ -28,7 +28,7 @@
       <ion-item lines="none" *ngFor="let food of frequentlyFoodData; let i = index">
         <ion-label slot="start">
             <h4>{{food.c_item}}</h4>
-            <ion-text>{{food.c_amount}}</ion-text>
+            <ion-text>{{food.c_amount}} {{food.c_clientmeasure}}</ion-text>
         </ion-label>
         <ion-text  slot="end">{{food.c_calories}} Cals</ion-text>
          <ion-button (click)="foodSelected(food,i)" slot="end" fill="clear" size="small" class="ion-no-margin">

@@ -43,6 +43,10 @@ const routes: Routes = [
   {
     path: 'water-tracker',
     loadChildren: () => import('./pages/water-tracker/water-tracker.module').then( m => m.WaterTrackerPageModule)
+  },
+  {
+    path: 'handwash-tracker',
+    loadChildren: () => import('./pages/handwash-tracker/handwash-tracker.module').then( m => m.HandwashTrackerPageModule)
   }
 ];
 

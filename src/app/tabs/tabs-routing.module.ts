@@ -13,7 +13,7 @@ const routes: Routes = [
       },
       {
         path: 'tab2',
-        loadChildren: () => import('../pages/get-fit/get-fit.module').then(m => m.GetFitPageModule)
+        loadChildren: () => import('../pages/handwash-tracker/handwash-tracker.module').then(m => m.HandwashTrackerPageModule)
       },
       {
         path: 'tab3',
