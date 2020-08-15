@@ -183,4 +183,47 @@ export class DateProviderService {
       })
     });
   }
+
+  getAllDates(fromDate, toDate, selectedDate){
+    return new Promise((resolve, reject) => {
+    let dates = []
+    let currDate = moment().add(-1, 'weeks').startOf('week');
+    if(fromDate){
+      currDate = moment(fromDate, 'DD/MM/YYYY');
+    }
+    let lastDate = moment();
+    if(toDate){
+      lastDate = moment(toDate, 'DD/MM/YYYY')
+    }
+    let selectDate = moment();
+    if(selectedDate){
+      selectDate = moment(selectedDate, 'DD/MM/YYYY')
+    }
+    let count = -1;
+    let selectedIndex = 0;
+    while(currDate.add(1, 'days').diff(lastDate) < 0) {
+        let temp = moment(currDate).format('dd/DD');
+        let date = temp.split('/');
+        count = count + 1;
+        dates.push( {
+          day:date[0],
+          date: date[1],
+          dateFormatted: moment(currDate).format('DD/MM/YYYY'),
+          fullDate: currDate,
+          index: count,
+          isSelected:currDate.isSame(selectDate, 'd'),
+          isToday: currDate.isSame(moment(), 'd'),
+          pageText: currDate.format('D MMM')
+        });
+        if(currDate.isSame(selectDate, 'd')){
+          selectedIndex = count;
+        }
+    }
+    const data = {
+      dates: dates,
+      selectedIndex: selectedIndex
+    }
+    resolve( data);
+   })
+  }
 }

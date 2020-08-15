@@ -47,6 +47,10 @@ const routes: Routes = [
   {
     path: 'handwash-tracker',
     loadChildren: () => import('./pages/handwash-tracker/handwash-tracker.module').then( m => m.HandwashTrackerPageModule)
+  },
+  { 
+    path: 'date-slider',
+    loadChildren: () => import('./pages/date-slider/date-slider.module').then( m => m.DateSliderPageModule)
   }
 ];
 

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { AddWaterComponentPage } from './add-water-component/add-water-component.page';
-import * as HighCharts from 'highcharts';
+import * as CanvasJS from './../../../assets/lib/canvasjs.min';
+import { DateSliderPage } from '../date-slider/date-slider.page';
 
 
 @Component({
@@ -12,144 +13,16 @@ import * as HighCharts from 'highcharts';
 })
 export class WaterTrackerPage implements OnInit {
   waterChart: any;
-  dataPrev = {
-    2016: [
-        ['South Korea', 0],
-        ['Japan', 0],
-        ['Australia', 0],
-        ['Germany', 11],
-        ['Russia', 24],
-        ['China', 38],
-        ['Great Britain', 29],
-        ['United States', 46]
-    ],
-    2012: [
-        ['South Korea', 13],
-        ['Japan', 0],
-        ['Australia', 0],
-        ['Germany', 0],
-        ['Russia', 22],
-        ['China', 51],
-        ['Great Britain', 19],
-        ['United States', 36]
-    ],
-    2008: [
-        ['South Korea', 0],
-        ['Japan', 0],
-        ['Australia', 0],
-        ['Germany', 13],
-        ['Russia', 27],
-        ['China', 32],
-        ['Great Britain', 9],
-        ['United States', 37]
-    ],
-    2004: [
-        ['South Korea', 0],
-        ['Japan', 5],
-        ['Australia', 16],
-        ['Germany', 0],
-        ['Russia', 32],
-        ['China', 28],
-        ['Great Britain', 0],
-        ['United States', 36]
-    ],
-    2000: [
-        ['South Korea', 0],
-        ['Japan', 0],
-        ['Australia', 9],
-        ['Germany', 20],
-        ['Russia', 26],
-        ['China', 16],
-        ['Great Britain', 0],
-        ['United States', 44]
-    ]
-};
- data = {
-    2016: [
-        ['South Korea', 0],
-        ['Japan', 0],
-        ['Australia', 0],
-        ['Germany', 17],
-        ['Russia', 19],
-        ['China', 26],
-        ['Great Britain', 27],
-        ['United States', 46]
-    ],
-    2012: [
-        ['South Korea', 13],
-        ['Japan', 0],
-        ['Australia', 0],
-        ['Germany', 0],
-        ['Russia', 24],
-        ['China', 38],
-        ['Great Britain', 29],
-        ['United States', 46]
-    ],
-    2008: [
-        ['South Korea', 0],
-        ['Japan', 0],
-        ['Australia', 0],
-        ['Germany', 16],
-        ['Russia', 22],
-        ['China', 51],
-        ['Great Britain', 19],
-        ['United States', 36]
-    ],
-    2004: [
-        ['South Korea', 0],
-        ['Japan', 16],
-        ['Australia', 17],
-        ['Germany', 0],
-        ['Russia', 27],
-        ['China', 32],
-        ['Great Britain', 0],
-        ['United States', 37]
-    ],
-    2000: [
-        ['South Korea', 0],
-        ['Japan', 0],
-        ['Australia', 16],
-        ['Germany', 13],
-        ['Russia', 32],
-        ['China', 28],
-        ['Great Britain', 0],
-        ['United States', 36]
-    ]
-};
+  slideOpts = {
+    initialSlide: 0,
+    slidesPerView: 7,
+    speed: 400
+  };
 
- countries = [{
-    name: 'South Korea',
-    flag: 197582,
-    color: 'rgb(201, 36, 39)'
-}, {
-    name: 'Japan',
-    flag: 197604,
-    color: 'rgb(201, 36, 39)'
-}, {
-    name: 'Australia',
-    flag: 197507,
-    color: 'rgb(0, 82, 180)'
-}, {
-    name: 'Germany',
-    flag: 197571,
-    color: 'rgb(0, 0, 0)'
-}, {
-    name: 'Russia',
-    flag: 197408,
-    color: 'rgb(240, 240, 240)'
-}, {
-    name: 'China',
-    flag: 197375,
-    color: 'rgb(255, 217, 68)'
-}, {
-    name: 'Great Britain',
-    flag: 197374,
-    color: 'rgb(0, 82, 180)'
-}, {
-    name: 'United States',
-    flag: 197484,
-    color: 'rgb(215, 0, 38)'
-}];
+  selectedActiveDateFormat: string = "Today";
+  selectedDate;
+
+ 
 
   constructor(private modalController:ModalController,
               private actionSheetController: ActionSheetController) { }
@@ -163,6 +36,7 @@ export class WaterTrackerPage implements OnInit {
       "legends": [15, 35, 19]
     }
     )
+    this.renderChart();
   }
   closeModal() {
     this.modalController.dismiss({
@@ -313,6 +187,170 @@ export class WaterTrackerPage implements OnInit {
             color: this.countries[i].color
         };
     });
+}
+
+renderChart() {
+  var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+    title:{
+      text: ""
+    },	
+   
+     dataPointWidth: 150,
+    axisY: {
+          title: "",
+          gridThickness: 0,
+          tickLength: 0,
+          lineThickness: 0,
+          labelFormatter: function(){
+            return " ";
+          }  
+    },
+    axisY2: {
+          title: "",
+          gridThickness: 0,
+          tickLength: 0,
+          lineThickness: 0,
+          labelFormatter: function(){
+            return " ";
+          }  
+    },	
+ 
+    legend: {
+      cursor:"pointer",
+      itemclick: toggleDataSeries
+    },
+    data: [{
+      indexLabel: "8",
+      indexLabelFontSize: 26,
+      indexLabelPlacement: "inside",
+      type: "column",
+      legendText: "",
+      showInLegend: true, 
+      color: "gray",
+      dataPoints:[
+        { label: "Saudi", y: 12 }
+       
+      
+      
+      ]
+    },
+    {
+      type: "column",	
+      name: "",
+      legendText: "",
+      indexLabel: "8",
+      indexLabelPlacement: "inside",
+      indexLabelFontSize: 26,
+      axisYType: "secondary",
+      showInLegend: true,
+      color: "blue",
+      dataPoints:[
+        { label: "Saudi", y: 10  }
+       
+     
+       
+      ]
+    }]
+  });
+  chart.render();
+  
+  
+
+  // Show Default Text
+  var chartName = "chartContainer1";
+  var chart = new CanvasJS.Chart(chartName, {
+    animationEnabled: true,
+    title:{
+      text: ""
+    },	
+     dataPointWidth: 150,
+    axisY: {
+          title: "",
+          gridThickness: 0,
+          tickLength: 0,
+          lineThickness: 0,
+          labelFormatter: function(){
+            return " ";
+          }  
+    },
+    axisY2: {
+          title: "",
+          gridThickness: 0,
+          tickLength: 0,
+          lineThickness: 0,
+          labelFormatter: function(){
+            return " ";
+          }  
+    },	
+  
+    legend: {
+      cursor:"pointer",
+      itemclick: toggleDataSeries
+    },
+    data: [{
+      type: "column",
+      legendText: "",
+      showInLegend: true, 
+      dataPoints:[
+        { label: "Saudi", y: 12}
+       
+      
+      
+      ]
+    },
+    {
+      type: "column",	
+      name: "",
+      legendText: "",
+      axisYType: "secondary",
+      showInLegend: true,
+          dataPointWidth: 2,
+      dataPoints:[
+        { label: "Saudi", y: 10  }
+       
+     
+       
+      ]
+    }]
+  });
+  chart.render();
+  
+  function toggleDataSeries(e) {
+    if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+      e.dataSeries.visible = false;
+    }
+    else {
+      e.dataSeries.visible = true;
+    }
+    chart.render();
+  }
+}
+openDateSlide(){
+  this.openDateSlider();
+}
+async openDateSlider() {
+  const modal = await this.modalController.create({
+    component: DateSliderPage,
+    cssClass: 'date-slider-component',
+    componentProps: {
+      fromDate: '01/07/2020',
+      toDate: undefined,
+      selectedDate: this.selectedDate
+   }
+  });
+    modal.onDidDismiss()
+    .then((data) => {
+      if(data.data){
+        this.selectedDate = data.data.dateFormatted;
+      if(!(data.data.isToday)){
+        this.selectedActiveDateFormat = (data.data.pageText);
+      }else{
+        this.selectedActiveDateFormat = "Today";
+      }
+      }
+    });
+  return await modal.present();
 }
 
  

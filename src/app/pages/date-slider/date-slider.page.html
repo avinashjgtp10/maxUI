@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-slides pager="false" *ngIf="didInit" [options]="slideOpts" #dateModalSlider >
+          <ion-slide *ngFor="let date of dateSliderData; let d = index" (click)="dateSelected(date)"> 
+            <ion-button fill="clear" class="ion-no-padding" [class.active-slide]="date.isSelected">
+                <ion-label>
+                    <p>{{date.day}}</p>
+                    <ion-text>{{date.date}}</ion-text>
+                </ion-label>
+            </ion-button>
+          </ion-slide>
+        </ion-slides>
+  </ion-toolbar>
+</ion-header>
+
+

@@ -3,7 +3,10 @@
     <ion-button (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
       <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
     </ion-button>
-    <ion-title class="ion-no-padding">Today</ion-title>
+    <ion-button  slot="start" fill="clear" size="small" (click)="openDateSlide()">
+        {{selectedActiveDateFormat}} <ion-icon slot="end" name="arrow-down-circle"></ion-icon>
+      </ion-button>
+   
   </ion-toolbar>
 </ion-header>
 
@@ -45,9 +48,15 @@
   <div class="daily-intake">
       <p>Daily Water Intake<span ><ion-icon src="assets/icon/icon_share.svg"></ion-icon></span></p>
       <span >Last 7 days</span>
-    </div>
-    <ion-card>
-        <div id="highchartsWater"></div>
-      </ion-card>
- 
+  </div>
+      <div style="width: 100%">
+      <ion-slides style="width: 100%" pager="false" [options]="slideOpts" #graphSlider (ionSlideDidChange)="slideChanged($event)">
+          <ion-slide > 
+              <div id="chartContainer" style="width: 375px; height: 400px;"></div>
+          </ion-slide>
+          <ion-slide > 
+              <div id="chartContainer1" style="width: 375px; height: 400px;"></div>
+          </ion-slide>
+        </ion-slides>
+        </div>
 </ion-content>
