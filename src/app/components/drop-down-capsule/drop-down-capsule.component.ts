@@ -78,11 +78,6 @@ export class DropDownCapsuleComponent implements OnInit {
   }
 
   openTracker(tracker){
-    // if(tracker.isAdded){
-    //   this.openTrackerDetail.emit({
-    //     actionName:tracker.trackerFunctionName
-    //   });
-    // }
     this.openTrackerDetail.emit({
       actionName:tracker.trackerFunctionName
     });
