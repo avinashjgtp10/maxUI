@@ -169,4 +169,13 @@ export class ApiCallService {
           )
       }
 
+      post(payload, endponit): Observable<JSON> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json')
+        return this.http
+          .post<JSON>(this.base_path + endponit, JSON.stringify(payload), {headers: headers})
+          .pipe(
+            catchError(this.handleError)
+          )
+      }
+
 }
