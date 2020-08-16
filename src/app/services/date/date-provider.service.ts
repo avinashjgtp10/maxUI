@@ -226,4 +226,27 @@ export class DateProviderService {
     resolve( data);
    })
   }
+
+  getOneMonthdatelimits(){
+ 
+    return new Promise((resolve, reject) => {
+    let oneMonthOlderDate = moment().subtract(1, 'months');
+    let oneMonthBlankData = [];
+    while(oneMonthOlderDate.add(1, 'days').diff(moment()) < 0) {
+          const currentData = {
+            wt_goal : 8,
+            wt_achived: 0,
+            wt_date: oneMonthOlderDate.format(('DD/MM/YYYY')),
+            wt_date_graphFormat: oneMonthOlderDate.format('ddd DD')
+          }
+          oneMonthBlankData.push(currentData)
+      }
+      resolve(oneMonthBlankData)
+   })
+
+  }
+
+  getTodayDateInFormat(){
+    return moment().format('DD/MM/YYYY');
+  }
 }
