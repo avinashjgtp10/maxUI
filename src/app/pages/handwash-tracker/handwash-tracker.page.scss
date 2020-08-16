@@ -27,15 +27,27 @@ ion-content{
     ion-card{
         box-shadow: none;
         round-progress {
-             margin: 3rem auto 0 auto;
+            // margin: 1rem auto 0 auto;
+            position: absolute;
+            transform: translateX(-50%);
+            top:10px;
+            left: 50%;
         }
         ion-list{
-            margin-top: 3rem;
+            margin-top: 2rem;
             border-top:1px solid #F7F7F7;
             ion-list-header{
                 font-weight: normal;
                 font-size: 16px;
                 color: #444444;
+            }
+            ion-radio-group{
+                ion-radio {
+                    width: 24px;
+                    height: 24px;
+                    --color:#C4C4C4;
+                    --color-checked: #E02828;
+                }
             }
             ion-item{
                 ion-label{
@@ -52,12 +64,38 @@ ion-content{
                     font-weight: bold;
                     color: rgba(68, 68, 68, 0.8);
                 }
+                .extra-width {
+                    max-width: 20%;
+                }
             }
         }
+        .today-tip{
+            border: 1px solid;
+            margin: 5%;
+            padding: 0 5% 0 5%;
+            border-radius: 20px;
+            p{
+                font-style: italic;
+                color: gray;
+            }
+            .tip{
+                font-weight: bold;
+                color: black;
+            }
+        }
+        .rounded-grid{
+            margin: 1rem;
+            border: 1px solid #EAEAEA;
+            box-sizing: border-box;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 25px;
+            padding: 0;
+        }
         ion-grid{
-            position: absolute;
-            top: 20%;
-            left:24%;
+            // position: absolute;
+            // top: 20%;
+            // left:24%;
+            
             ion-row{
                 ion-button{
                     height: 50px;
@@ -66,7 +104,22 @@ ion-content{
                         height: 44px;
                     }
                 }
+                .background-color{
+                    background-color: #EDEDED;
+                    border-radius: 25px;
+                    padding: 0;
+                }
                 ion-col{
+                    .audio-play{
+                     ion-icon{
+                        width: 44px;
+                        height: 44px;
+                     }
+                    }
+                    .washing-hand {
+                        width: 92px;
+                        height: 92px;
+                    }
                     .handwash-icon{
                       width: 52px;
                       height: 44px;

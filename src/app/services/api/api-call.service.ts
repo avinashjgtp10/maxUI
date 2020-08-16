@@ -169,4 +169,24 @@ export class ApiCallService {
           )
       }
 
+        // Search Handwash Tracker Data
+        searchHandwashTrackerData(data): Observable<JSON> {
+          let headers = new HttpHeaders().set('Content-Type', 'application/json');
+          return this.http
+          .post<JSON>(this.base_path + `/handwashtracker/search/`, JSON.stringify(data), {headers: headers} )
+          .pipe(
+            catchError(this.handleError)
+          )
+        }
+
+          // Store Handwash Tracker Data
+          storeHandwashTrackerData(data): Observable<JSON> {
+            let headers = new HttpHeaders().set('Content-Type', 'application/json');
+            return this.http
+            .post<JSON>(this.base_path + `/handwashtracker/addupdate/`, JSON.stringify(data), {headers: headers} )
+            .pipe(
+              catchError(this.handleError)
+            )
+          }
+
 }
