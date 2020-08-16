@@ -9,6 +9,9 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
 import { ComponentsModule } from '../../components/components.module';
 import { PipesModule } from '../../pipes/pipes.module';
+import { ToastProvider } from 'src/app/services/toast/toast';
+
+
 
 @NgModule({
   imports: [
@@ -19,6 +22,7 @@ import { PipesModule } from '../../pipes/pipes.module';
     PipesModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage],
+  providers: [ToastProvider]
 })
 export class HomePageModule {}

@@ -169,6 +169,7 @@ export class ApiCallService {
           )
       }
 
+
         // Search Handwash Tracker Data
         searchHandwashTrackerData(data): Observable<JSON> {
           let headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -188,5 +189,15 @@ export class ApiCallService {
               catchError(this.handleError)
             )
           }
+
+      post(payload, endponit): Observable<JSON> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json')
+        return this.http
+          .post<JSON>(this.base_path + endponit, JSON.stringify(payload), {headers: headers})
+          .pipe(
+            catchError(this.handleError)
+          )
+      }
+
 
 }
