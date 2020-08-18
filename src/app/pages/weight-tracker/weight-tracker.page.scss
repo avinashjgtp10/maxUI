@@ -1,0 +1,21 @@
+@import '../../shared/styles/default.scss';
+ion-header {
+    height: auto;
+    border: none;
+    background-color: #F3F4F3;
+    ion-toolbar{
+       --background: #F3F4F3;
+        padding-top: 10px;
+        ion-button {
+          margin-right:10px;
+          --color:#000000;
+          ion-icon {
+            
+          }
+        }
+    }
+}
+
+
+
+
