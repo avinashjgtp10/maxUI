@@ -111,6 +111,8 @@ ion-content{
                 }
                 ion-col{
                     .audio-play{
+                        position: relative;
+                        top: 2rem;
                      ion-icon{
                         width: 44px;
                         height: 44px;
@@ -131,10 +133,21 @@ ion-content{
                         ion-text{
                            
                         }
+                        h4 {
+                            font-weight: 300;
+                            font-size: 18px;
+                            color:rgba(68, 68, 68, 0.8);
+                            margin-bottom: 20px;
+                        }
                         p{
                             font-weight: normal;
                             font-size: 22px;
                             color: rgba(68, 68, 68, 0.8);
+                        }
+                        .timer-text{
+                            font-weight: bold;
+                            font-size: 30px;
+                            color:#444444;
                         }
                     }
                 }

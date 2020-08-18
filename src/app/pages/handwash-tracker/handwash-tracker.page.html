@@ -78,12 +78,12 @@
     </ion-col>
     <ion-col size="8" class="ion-text-center ion-padding-top">
       <ion-label>
-        <h4>Hand Wash timer</h4>
-        <p>00:00.00</p>
-        <ion-button (click)="closeModal()" fill="clear" size="small" class="ion-no-margin audio-play">
-          <ion-icon slot="icon-only" src="assets/icon/icon_audio_play.svg"></ion-icon>
-        </ion-button>
+        <h4>Hand Wash Timer</h4>
+        <p class="timer-text">{{format(mm)}}:{{format(ss)}}:{{format(ms)}}</p>
       </ion-label>
+      <ion-button (click)="clickHandler()" fill="clear" size="small" class="ion-no-margin audio-play">
+        <ion-icon slot="icon-only" src="assets/icon/icon_audio_play.svg"></ion-icon>
+      </ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>

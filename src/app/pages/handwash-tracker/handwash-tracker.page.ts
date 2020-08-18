@@ -4,6 +4,7 @@ import { LoadingContollerService } from "../../services/loading/loading-contolle
 import * as moment from 'moment';
 import { ModalController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { Howl } from 'howler';
 
 @Component({
   selector: 'app-handwash-tracker',
@@ -13,6 +14,14 @@ import { ToastController } from '@ionic/angular';
 export class HandwashTrackerPage implements OnInit {
   htAchived:number = 0;
   htGoal: number = 16;
+  mm = 0;
+  ss = 0;
+  ms = 0;
+  isRunning = false;
+  timerId: any = 0;
+  player: Howl = null;
+  isPlaying: boolean = false;
+
   constructor(public toastController: ToastController,
     public loadingService: LoadingContollerService,
     public modalController: ModalController,
@@ -20,7 +29,29 @@ export class HandwashTrackerPage implements OnInit {
 
   ngOnInit() {
     this.getHandwasTrackerData();
+    this.player = new Howl({
+      src: ['./assets/mp3/hand_wash_sound.mp3'],
+      html5: true,
+      onplay: ()=> {
+       this.isPlaying = true;
+      },
+      onend: ()=>{
+        this.isPlaying = false;
+        clearInterval(this.timerId);
+        this.mm = 0;
+        this.ms = 0;
+        this.ss = 0;
+        this.timerId = 0;
+      }
+    });
   }
+  // startSong(){
+  //   if(this.player){
+  //     this.player.stop();
+  //   }
+   
+  //   this.player.play();
+  // }
   getHandwasTrackerData(){
     this.loadingService.loadingPresent();
     let date = moment().format('DD/MM/YYYY');
@@ -76,5 +107,34 @@ export class HandwashTrackerPage implements OnInit {
         this.loadingService.loadingDismiss();
       })
     }
+  }
+  clickHandler() {
+    if (!this.isRunning && !this.isPlaying) {
+      // Stop => Running
+      this.timerId = setInterval(() => {
+        this.ms++;
+
+        if (this.ms >= 100) {
+          this.ss++;
+          this.ms = 0;
+        }
+        if (this.ss >= 60) {
+          this.mm++;
+          this.ss = 0
+        }
+      }, 10);
+      this.player.play();
+    } else {
+      clearInterval(this.timerId);
+      if(this.isPlaying){
+        this.player.pause();
+        this.isPlaying = !this.isPlaying;
+      }
+    }
+    this.isRunning = !this.isRunning;
+  }
+
+  format(num: number) {
+    return (num + '').length === 1 ? '0' + num : num + '';
   }
 }
