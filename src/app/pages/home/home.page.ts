@@ -7,6 +7,7 @@ import { CalorieTrackerPage } from '../calorie-tracker/calorie-tracker.page';
 import { Router,ActivatedRoute } from "@angular/router"
 import { WaterTrackerPage } from '../water-tracker/water-tracker.page';
 import { HandwashTrackerPage } from '../handwash-tracker/handwash-tracker.page';
+import { WeightTrackerPage } from '../weight-tracker/weight-tracker.page';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -45,6 +46,14 @@ export class HomePage implements OnInit {
   async handwashTracker() {
     const modal = await this.modalController.create({
       component: HandwashTrackerPage,
+      cssClass: 'my-custom-class'
+    });
+    return await modal.present();
+  }
+
+  async weightTracker() {
+    const modal = await this.modalController.create({
+      component: WeightTrackerPage,
       cssClass: 'my-custom-class'
     });
     return await modal.present();

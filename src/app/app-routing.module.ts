@@ -51,6 +51,10 @@ const routes: Routes = [
   { 
     path: 'date-slider',
     loadChildren: () => import('./pages/date-slider/date-slider.module').then( m => m.DateSliderPageModule)
+  },
+  {
+    path: 'weight-tracker',
+    loadChildren: () => import('./pages/weight-tracker/weight-tracker.module').then( m => m.WeightTrackerPageModule)
   }
 ];
 
