@@ -3,36 +3,40 @@
     <ion-button (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
       <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
     </ion-button>
-    <ion-button  slot="start" fill="clear" size="small" (click)="openDateSlide()">
-        {{selectedActiveDateFormat}} <ion-icon slot="end" name="arrow-down-circle"></ion-icon>
-      </ion-button>
-   
+    <ion-button slot="start" fill="clear" size="small" (click)="openDateSlide()">
+      {{selectedActiveDateFormat}} <ion-icon slot="end" name="arrow-down-circle"></ion-icon>
+    </ion-button>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <div class="water-container">
-    <div >
-      <div (click)="postDataByDate(-.25)" class="circle"><span> - </span>
+    <div>
+      <div (click)="postDataByDate(-1)" class="circle"><span> - </span>
       </div>
       <div style="white-space: pre; color: gray">
-          <p style="margin-top: 15%;font-size: 13px;">250 ml</p>
-        </div>
+        <p style="margin-top: 15%;font-size: 13px;">250 ml</p>
+      </div>
     </div>
     <div>
-      <circle-progress [percent]="(currentData.wt_achived/currentData.wt_goal)*100" [showInnerStroke]="true" [radius]="80" [outerStrokeWidth]="6" [innerStrokeWidth]="6" [title]="currentData.wt_achived" subtitle="Drank so far" [showUnits]="false"
-        [outerStrokeColor]="'#E02828'" [innerStrokeColor]="'#EBF4FA'" [animation]="true" [animationDuration]="300" >
+      <circle-progress [percent]="(currentData.wt_achived/currentData.wt_goal)*100" [showInnerStroke]="true"
+        [radius]="80" [outerStrokeWidth]="6" [innerStrokeWidth]="6" [title]="(currentData.wt_achived/4)"
+        subtitle="Drank so far" [showUnits]="false" [outerStrokeColor]="'#E02828'" [startFromZero]="false"
+        [innerStrokeColor]="'#EBF4FA'" [animation]="true" [animationDuration]="300">
       </circle-progress>
       <div style="text-align: center">
-         <p (click)="openActionSheet()">Goal {{currentData.wt_goal}} L <ion-icon name="pencil-outline"  ></ion-icon></p>
-        </div>
+        <p style="font-weight: bold"(click)="openActionSheet()">Goal <span>{{( currentData.wt_goal/4 ) | number : '1.2-2'}}</span> L <ion-icon name="pencil-outline">
+          </ion-icon>
+        </p>
+      </div>
     </div>
 
-    
 
-    <div >
-      <div (click)="postDataByDate(+.25)" class="circle"><span> + </span>
+
+    <div>
+      <div (click)="postDataByDate(+1)" class="circle"><span> + </span>
       </div>
       <div style="white-space: pre; color: gray">
         <p style="margin-top: 15%;font-size: 13px;">250 ml</p>
@@ -40,31 +44,35 @@
     </div>
   </div>
   <div class="today-tip">
-      <p class="tip"> Today's Tip _____________________
-      </p>
-      <p> Drinking water in a sitting posture is better than running or standing posture
-      </p>
+    <p class="tip"> Today's Tip _____________________
+    </p>
+    <p> Drinking water in a sitting posture is better than running or standing posture
+    </p>
   </div>
   <div class="daily-intake">
-      <p>Daily Water Intake<span ><ion-icon src="assets/icon/icon_share.svg"></ion-icon></span></p>
-      <span >Last 7 days</span>
+    <p>Daily Water Intake<span>
+        <ion-icon src="assets/icon/icon_share.svg"></ion-icon>
+      </span></p>
+    <span>{{graphViewableDateText}}</span>
   </div>
-      <div style="width: 100%" >
-        <!-- (ionSlideDidChange)="slideChanged($event)" -->
-      <ion-slides style="width: 100%" pager="false" [options]="slideOpts" #graphSlider >
-          <ion-slide  > 
-              <div id="chartContainer1" style="width: 375px; height: 400px;"></div>
-          </ion-slide>
-          <!-- <ion-slide  > 
-            <div id="chartContainer2" style="width: 375px; height: 400px;"></div>
-        </ion-slide>
-        <ion-slide  > 
-          <div id="chartContainer3" style="width: 375px; height: 400px;"></div>
+  <div style="width: 100%">
+    <!-- (ionSlideDidChange)="slideChanged($event)" -->
+    <ion-slides style="width: 100%" pager="false" [options]="slideOpts" #graphSlider (ionSlideDidChange)="slideChanged($event)">
+      <ion-slide>
+        <div id="chartContainer1" style="width: 375px; height: 400px;"></div>
       </ion-slide>
-      <ion-slide  > 
+      <ion-slide>
+        <div id="chartContainer2" style="width: 375px; height: 400px;"></div>
+      </ion-slide>
+      <ion-slide>
+        <div id="chartContainer3" style="width: 375px; height: 400px;"></div>
+      </ion-slide>
+      <ion-slide>
         <div id="chartContainer4" style="width: 375px; height: 400px;"></div>
-    </ion-slide> -->
-         
-        </ion-slides>
-        </div>
+      </ion-slide>
+
+
+
+    </ion-slides>
+  </div>
 </ion-content>
