@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { ApiCallService } from "../../services/api/api-call.service";
+
 @Injectable({
   providedIn: 'root'
 })
 export class ChartCalculationsService {
 
-  constructor() { }
+  constructor(public apiService: ApiCallService) { }
 
   getCalculatedChartData(data,segment,range=7) {
     return new Promise((resolve, reject) => {
-      
       let days = [];
       let formattedDays = [];
       let calorieConsumed = 0;
@@ -32,9 +33,6 @@ export class ChartCalculationsService {
         days.push(today.clone().subtract(i, 'day').format('DD/MM/YYYY'));
         formattedDays.push(today.clone().subtract(i, 'day').format('dd/DD'));
       }
-      console.log('segment',segment);
-      console.log('formattedDays',formattedDays);
-      console.log('data',data);
       if(segment === 'all_meals') {
         data.forEach(element => {
             if(days.includes(element.date)){
@@ -122,6 +120,66 @@ export class ChartCalculationsService {
       }
       resolve(resultdata);
     });
-    
+  }
+
+  getHandWashChartData(dateArray){
+    let yLabelAchived = Array(dateArray.length);
+    yLabelAchived.fill(0);
+    let yLabelGoal = Array(dateArray.length);
+    yLabelGoal.fill(0);
+    yLabelAchived = dateArray.map((x,i,a)=>{
+      return {
+        label: x.ht_date_graphFormat,
+        y: x.ht_achived,
+        x: i,
+        date: x.ht_date
+      }
+    });
+    yLabelGoal = dateArray.map((x,i,a)=>{
+      return {
+        label: x.ht_date_graphFormat,
+        y: x.ht_goal,
+        x: i,
+        date: x.ht_date
+      }
+    });
+    return new Promise((resolve, reject) => {
+      let data = {
+        to_date: dateArray[0].ht_date,
+        from_date: dateArray[dateArray.length-1].ht_date,
+        ht_cid: localStorage.getItem('c_id')
+      }
+      this.apiService.searchHandwashTrackerData(data).subscribe((userHandWashData:any)=>{
+        let handwashDataEnterd = userHandWashData.date;
+       for(let i = 0; i<dateArray.length; i++){
+         for(let j = 0; j<handwashDataEnterd.length; j++){
+          if(dateArray[i].ht_date === handwashDataEnterd[j].ht_date){
+            dateArray[i].ht_goal = parseInt(handwashDataEnterd[j].ht_goal);
+            dateArray[i].ht_achived = parseInt(handwashDataEnterd[j].ht_achived);
+            yLabelAchived[i].y = parseInt(handwashDataEnterd[j].ht_achived);
+            yLabelGoal[i].y = parseInt(handwashDataEnterd[j].ht_goal);
+          }
+         }
+       }
+      let i,j,temparray1,temparray2,temparray3,chunk = 7;
+      let resultArr = []; 
+      let yAc = [];
+      let yGo = [];
+      for (i=0,j=dateArray.length; i<j; i+=chunk) {
+          temparray1 = dateArray.slice(i,i+chunk);
+          resultArr.push(temparray1);
+          temparray2 = yLabelAchived.slice(i,i+chunk);
+          yAc.push(temparray2);
+          temparray3 = yLabelGoal.slice(i,i+chunk);
+          yGo.push(temparray3);
+      }
+      let resultObj = {
+        resultArr,yAc,yGo
+      }
+      resolve(resultObj);
+      },(error)=>{
+
+      });
+    });
   }
 }

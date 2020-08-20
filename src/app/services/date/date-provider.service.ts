@@ -243,6 +243,23 @@ export class DateProviderService {
       }
       resolve(oneMonthBlankData)
    })
+  }
+  getLast4WeekData(){
+    return new Promise((resolve, reject) => {
+    let oneMonthOlderDate = moment().subtract(28, 'days');
+    let handwashGraphData = [];
+    console.log('oneMonthOlderDate',oneMonthOlderDate);
+    while(oneMonthOlderDate.add(1, 'days').diff(moment()) < 0) {
+          const currentData = {
+            ht_goal:16,
+            ht_achived:0,
+            ht_date: oneMonthOlderDate.format(('DD/MM/YYYY')),
+            ht_date_graphFormat: oneMonthOlderDate.format('ddd DD')
+          }
+          handwashGraphData.push(currentData)
+      } 
+      resolve(handwashGraphData.reverse())
+   })
 
   }
 
