@@ -26,6 +26,23 @@ ion-header {
 ion-content{
     ion-card{
         box-shadow: none;
+        .daily-intake{
+            margin: 0 5% 0 5%;
+            font-size: large;
+            p{
+                span{
+                    float: right;
+                    ion-icon{
+                        font-size: x-large
+                    }
+                }
+            }
+            span{
+                float: right;
+                color: gray;
+                font-size: 14px;
+            }
+        }
         round-progress {
             // margin: 1rem auto 0 auto;
             position: absolute;
@@ -111,6 +128,8 @@ ion-content{
                 }
                 ion-col{
                     .audio-play{
+                        position: relative;
+                        top: 2rem;
                      ion-icon{
                         width: 44px;
                         height: 44px;
@@ -131,10 +150,21 @@ ion-content{
                         ion-text{
                            
                         }
+                        h4 {
+                            font-weight: 300;
+                            font-size: 18px;
+                            color:rgba(68, 68, 68, 0.8);
+                            margin-bottom: 20px;
+                        }
                         p{
                             font-weight: normal;
                             font-size: 22px;
                             color: rgba(68, 68, 68, 0.8);
+                        }
+                        .timer-text{
+                            font-weight: bold;
+                            font-size: 30px;
+                            color:#444444;
                         }
                     }
                 }
