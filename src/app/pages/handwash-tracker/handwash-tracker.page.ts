@@ -66,26 +66,28 @@ export class HandwashTrackerPage implements OnInit {
         this.yGo = result.yGo;
         this.chartData.forEach((x, i, a) => {
           this.plotChart(this.yGo[i], this.yAc[i], i + 1);
-          this.today = moment().format('DD/MM/YYYY');
-          this.fromDate = moment().subtract(1, 'M').format('DD/MM/YYYY');
-          this.loadingService.loadingDismiss();
-          this.getHandwasTrackerData(this.selectedDate);
-          this.player = new Howl({
-            src: ['./assets/mp3/hand_wash_sound.mp3'],
-            html5: true,
-            onplay: () => {
-              this.isPlaying = true;
-            },
-            onend: () => {
-              this.isPlaying = false;
-              clearInterval(this.timerId);
-              this.mm = 0;
-              this.ms = 0;
-              this.ss = 0;
-              this.timerId = 0;
-            }
-          });
         });
+        this.today = moment().format('DD/MM/YYYY');
+        this.fromDate = moment().subtract(1, 'M').format('DD/MM/YYYY');
+       // this.getHandwasTrackerData(this.selectedDate);
+       this.htAchived = parseInt(this.chartData[0][0].ht_achived);
+       this.htGoal = parseInt(this.chartData[0][0].ht_goal);
+        this.player = new Howl({
+          src: ['./assets/mp3/hand_wash_sound.mp3'],
+          html5: true,
+          onplay: () => {
+            this.isPlaying = true;
+          },
+          onend: () => {
+            this.isPlaying = false;
+            clearInterval(this.timerId);
+            this.mm = 0;
+            this.ms = 0;
+            this.ss = 0;
+            this.timerId = 0;
+          }
+        });
+        this.loadingService.loadingDismiss();
       })
     });
   }
