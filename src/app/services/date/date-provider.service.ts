@@ -58,7 +58,6 @@ export class DateProviderService {
       const weekData = days.map((v,i,a)=>{
         var temp = moment(v).format('dd/DD');
         var date = temp.split('/');
-        console.log(this.inFuture(v));
         if(this.isToday(v)) {
           return {
             day:date[0],
@@ -102,7 +101,6 @@ export class DateProviderService {
   getEstiamateOfCalorieConsumption() {
     return new Promise((resolve, reject) => {
       this.getUserdata().then((userData:any)=>{
-       console.log('userData',userData);
        let REE;
        let totalCalorie;
        let proteinFactor;
@@ -248,7 +246,6 @@ export class DateProviderService {
     return new Promise((resolve, reject) => {
     let oneMonthOlderDate = moment().subtract(28, 'days');
     let handwashGraphData = [];
-    console.log('oneMonthOlderDate',oneMonthOlderDate);
     while(oneMonthOlderDate.add(1, 'days').diff(moment()) < 0) {
           const currentData = {
             ht_goal:16,
