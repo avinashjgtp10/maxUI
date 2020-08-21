@@ -25,7 +25,7 @@ export class HandwashTrackerPage implements OnInit {
   };
   chart = [];
   graphViewableDateText = "Last 7 days"
-  htAchived:number = 0;
+  htAchived: number = 0;
   htGoal: number = 16;
   mm = 0;
   ss = 0;
@@ -50,54 +50,59 @@ export class HandwashTrackerPage implements OnInit {
   constructor(public toastController: ToastController,
     public loadingService: LoadingContollerService,
     public modalController: ModalController,
-    public chartCalcService: ChartCalculationsService,  
+    public chartCalcService: ChartCalculationsService,
     private dateProviderService: DateProviderService,
     public apiService: ApiCallService) { }
 
   ngOnInit() {
-    this.dateProviderService.getLast4WeekData().then((res)=>{
-       this.chartCalcService.getHandWashChartData(res).then((result:any)=>{
+    this.initAllValues();
+  }
+  initAllValues() {
+    this.loadingService.loadingPresent();
+    this.dateProviderService.getLast4WeekData().then((res) => {
+      this.chartCalcService.getHandWashChartData(res).then((result: any) => {
         this.chartData = result.resultArr;
         this.yAc = result.yAc;
         this.yGo = result.yGo;
-        this.chartData.forEach((x,i,a)=>{
-          this.plotChart(this.yGo[i],this.yAc[i],a.length-i);
-        }); 
-        // for(let i = this.chartData.length-1; i<=0; i--){
-        //   this.plotChart(this.yGo[i],this.yAc[i],this.chartData.length-i);
-        // }
-       })
-    });
-    this.today = moment().format('DD/MM/YYYY');
-    this.fromDate = moment().subtract(1,'M').format('DD/MM/YYYY');
-    this.getHandwasTrackerData(this.selectedDate);
-    this.player = new Howl({
-      src: ['./assets/mp3/hand_wash_sound.mp3'],
-      html5: true,
-      onplay: ()=> {
-       this.isPlaying = true;
-      },
-      onend: ()=>{
-        this.isPlaying = false;
-        clearInterval(this.timerId);
-        this.mm = 0;
-        this.ms = 0;
-        this.ss = 0;
-        this.timerId = 0;
-      }
+        this.chartData.forEach((x, i, a) => {
+          this.plotChart(this.yGo[i], this.yAc[i], i + 1);
+          this.today = moment().format('DD/MM/YYYY');
+          this.fromDate = moment().subtract(1, 'M').format('DD/MM/YYYY');
+          this.loadingService.loadingDismiss();
+          this.getHandwasTrackerData(this.selectedDate);
+          this.player = new Howl({
+            src: ['./assets/mp3/hand_wash_sound.mp3'],
+            html5: true,
+            onplay: () => {
+              this.isPlaying = true;
+            },
+            onend: () => {
+              this.isPlaying = false;
+              clearInterval(this.timerId);
+              this.mm = 0;
+              this.ms = 0;
+              this.ss = 0;
+              this.timerId = 0;
+            }
+          });
+        });
+      })
     });
   }
-  plotChart(yAc,yGo,i){
+  slideChanged(e){
+    
+  }
+  plotChart(yAc, yGo, i) {
     let chartPart = new CanvasJS.Chart("chartContainer" + i, {
-      toolTip:{  
+      toolTip: {
         enabled: false
-       },
+      },
       animationEnabled: true,
       axisX: {
         title: "",
         labelMaxWidth: 40,
         labelFontSize: 20,
-        labelFontColor:"#A5A5A5",
+        labelFontColor: "#A5A5A5",
         gridThickness: 0,
         tickLength: 10,
         lineThickness: 0,
@@ -124,7 +129,7 @@ export class HandwashTrackerPage implements OnInit {
           color: "#A5A5A5",
           indexLabel: "{y}",
           indexLabelFontSize: 15,
-          dataPoints:yAc,
+          dataPoints: yAc,
         },
         {
           type: "column",
@@ -133,12 +138,12 @@ export class HandwashTrackerPage implements OnInit {
           indexLabel: "{y}",
           indexLabelFontSize: 15,
           color: "#EBF4FA",
-          dataPoints:yGo
+          dataPoints: yGo
         }
       ]
     });
     chartPart.render();
-    this.graphSlider.slideTo(this.chartData.length-1);
+    this.graphSlider.slideTo(this.chartData.length - 1);
   }
   openDateSlide() {
     if (!this.isDateSliderOpened) {
@@ -173,8 +178,8 @@ export class HandwashTrackerPage implements OnInit {
       });
     return await modal.present();
   }
- 
-  getHandwasTrackerData(date){
+
+  getHandwasTrackerData(date) {
     this.loadingService.loadingPresent();
     let data = {
       to_date: date,
@@ -182,9 +187,9 @@ export class HandwashTrackerPage implements OnInit {
       ht_cid: localStorage.getItem('c_id')
     }
     this.apiService.searchHandwashTrackerData(data).subscribe((response: any) => {
-      if(response.date && response.date.length) {
-          this.htAchived = parseInt(response.date[0].ht_achived);
-          this.htGoal = parseInt(response.date[0].ht_goal);
+      if (response.date && response.date.length) {
+        this.htAchived = parseInt(response.date[0].ht_achived);
+        this.htGoal = parseInt(response.date[0].ht_goal);
       } else {
         this.htAchived = 0;
         this.htGoal = 16;
@@ -192,10 +197,10 @@ export class HandwashTrackerPage implements OnInit {
       this.loadingService.loadingDismiss();
     }, (error) => {
       this.loadingService.loadingDismiss();
-      console.log("error",error);
+      console.log("error", error);
     });
   }
-  doSomethingWithCurrentValue(e){
+  doSomethingWithCurrentValue(e) {
     //console.log(e);
   }
   async presentToast() {
@@ -210,9 +215,9 @@ export class HandwashTrackerPage implements OnInit {
       'dismissed': true
     });
   }
-  addHandWashEntry(){
-    if(this.htAchived >= this.htGoal){
-        this.presentToast();
+  addHandWashEntry() {
+    if (this.htAchived >= this.htGoal) {
+      this.presentToast();
     } else {
       let date = this.selectedDate;
       this.loadingService.loadingPresent();
@@ -222,10 +227,10 @@ export class HandwashTrackerPage implements OnInit {
         ht_achived: this.htAchived + 1,
         ht_cid: localStorage.getItem('c_id')
       }
-      this.apiService.storeHandwashTrackerData(data).subscribe((responce:any)=>{
+      this.apiService.storeHandwashTrackerData(data).subscribe((responce: any) => {
         this.htAchived = this.htAchived + 1;
         this.loadingService.loadingDismiss();
-      }, (error)=>{
+      }, (error) => {
         console.log(error);
         this.loadingService.loadingDismiss();
       })
@@ -249,7 +254,7 @@ export class HandwashTrackerPage implements OnInit {
       this.player.play();
     } else {
       clearInterval(this.timerId);
-      if(this.isPlaying){
+      if (this.isPlaying) {
         this.player.pause();
         this.isPlaying = !this.isPlaying;
       }

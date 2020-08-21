@@ -173,6 +173,9 @@ export class ChartCalculationsService {
           temparray3 = yLabelGoal.slice(i,i+chunk);
           yGo.push(temparray3);
       }
+      resultArr = resultArr.reverse();
+      yAc = yAc.reverse();
+      yGo = yGo.reverse();
       let resultObj = {
         resultArr,yAc,yGo
       }
