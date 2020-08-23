@@ -25,6 +25,8 @@ export class WeightTrackerPage implements OnInit {
     slidesPerView: 1,
     speed: 400
   };
+  minValue = undefined;
+  maxValue = undefined
   math = Math;
   initialWeight: number = 0;
   objective: string;
@@ -245,9 +247,23 @@ export class WeightTrackerPage implements OnInit {
   checkObjective(){
     if(this.presentData.wet_currentweight < this.presentData.wet_goal){
       this.objective =  "Gain";
+     
     }else if(this.presentData.wet_currentweight > this.presentData.wet_goal){
       this.objective =  "Lost";
     }
+    if(this.selectedActiveDateFormat === 'Today'){
+      this.maxValue = Math.abs(this.presentData.wet_goal - this.presentData.wet_startingweight);
+      this.setMinValue(this.presentData.wet_startingweight, this.presentData.wet_currentweight );
+    }
+  }
+
+  setMinValue(startvalue, current){
+    console.log('hiiii');
+    if( this.objective ===  "Gain"){
+      this.minValue = current - startvalue;
+   }else if(this.objective ===  "Lost"){
+      this.minValue = this.presentData.wet_startingweight - current;
+   }
   }
 
   async addWeightSheet() {
@@ -267,8 +283,11 @@ export class WeightTrackerPage implements OnInit {
         this.weightDataObject.wet_achive = data.data; 
        if(this.selectedActiveDateFormat === 'Today')
         {
+          console.log('hello');
+          this.setMinValue(this.presentData.wet_startingweight, data.data );
           this.presentData.wet_currentweight = data.data;
         }
+      
        
        this.postDataByDate();
       }

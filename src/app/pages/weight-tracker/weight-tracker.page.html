@@ -36,7 +36,8 @@
         </ion-col>
         <ion-col class="ion-text-left">
             <ion-label *ngIf="objective">
-              <ion-text class="right-value">{{math.abs(presentData.wet_goal - presentData.wet_currentweight )}} KG</ion-text>
+              <ion-text *ngIf="objective === 'Gain'" class="right-value">{{math.max(0, presentData.wet_goal - presentData.wet_currentweight )}} KG</ion-text>
+              <ion-text *ngIf="objective === 'Lost'" class="right-value">{{math.max(0, presentData.wet_currentweight - presentData.wet_goal )}} KG</ion-text>
               <p>Left to go</p>
             </ion-label>
             <ion-label *ngIf="!objective">
@@ -57,23 +58,31 @@
         </ion-row>
 
     </ion-grid>
-    <round-progress [current]="presentData.wet_currentweight" [max]="presentData.wet_goal" [color]="'#E02828'" [background]="'#C4C4C4'" [radius]="150"
+    <round-progress [current]="minValue"  [max]="maxValue" [color]="'#E02828'" [background]="'#C4C4C4'" [radius]="150"
       [stroke]="4" [semicircle]="true" [rounded]="true" [clockwise]="true" [responsive]="false" [duration]="400"
       [animation]="'easeInOutQuart'" [animationDelay]="0" >
     </round-progress>
 
     <div class="border-values">
       <div >
-        <span *ngIf="presentData.wet_currentweight">{{presentData.wet_currentweight }} KG</span>
+        <span *ngIf="presentData.wet_currentweight">{{presentData.wet_startingweight }} KG</span>
         <span *ngIf="presentData.wet_goal"style="float: right">{{presentData.wet_goal}} KG</span>
         <span *ngIf="!presentData.wet_goal"style="float: right"></span>
       </div>
     </div>
 
-    <div class="add-weight">
-      <p>Do you miss to track your weight</p>
-      <p class="add-weight-button" (click)="openAddWeightSheet()">Add Weight</p>  
+    <div [hidden]="!(selectedActiveDateFormat === 'Today')" class="add-weight">
+      <p>{{selectedActiveDateFormat}}'s Weight</p>
+      <p style="font-weight: bold;">{{presentData.wet_currentweight}} KG</p>
+      <p class="add-weight-button" (click)="openAddWeightSheet()">Update Weight</p>  
     </div>
+
+    <div [hidden]="(selectedActiveDateFormat === 'Today')" class="add-weight">
+        <p> {{selectedActiveDateFormat}}'s Weight</p>
+        <p *ngIf="weightDataObject.wet_achive" style="font-weight: bold;">{{weightDataObject.wet_achive}} KG</p>
+        <p *ngIf="!weightDataObject.wet_achive" style="font-weight: bold;">--</p>
+        <p class="add-weight-button" (click)="openAddWeightSheet()">Update Weight</p>  
+      </div>
 
     <div *ngIf="!presentData.wet_goal" class="add-weight">
       <p >Do you miss to set your goal</p>
