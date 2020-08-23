@@ -154,8 +154,8 @@ export class WeightTrackerPage implements OnInit {
     this.presentData.wet_currentweight = addArray[latestDataIndex].wet_currentweight;
     this.presentData.wet_startingweight = addArray[latestDataIndex].wet_startingweight;
     this.presentData.wet_activitylevel  = addArray[latestDataIndex].wet_activitylevel;
-    this.presentData.wet_goal = addArray[latestDataIndex].wet_goal
-    console.log(this.presentData);
+    this.presentData.wet_goal = addArray[latestDataIndex].wet_goal;
+
     if(updateGraph){
       for( let i= 0; i < this.graphDatatoPlot.length; i++){
         for(let j = 0; j < this.graphDatatoPlot[i]['plotConsumed'].length; j++){
@@ -221,7 +221,7 @@ export class WeightTrackerPage implements OnInit {
       componentProps: {
         goalWeight: this.presentData.wet_goal,
         currentWeight: this.presentData.wet_currentweight,
-        currentActivityLevel: this.weightDataObject.wet_activitylevel
+        currentActivityLevel: this.presentData.wet_activitylevel
       },
       showBackdrop: true,
       mode: "ios",
@@ -258,7 +258,6 @@ export class WeightTrackerPage implements OnInit {
   }
 
   setMinValue(startvalue, current){
-    console.log('hiiii');
     if( this.objective ===  "Gain"){
       this.minValue = current - startvalue;
    }else if(this.objective ===  "Lost"){
@@ -283,12 +282,9 @@ export class WeightTrackerPage implements OnInit {
         this.weightDataObject.wet_achive = data.data; 
        if(this.selectedActiveDateFormat === 'Today')
         {
-          console.log('hello');
           this.setMinValue(this.presentData.wet_startingweight, data.data );
           this.presentData.wet_currentweight = data.data;
         }
-      
-       
        this.postDataByDate();
       }
       //custom code
