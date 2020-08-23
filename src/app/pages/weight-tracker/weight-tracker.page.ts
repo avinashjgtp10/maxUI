@@ -279,6 +279,17 @@ export class WeightTrackerPage implements OnInit {
 
   }
 
+
+  slideChanged(e) {
+    this.weightSlider.getActiveIndex().then(index => {
+      if(index !== 3){
+        this.graphViewableDateText = this.graphDatatoPlot[3-index].plotConsumed[0].label + " - " + this.graphDatatoPlot[3-index].plotConsumed[6].label;
+      }else{
+        this.graphViewableDateText = "Last 7 days";
+      }
+    });
+  }
+
   postDataByDate() {
     if (this.selectedActiveDateFormat === 'Today' && this.presentData.wet_currentweight == this.presentData.wet_goal) {
       this.toastProvider.presentToast("Congrats... You have achived your goal");

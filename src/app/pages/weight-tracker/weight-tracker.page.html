@@ -91,11 +91,10 @@
           <p>Statistics<span>
               <ion-icon src="assets/icon/icon_share.svg"></ion-icon>
             </span></p>
-          <span>Last 7 Days</span>
+          <span>{{ graphViewableDateText }}</span>
         </div>
         <div style="width: 100%">
-          <!-- (ionSlideDidChange)="slideChanged($event)" -->
-          <ion-slides style="width: 100%" pager="false" [options]="slideOpts" #weightSlider>
+          <ion-slides style="width: 100%" pager="false" [options]="slideOpts" (ionSlideDidChange)="slideChanged($event)" #weightSlider>
             <ion-slide>
               <div id="weightContainer1" style="width: 375px; height: 400px;"></div>
             </ion-slide>
