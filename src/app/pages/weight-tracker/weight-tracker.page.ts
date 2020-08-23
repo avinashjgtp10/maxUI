@@ -30,20 +30,20 @@ export class WeightTrackerPage implements OnInit {
   objective: string;
   graphViewableDateText = "Last 7 days"
   weightDataObject = {
-    wet_goal: 0,
+    wet_goal: undefined,
     wet_date: "",
     wet_currentweight: 60,
     wet_activitylevel: 'high',
-    wet_startingweight: 0,
+    wet_startingweight: undefined,
     wet_achive:0
 
   }
   presentData = {
-    wet_goal: 0,
+    wet_goal: undefined,
     wet_date: "",
     wet_currentweight: 0,
     wet_activitylevel: 'high',
-    wet_startingweight: 0
+    wet_startingweight: undefined
   }
   addDataSubscribe;
   oneMonthData;
@@ -321,7 +321,7 @@ export class WeightTrackerPage implements OnInit {
     for (let i = this.oneMonthData.length - 1; i >= 0; i--) {
       const dataConsumed = {
         label: this.oneMonthData[i].wet_date_graphFormat,
-        y: this.oneMonthData[i].wet_currentweight,
+        y: this.oneMonthData[i].wet_achive,
         date: this.oneMonthData[i].wet_date
       }
       // const dataGoal = {
