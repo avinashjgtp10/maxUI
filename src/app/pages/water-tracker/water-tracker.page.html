@@ -14,20 +14,24 @@
 
   <div class="water-container">
     <div>
-      <div (click)="postDataByDate(-1)" class="circle"><span> - </span>
+
+
+      <div class="circle" (click)="postDataByDate(-1)">
+        <ion-icon src="assets/icon/icon_minus.svg"></ion-icon>
       </div>
       <div style="white-space: pre; color: gray">
-        <p style="margin-top: 15%;font-size: 13px;">250 ml</p>
+        <p style="margin-top: 15%;font-size: 13px;">{{currentData.wt_unit}} ml</p>
       </div>
     </div>
     <div>
       <circle-progress [percent]="(currentData.wt_achived/currentData.wt_goal)*100" [showInnerStroke]="true"
-        [radius]="80" [outerStrokeWidth]="6" [innerStrokeWidth]="6" [title]="(currentData.wt_achived/4)"
-        subtitle="Drank so far" [showUnits]="false" [outerStrokeColor]="'#E02828'" [startFromZero]="false"
-        [innerStrokeColor]="'#EBF4FA'" [animation]="true" [animationDuration]="300">
+        [radius]="80" [outerStrokeWidth]="6" [innerStrokeWidth]="6" [title]="(currentData.wt_achived*(currentData.wt_unit/1000)) + ' L'"
+        subtitle="Drank so far" [showUnits]="false" [outerStrokeColor]="'#86CEFF'" [showImage]="false"[startFromZero]="false"
+        [innerStrokeColor]="'#D1ECFF'" [animation]="true" [animationDuration]="300">
       </circle-progress>
       <div style="text-align: center">
-        <p style="font-weight: bold"(click)="openActionSheet()">Goal <span>{{( currentData.wt_goal/4 ) | number : '1.2-2'}}</span> L <ion-icon name="pencil-outline">
+        <p style="font-weight: bold" (click)="openActionSheet()">Goal
+          <span>{{( currentData.wt_goal*(currentData.wt_unit/1000) ) | number : '1.2-2'}}</span> L <ion-icon name="pencil-outline">
           </ion-icon>
         </p>
       </div>
@@ -36,10 +40,12 @@
 
 
     <div>
-      <div (click)="postDataByDate(+1)" class="circle"><span> + </span>
+
+      <div (click)="postDataByDate(+1)" class="circle">
+        <ion-icon style="font-size: 40px" src="assets/icon/icon_plus@3x.svg"></ion-icon>
       </div>
       <div style="white-space: pre; color: gray">
-        <p style="margin-top: 15%;font-size: 13px;">250 ml</p>
+        <p style="margin-top: 15%;font-size: 13px;">{{currentData.wt_unit}} ml</p>
       </div>
     </div>
   </div>
@@ -57,7 +63,8 @@
   </div>
   <div style="width: 100%">
     <!-- (ionSlideDidChange)="slideChanged($event)" -->
-    <ion-slides style="width: 100%" pager="false" [options]="slideOpts" #graphSlider (ionSlideDidChange)="slideChanged($event)">
+    <ion-slides style="width: 100%" pager="false" [options]="slideOpts" #graphSlider
+      (ionSlideDidChange)="slideChanged($event)">
       <ion-slide>
         <div id="chartContainer1" style="width: 375px; height: 400px;"></div>
       </ion-slide>

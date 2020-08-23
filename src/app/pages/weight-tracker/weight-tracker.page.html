@@ -11,5 +11,107 @@
 </ion-header>
 
 <ion-content>
+  <ion-card class="ion-no-margin">
+    <ion-grid class="ion-text-center handwash-items ion-margin-top">
+      <ion-row>
+        <ion-col>
+          <ion-icon src="assets/icon/icon_weightTracker.svg" class="weight-icon"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center minHeight">
+        <ion-col class="ion-text-right"> 
+          <ion-label *ngIf="objective">
+            <ion-text *ngIf="objective === 'Lost'" class="left-value">{{ presentData.wet_startingweight - presentData.wet_currentweight }} KG</ion-text>
+            <ion-text *ngIf="objective === 'Gain'" class="left-value">{{ presentData.wet_currentweight - presentData.wet_startingweight }} KG</ion-text>
+            <p>{{objective}} so far</p>
+          </ion-label>
+          <ion-label *ngIf="!objective">
+              <ion-text class="left-value">-</ion-text>
+            </ion-label>
+        </ion-col>
+        <ion-col size="2">
+          <ion-label>
+            <p class="separator"></p>
+          </ion-label>
+        </ion-col>
+        <ion-col class="ion-text-left">
+            <ion-label *ngIf="objective">
+              <ion-text class="right-value">{{math.abs(presentData.wet_goal - presentData.wet_currentweight )}} KG</ion-text>
+              <p>Left to go</p>
+            </ion-label>
+            <ion-label *ngIf="!objective">
+                <ion-text class="right-value">-</ion-text>
+              </ion-label>
+       </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+          <ion-col>
+            <ion-label>
+              <ion-text>Goal</ion-text>
+              <p *ngIf="objective"><span *ngIf="objective === 'Lost';else gainweight">Loose Weight</span>
+                <ng-template #gainweight>Gain Weight</ng-template>
+              </p>
+              <p *ngIf="!objective">Not Set</p>
+            </ion-label>
+          </ion-col>
+        </ion-row>
 
+    </ion-grid>
+    <round-progress [current]="presentData.wet_currentweight" [max]="presentData.wet_goal" [color]="'#E02828'" [background]="'#C4C4C4'" [radius]="150"
+      [stroke]="4" [semicircle]="true" [rounded]="true" [clockwise]="true" [responsive]="false" [duration]="400"
+      [animation]="'easeInOutQuart'" [animationDelay]="0" >
+    </round-progress>
+
+    <div class="border-values">
+      <div >
+        <span *ngIf="presentData.wet_currentweight">{{presentData.wet_currentweight }} KG</span>
+        <span *ngIf="presentData.wet_goal"style="float: right">{{presentData.wet_goal}} KG</span>
+        <span *ngIf="!presentData.wet_goal"style="float: right"></span>
+      </div>
+    </div>
+
+    <div class="add-weight">
+      <p>Do you miss to track your weight</p>
+      <p class="add-weight-button" (click)="openAddWeightSheet()">Add Weight</p>  
+    </div>
+
+    <div *ngIf="!presentData.wet_goal" class="add-weight">
+      <p >Do you miss to set your goal</p>
+      <p class="add-weight-button" (click)="openAddGoalSheet()">Set Goal</p>  
+    </div>
+
+    <div *ngIf="presentData.wet_goal" class="add-weight">
+      <p >Goal Weight </p><p style="font-weight: bold;">{{presentData.wet_goal}} KG</p>
+      <p class="add-weight-button" (click)="openAddGoalSheet()">Update Goal</p>  
+    </div>
+
+    
+
+      <div class="daily-intake">
+          <p>Statistics<span>
+              <ion-icon src="assets/icon/icon_share.svg"></ion-icon>
+            </span></p>
+          <span>Last 7 Days</span>
+        </div>
+        <div style="width: 100%">
+          <!-- (ionSlideDidChange)="slideChanged($event)" -->
+          <ion-slides style="width: 100%" pager="false" [options]="slideOpts" #weightSlider>
+            <ion-slide>
+              <div id="weightContainer1" style="width: 375px; height: 400px;"></div>
+            </ion-slide>
+            <ion-slide>
+              <div id="weightContainer2" style="width: 375px; height: 400px;"></div>
+            </ion-slide>
+            <ion-slide>
+              <div id="weightContainer3" style="width: 375px; height: 400px;"></div>
+            </ion-slide>
+            <ion-slide>
+              <div id="weightContainer4" style="width: 375px; height: 400px;"></div>
+            </ion-slide>
+      
+      
+      
+          </ion-slides>
+        </div>
+  </ion-card>
 </ion-content>

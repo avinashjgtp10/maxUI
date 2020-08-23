@@ -24,11 +24,13 @@ export class WaterTrackerPage implements OnInit {
     slidesPerView: 1,
     speed: 400
   };
+  unitValue: number = 250;
   graphViewableDateText = "Last 7 days"
   currentData = {
     wt_goal: 8,
     wt_achived: 0,
-    wt_date: ""
+    wt_date: "",
+    wt_unit: 250
   }
   addDataSubscribe;
   oneMonthData;
@@ -58,7 +60,7 @@ export class WaterTrackerPage implements OnInit {
   }
   getWaterDataofOneMonth() {
     this.loadingContollerService.loadingPresent();
-    this.dateProviderService.getOneMonthdatelimits().then(oneMonthBalnkData => {
+    this.dateProviderService.getOneMonthdatelimits('water').then(oneMonthBalnkData => {
       console.log(oneMonthBalnkData);
       this.fromDate = oneMonthBalnkData[0]['wt_date']
       const payload = {
@@ -92,13 +94,15 @@ export class WaterTrackerPage implements OnInit {
     const currentData = {
       wt_goal: 8,
       wt_achived: 0,
-      wt_date: date_string
+      wt_date: date_string,
+      wt_unit: 250
     }
     this.oneMonthData.filter(data => {
       if (data.wt_date === date_string) {
         currentData.wt_date = date_string;
         currentData.wt_goal = data.wt_goal;
         currentData.wt_achived = data.wt_achived;
+        currentData.wt_unit = data.wt_unit
       }
       return currentData;
     });
@@ -113,7 +117,8 @@ export class WaterTrackerPage implements OnInit {
     const presentModel = await this.modalController.create({
       component: AddWaterComponentPage,
       componentProps: {
-        currentGoal: this.currentData.wt_goal
+        currentGoal: this.currentData.wt_goal,
+        currentUnit: this.currentData.wt_unit
       },
       showBackdrop: true,
       mode: "ios",
@@ -122,7 +127,8 @@ export class WaterTrackerPage implements OnInit {
 
     presentModel.onWillDismiss().then((data) => {
       if (data.data) {
-        this.currentData.wt_goal = data.data;
+        this.currentData.wt_goal = data.data.goal;
+        this.currentData.wt_unit = data.data.unitValue;
         this.postDataByDate(0);
       }
       //custom code
@@ -181,7 +187,8 @@ export class WaterTrackerPage implements OnInit {
       "wt_date": this.currentData.wt_date,
       "wt_goal": Number(this.currentData.wt_goal),
       "wt_achived": Number(this.currentData.wt_achived),
-      "wt_cid": Number(localStorage.getItem("c_id"))
+      "wt_cid": Number(localStorage.getItem("c_id")),
+      "wt_unit": Number(this.currentData.wt_unit)
     }
     if (this.addDataSubscribe) {
       this.addDataSubscribe.unsubscribe();
@@ -268,6 +275,7 @@ export class WaterTrackerPage implements OnInit {
 
   renderChart(arrt1, arr2, i) {
     let chartPart = new CanvasJS.Chart("chartContainer" + i, {
+      dataPointWidth: 15,
       toolTip:{  
         enabled: false
        },
@@ -302,7 +310,7 @@ export class WaterTrackerPage implements OnInit {
           type: "column",
           legendText: "Goal",
           showInLegend: true,
-          color: "#A5A5A5",
+          color: "#D1ECFF",
           indexLabel: "{y}",
           indexLabelFontSize: 15,
           dataPoints:
@@ -316,7 +324,7 @@ export class WaterTrackerPage implements OnInit {
           showInLegend: true,
           indexLabel: "{y}",
           indexLabelFontSize: 15,
-          color: "#EBF4FA",
+          color: "#86CEFF",
           dataPoints:arrt1
         }
       ]

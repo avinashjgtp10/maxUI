@@ -1,0 +1,34 @@
+
+
+<ion-content>
+    <ion-content>
+        <div >
+           <p>Add your weight</p>
+       </div>
+       <div class="water-container">
+           <div >
+             <div class="circle" (click)="updateWeight(-1)"><span> - </span>
+             </div>
+           </div>
+           <div class="edit-water-value">
+                <p > {{currentValue}} </p>
+           </div>
+       
+           
+       
+           <div class="plus-icon" (click)="updateWeight(1)">
+             <div class="circle"><span> + </span>
+             </div>
+             <div style="white-space: pre; color: gray">
+              
+             </div>
+           </div>
+         </div>
+         <div>
+             <button 
+               (click)="closeModal()" 
+               class="ion-no-margin">Update
+            </button>
+           </div>
+       </ion-content>
+</ion-content>
