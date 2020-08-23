@@ -58,8 +58,7 @@ export class DateProviderService {
       const weekData = days.map((v, i, a) => {
         var temp = moment(v).format('dd/DD');
         var date = temp.split('/');
-        console.log(this.inFuture(v));
-        if (this.isToday(v)) {
+        if(this.isToday(v)) {
           return {
             day: date[0],
             date: date[1],
@@ -101,35 +100,34 @@ export class DateProviderService {
 
   getEstiamateOfCalorieConsumption() {
     return new Promise((resolve, reject) => {
-      this.getUserdata().then((userData: any) => {
-        console.log('userData', userData);
-        let REE;
-        let totalCalorie;
-        let proteinFactor;
-        let activityFactor;
-        let resultObj = {};
-        switch (userData.gender) {
-          case ('male'):
-            let wgCalculation_male = this.weightMultiplier * userData.weight;
-            let htCalculation_male = this.heightMultiplier * userData.heightInCm;
-            let ageCalculation_male = this.ageMultiplier * userData.age;
-            REE = wgCalculation_male + htCalculation_male - ageCalculation_male + this.maleOffset;
-            activityFactor = parseFloat(this.activityCalc_male[userData.activity] ? this.activityCalc_male[userData.activity] : 1);
-            totalCalorie = REE * activityFactor;
-            proteinFactor = parseFloat(this.proteinCalc_male[userData.goal] ? this.proteinCalc_male[userData.goal] : 1);
-            this.proteinConsumption = proteinFactor * userData.weight;
-            this.carbsConsumption = parseFloat(((totalCalorie * 0.55) / 4).toFixed(2));
-            this.fatsConsumption = parseFloat(((totalCalorie * 0.12) / 9).toFixed(2));
-            this.fiberConsumption = parseFloat(((totalCalorie / 1000) * 15).toFixed(2));
-            resultObj = {
-              proteinEstimate: this.proteinConsumption,
-              carbsEstimate: this.carbsConsumption,
-              fatsEstimate: this.fatsConsumption,
-              fiberEstimate: this.fiberConsumption,
-              calorieEstimate: totalCalorie
-            }
-            resolve(resultObj);
-            break;
+      this.getUserdata().then((userData:any)=>{
+       let REE;
+       let totalCalorie;
+       let proteinFactor;
+       let activityFactor;
+       let resultObj = {};
+       switch(userData.gender) {
+         case('male'):
+         let wgCalculation_male = this.weightMultiplier * userData.weight;
+         let htCalculation_male = this.heightMultiplier * userData.heightInCm;
+         let ageCalculation_male = this.ageMultiplier * userData.age;
+         REE = wgCalculation_male + htCalculation_male - ageCalculation_male + this.maleOffset;
+         activityFactor = parseFloat(this.activityCalc_male[userData.activity] ? this.activityCalc_male[userData.activity] : 1);
+         totalCalorie = REE * activityFactor;
+         proteinFactor = parseFloat(this.proteinCalc_male[userData.goal] ? this.proteinCalc_male[userData.goal] : 1);
+         this.proteinConsumption = proteinFactor * userData.weight;
+         this.carbsConsumption = parseFloat(((totalCalorie * 0.55) / 4).toFixed(2));
+         this.fatsConsumption = parseFloat(((totalCalorie * 0.12)/ 9).toFixed(2));
+         this.fiberConsumption = parseFloat(((totalCalorie / 1000) * 15).toFixed(2));
+         resultObj = {
+          proteinEstimate: this.proteinConsumption,
+          carbsEstimate: this.carbsConsumption,
+          fatsEstimate: this.fatsConsumption,
+          fiberEstimate: this.fiberConsumption,
+          calorieEstimate: totalCalorie 
+        }
+        resolve(resultObj);
+         break;
 
           case ('female'):
             let wgCalculation_female = this.weightMultiplier * userData.weight;
@@ -237,7 +235,24 @@ export class DateProviderService {
         oneMonthBlankData.push(currentData)
       }
       resolve(oneMonthBlankData)
-    })
+   })
+  }
+  getLast4WeekData(){
+    return new Promise((resolve, reject) => {
+    let oneMonthOlderDate = moment().subtract(28, 'days');
+    let handwashGraphData = [];
+    while(oneMonthOlderDate.add(1, 'days').diff(moment()) < 0) {
+          const currentData = {
+            ht_goal:16,
+            ht_achived:0,
+            ht_date: oneMonthOlderDate.format(('DD/MM/YYYY')),
+            ht_date_graphFormat: oneMonthOlderDate.format('ddd DD')
+          }
+          handwashGraphData.push(currentData)
+      } 
+      resolve(handwashGraphData.reverse())
+   })
+
   }
 
   getTrackerObject(type, date) {

@@ -274,6 +274,7 @@ export class WaterTrackerPage implements OnInit {
   }
 
   renderChart(arrt1, arr2, i) {
+    console.log(arrt1,arrt1,i);
     let chartPart = new CanvasJS.Chart("chartContainer" + i, {
       dataPointWidth: 15,
       toolTip:{  

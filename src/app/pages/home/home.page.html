@@ -13,5 +13,96 @@
 </ion-header>
 
 <ion-content>
-   
+  <div class="live-class-section">
+    <ion-item lines="none">
+      <ion-label class="ion-no-margin" slot="start">
+         Live Classes For You
+      </ion-label>
+    </ion-item>
+      <ion-slides pager="false" [options]="liveClassesOpts"  #liveClassesSlider>
+          <ion-slide *ngFor="let liveClass of liveClassesData;let i = index">
+            <ion-img [src]="liveClass.imgUrl ? liveClass.imgUrl:'assets/img/sliderPlaceHolder.svg'"></ion-img>
+          </ion-slide>
+        </ion-slides>
+  </div>
+  <div class="offers-section">
+      <ion-item lines="none">
+        <ion-label class="ion-no-margin" slot="start">
+           Offers Section
+        </ion-label>
+      </ion-item>
+        <ion-slides pager="true" [options]="offersOpts"  #offersSlider>
+            <ion-slide *ngFor="let liveClass of liveClassesData;let i = index">
+              <ion-img [src]="liveClass.imgUrl ? liveClass.imgUrl:'assets/img/offerSliderPlaceHolder.svg'"></ion-img>
+            </ion-slide>
+          </ion-slides>
+    </div>
+    <div class="special-plans-section">
+        <ion-item lines="none">
+          <ion-label class="ion-no-margin" slot="start">
+             Special Plans For You
+          </ion-label>
+        </ion-item>
+          <ion-slides pager="false" [options]="specialPlansOpts"  #specialPlansSlider>
+              <ion-slide *ngFor="let specilaPlan of specialPlanesData;let i = index">
+                <ion-card class="ion-no-margin ion-no-padding">
+                  <ion-card-header class="ion-no-margin ion-no-padding">
+                      <ion-toolbar>
+                          <ion-buttons slot="end">
+                            <ion-button>
+                              <ion-icon slot="icon-only" md="ellipsis-vertical"></ion-icon>
+                            </ion-button>
+                          </ion-buttons>
+                        </ion-toolbar>
+                  </ion-card-header>
+                  <ion-card-content class="ion-no-margin ion-no-padding">
+                    <ion-item lines="none" class="ion-no-padding">
+                     <ion-label>
+                       <ion-text>
+                          11 June 2020
+                       </ion-text>
+                      <h5>
+                         Smart Diet Plan
+                      </h5>
+                     </ion-label>
+                    </ion-item>
+                  </ion-card-content>
+                </ion-card>
+              </ion-slide>
+            </ion-slides>
+      </div>
+      <div class="program-list-section">
+        <ion-list>
+          <ion-item lines="none" *ngFor="let program of specialPlanesData; let i = index">
+            <ion-thumbnail slot="end">
+              <ion-img [src]="program.imgUrl ? program.imgUrl:'assets/img/sliderPlaceHolder.svg'"></ion-img>
+            </ion-thumbnail>
+            <ion-label slot="start" class="ion-no-margin">
+                <ion-chip>
+                    <ion-label>{{i+1}}</ion-label>
+                </ion-chip>
+                <ion-text>{{program.title}}</ion-text>
+              <h3>{{program.desc}}</h3>
+              <ion-button shape="round" fill="outline">BOOK</ion-button>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div class="detail-classes-section">
+         <ion-list>
+           <ion-list-header>
+             Live Classes For You
+           </ion-list-header>
+           <ion-card class="ion-margin-bottom" *ngFor="let class of liveClassesData; let i = index">
+              <img src="assets/img/sliderPlaceHolder.svg">
+              <ion-card-header class="ion-no-padding">
+                  <ion-card-subtitle >Yoga  <ion-text class="ion-margin-start">22 JUNE 2020</ion-text></ion-card-subtitle>
+                  <ion-card-title>Benifits Of Suryanamaskar</ion-card-title>
+                </ion-card-header>
+                <ion-card-content class="ion-no-padding">
+                 54 Rounds
+                </ion-card-content>
+           </ion-card>
+         </ion-list>
+      </div>
 </ion-content>
