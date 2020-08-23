@@ -56,7 +56,7 @@ export class DropDownCapsuleComponent implements OnInit {
         color: 'green'
        },
       ];
-       console.log('this.tackersData',this.tackersData);
+      // console.log('this.tackersData',this.tackersData);
   }
   ngAfterViewInit() {
   }

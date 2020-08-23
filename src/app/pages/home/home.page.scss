@@ -24,3 +24,152 @@ ion-header {
        }
     }
 }
+ion-content {
+    .live-class-section{
+        margin-top: 6rem;
+        ion-item{
+            ion-label{
+                min-width: 80%;
+                font-weight: normal;
+                font-size: 16px;
+                text-transform: uppercase;
+                color: #000000;
+            }
+        }
+        ion-slides{
+            ion-slide{
+                margin: 0 0 0 16px;
+            }
+        }
+    }
+    .special-plans-section{
+        ion-item{
+            ion-label{
+                min-width: 80%;
+                font-weight: normal;
+                font-size: 16px;
+                text-transform: uppercase;
+                color: #000000;
+            }
+        }
+        ion-slides{
+            ion-slide{
+                margin: 0 0 0 16px;
+                ion-card{
+                    width: 100%;
+                    height: 12rem;
+                    box-shadow: none;
+                    background-color: #F2F2F2;
+                    border-radius: 8px;
+                    ion-card-header{
+                        ion-toolbar{
+                            --background: #F2F2F2;
+                        }
+                    }
+                    ion-card-content{
+                        margin-top: 2rem;
+                        ion-item{
+                            margin:10px;
+                            --background: #F2F2F2;
+                            ion-label{
+                                ion-text{
+                                    color: #686868;
+                                    font-weight: 500;
+                                    font-size: 10px;
+                                }
+                                h5{
+                                    font-weight: 500;
+                                    font-size: 14px;
+                                    color: #060606;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .offers-section{
+        ion-item{
+            ion-label{
+                min-width: 80%;
+                font-weight: normal;
+                font-size: 16px;
+                text-transform: uppercase;
+                color: #000000;
+            }
+        }
+        ion-slides{
+            height: 7rem;
+            --bullet-background: #C4C4C4;
+            --bullet-background-active: #CD5441;
+            ion-slide{
+                height: 60px;
+                margin: 0 0 0 16px;
+            }
+        }
+    }
+    .program-list-section{
+        ion-item{
+            ion-thumbnail{
+                width: 75%;
+                height: auto;
+            }
+             ion-label{
+                 min-width: 50%;
+                ion-chip{
+                    --background:#ABABAB;
+                    --color:#FFFFFF;
+                }
+                ion-text{
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 10px;
+                    text-transform: uppercase;
+                    color: #E02828;
+                }
+                 h3{
+                    font-weight: 500;
+                    font-size: 16px;
+                    color: #060606;
+                 }
+                 ion-button{
+                     --color:#E02828;
+                     --border-color:#E02828;
+                 }
+             }
+
+        }
+    }
+    .detail-classes-section{
+        ion-list{
+            ion-list-header{
+                font-weight: bold;
+                font-size: 16px;
+                text-transform: uppercase;
+                color: #000000;
+            }
+            ion-card{
+                box-shadow: none;
+                img{
+                    min-width: 100%;
+                }
+                ion-card-header{
+                    ion-card-subtitle{
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 10px;
+                        text-transform: uppercase;
+                        color: #E02828;
+                        ion-text{
+                            font-weight: 500;
+                            color: #686868;
+                            font-weight: 500;
+                            font-size: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
