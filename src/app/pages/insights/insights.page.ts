@@ -17,13 +17,13 @@ export class InsightsPage implements OnInit {
   segmentData: any = [];
   dateRange: number = 7;
   mealPercetage: any = {
-    'breakfast': 0.25,
-    'morning_snack': 0.12,
-    'lunch':0.25,
-    'evening_snack': 0.12,
-    'dinner': 0.25
+    'breakfast': 0.250,
+    'morning_snack': 0.125,
+    'lunch':0.250,
+    'evening_snack': 0.125,
+    'dinner': 0.250
   }
-  otherMealfactor: number = 0.25; /// 25% divided for other meals
+  otherMealfactor: number = 0.250; /// 25% divided for other meals
   aggragatedFoodData: any = [];
    calorieConsumed: number = 0;
    fatConsumed: number = 0;

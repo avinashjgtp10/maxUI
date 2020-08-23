@@ -28,7 +28,7 @@ export class HandwashTrackerPage implements OnInit {
   htAchived: number = 0;
   htGoal: number = 16;
   mm = 0;
-  ss = 0;
+  ss = 20;
   ms = 0;
   chartData = [];
   isRunning = false;
@@ -83,7 +83,7 @@ export class HandwashTrackerPage implements OnInit {
             clearInterval(this.timerId);
             this.mm = 0;
             this.ms = 0;
-            this.ss = 0;
+            this.ss = 20;
             this.timerId = 0;
           }
         });
@@ -242,15 +242,19 @@ export class HandwashTrackerPage implements OnInit {
     if (!this.isRunning && !this.isPlaying) {
       // Stop => Running
       this.timerId = setInterval(() => {
-        this.ms++;
+        this.ms--;
 
-        if (this.ms >= 100) {
-          this.ss++;
-          this.ms = 0;
+        if (this.ms <= 0) {
+          this.ss--;
+          this.ms = 100;
         }
-        if (this.ss >= 60) {
-          this.mm++;
-          this.ss = 0
+        if (this.ss <= 0) {
+          clearInterval(this.timerId);
+          this.player.stop();
+          this.mm = 0;
+          this.ms = 0;
+          this.ss = 20;
+          this.timerId = 0;
         }
       }, 10);
       this.player.play();

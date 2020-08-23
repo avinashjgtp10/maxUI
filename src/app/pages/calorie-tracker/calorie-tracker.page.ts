@@ -26,11 +26,11 @@ export class CalorieTrackerPage implements OnInit {
   calorieEstimated: number = 0;
   calorieConsumed: number = 0;
   mealPercetage: any = {
-    'breakfast': 0.25,
-    'morning_snack': 0.12,
-    'lunch':0.25,
-    'evening_snack': 0.12,
-    'dinner': 0.25
+    'breakfast': 0.250,
+    'morning_snack': 0.125,
+    'lunch':0.250,
+    'evening_snack': 0.125,
+    'dinner': 0.250
   }
   otherMealfactor: number = 0.2;
   numColumns:number = 2;
@@ -197,7 +197,7 @@ deleteItem(food) {
     this.calorieConsumed = this.consumedFoodData.reduce((acc,obj) => {
       return acc + parseFloat(obj.c_calories);
     }, 0);
-    this.calorieEstimated = (this.allEstimatedData.calorieEstimate).toFixed(2) * this.mealPercetage[this.selectedSegment];
+    this.calorieEstimated = this.allEstimatedData.calorieEstimate * this.mealPercetage[this.selectedSegment];
     this.calorieToReach = this.allEstimatedData.calorieEstimate - this.oneDayConsumedCalorie;
     if(this.oneDayConsumedCalorie){
       this.calorieProgressBar = this.oneDayConsumedCalorie / this.allEstimatedData.calorieEstimate;

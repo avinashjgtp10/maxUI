@@ -8,7 +8,7 @@ export class FixedValuePipe implements PipeTransform {
   transform(value: any, ...args: unknown[]): unknown {
     if(value) {
       value = parseFloat(value);
-      value = value.toFixed(2);
+      value = Math.round(value);
     }
     return value;
   }
