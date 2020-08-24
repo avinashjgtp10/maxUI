@@ -1,0 +1,58 @@
+@import '../../../shared/styles/default.scss';
+ion-content{
+    div{
+        button{
+            width: 85%;
+            height: 50px;
+            border-radius: 25px;
+            font-size: 17px;
+            border: 1px solid;
+            background-color: $btnBackgroud;
+            color: $colorWhite;
+            margin-top: 5%;
+            font-weight: bold;
+            margin-top: 6vh;
+       }
+    }
+    ion-list{
+        ion-list-header{
+            font-weight: bold;
+            font-size: 17px;
+            color: #444444;
+            margin: 0 0 5% 0%;
+        }
+        ion-label{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .add-goal{
+                display: flex;
+                width: 45%;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+        ion-select {
+            max-width: 90%;
+            border-bottom: 1px solid rgba(56, 79, 125, 0.1);
+        }
+      
+         .fitness-select-box {
+            width: 35%;
+            font-size: 14px;
+            padding-right: 5px;
+            border:none;
+         }
+        .circle {
+            border-radius: 50% ;
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            color: $btnBackgroud;
+            font-size: 30px;
+            border: 1px solid grey;
+            line-height: 19px;
+            font-weight: 700;
+        }
+    }
+}

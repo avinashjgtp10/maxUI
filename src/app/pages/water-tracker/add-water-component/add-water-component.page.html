@@ -1,36 +1,69 @@
-
-
 <ion-content>
- <div >
-    <p>Set your Water Goal</p>
-    <p class="p-numberGlasses">Add number of glasses</p>   
-</div>
-<div class="water-container">
-    <div >
-      <div class="circle" (click)="updateGoal(-1)"><span> - </span>
+
+  <div [hidden]="showWaterUnit">
+    <div>
+      <p>Set your Water Goal</p>
+      <p class="p-numberGlasses">Add number of glasses</p>
+    </div>
+    <div class="water-container">
+      <div (click)="updateGoal(-1)">
+        <!-- <div class="circle" (click)="updateGoal(-1)"><span> - </span>
+        </div> -->
+        <img src="assets/icon/icon_minus.svg">
+      </div>
+      <div class="edit-water-value">
+        <p> {{currentGoal}} </p>
+      </div>
+
+
+
+      <div class="plus-icon" (click)="updateGoal(1)">
+          <img src="assets/icon/icon_plus.svg">
       </div>
     </div>
-    <div class="edit-water-value">
-         <p > {{currentGoal}} </p>
-    </div>
-
-    
-
-    <div class="plus-icon" (click)="updateGoal(1)">
-      <div class="circle"><span> + </span>
-      </div>
-      <div style="white-space: pre; color: gray">
-       
-      </div>
+    <div>
+      <p class="p-numberGlasses" style="margin: 0"> 1 Glass = {{unitValue}} ml
+        <ion-icon (click)="editWaterUnit()" src="assets/icon/icon_edit_name.svg"></ion-icon>
+      </p>
     </div>
   </div>
-  <div >
-      <p class="p-numberGlasses" style="margin: 0">1 Glass = 250 ml</p>   
+
+  <div [hidden]="!showWaterUnit">
+    <ion-radio-group name="unit" [(ngModel)]="unitValue">
+      <div class="water-unit">
+        <div> <img (click)="editWaterUnit()" src="assets/icon/icon_glass_250.svg">
+          <div>
+            <p> 250 ml</p>
+            <ion-radio name="unit" mode="md" slot="start" [value]="250"></ion-radio>
+          </div>
+        </div>
+        <div> <img (click)="editWaterUnit()" src="assets/icon/icon_glass_500.svg">
+          <div>
+            <p> 500 ml</p>
+            <ion-radio name="unit" mode="md" slot="start" value="500"></ion-radio>
+          </div>
+        </div>
+
+        <div> <img (click)="editWaterUnit()" src="assets/icon/icon_glass_750.svg">
+          <div>
+            <p>  750 ml</p>
+            <ion-radio name="unit" mode="md" slot="start" value="750"></ion-radio>
+          </div>
+        </div>
+
+        <div> <img (click)="editWaterUnit()" src="assets/icon/icon_glass_1000.svg">
+          <div>
+            <p> 1000 ml</p>
+            <ion-radio name="unit" mode="md"  slot="start" value="1000"></ion-radio>
+          </div>
+        </div>
+
+      </div>
+      </ion-radio-group>
   </div>
+
   <div>
-      <button 
-        (click)="closeModal()" 
-        class="ion-no-margin">Update
-     </button>
-    </div>
+    <button (click)="closeModal()" class="ion-no-margin">Update
+    </button>
+  </div>
 </ion-content>

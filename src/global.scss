@@ -62,7 +62,16 @@
 }
 
 .action-sheet-component{
-  --height: 40%;
+  --height: 43%;
+  align-items: flex-end;
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
+  .modal-wrapper{
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+  }
+}
+.add-goal-component{
+  --height: 45%;
   align-items: flex-end;
   --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
   .modal-wrapper{

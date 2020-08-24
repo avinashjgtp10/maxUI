@@ -1,0 +1,45 @@
+@import '../../../shared/styles/default.scss';
+ion-content{
+   div{
+
+       text-align: center;
+       p{
+           font-size: 20px;
+       }
+       .p-numberGlasses{
+        color: gray;
+        margin-top: -20px;
+        font-size: 14px;
+       }
+       button{
+        width: 85%;
+        height: 50px;
+        border-radius: 25px;
+        font-size: 17px;
+        border: 1px solid;
+        background-color: $btnBackgroud;
+        color: $colorWhite;
+        margin-top: 5%;
+        font-weight: bold;
+        margin-top: 6vh;
+}
+   }
+
+   .water-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    margin: 6vh 15% 0 15%;
+    .circle {
+        border-radius: 50% ;
+        width: 28px;
+        height: 28px;
+        text-align: center;
+        color: $btnBackgroud;
+        font-size: 30px;
+        border: 1px solid grey;
+        line-height: 19px;
+        font-weight: 700;
+    }
+}
+}

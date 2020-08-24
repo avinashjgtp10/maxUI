@@ -1,0 +1,39 @@
+<ion-content>
+  <ion-list>
+    <div class="ion-text-center">
+     <ion-list-header>Set Your Weight Goal</ion-list-header>
+    </div>
+    <ion-item>
+      <ion-label>
+        <p>Current Weight</p>
+        <ion-text>{{ currentWeight }} KG</ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <p>Goal Weight</p>
+        <div class="add-goal">
+          <div class="circle" (click)="updateGoal(-1)"><span> - </span>
+          </div>
+         <span>{{ goalWeights }} KG </span>
+          <div class="circle" (click)="updateGoal(1)"><span> + </span>
+          </div>
+        </div>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+    
+      <ion-label style="color: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.4)">Activity Level</ion-label>
+      <ion-select placeholder="Select Activity" 
+      name="activity" multiple="false" class="ion-no-padding fitness-select-box" [(ngModel)]="activityLevel" >
+        <ion-select-option value="sedantry">Sedantry</ion-select-option>
+        <ion-select-option value="moderate">Moderate</ion-select-option>
+        <ion-select-option value="high">Highly Active</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <div class="ion-text-center">
+    <button (click)="closeModal()" class="ion-no-margin">Update
+    </button>
+  </div>
+</ion-content>
