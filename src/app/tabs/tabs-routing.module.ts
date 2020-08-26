@@ -17,10 +17,14 @@ const routes: Routes = [
       },
       {
         path: 'tab3',
-        loadChildren: () => import('../pages/my-plans/my-plans.module').then(m => m.MyPlansPageModule)
+        loadChildren: () => import('../pages/my-training/my-training.module').then( m => m.MyTrainingPageModule)
       },
       {
         path: 'tab4',
+        loadChildren: () => import('../pages/getting-started-training/getting-started-training.module').then(m => m.GettingStartedTrainingPageModule)
+      },
+      {
+        path: 'tab5',
         loadChildren: () => import('../pages/manage-profile/manage-profile.module').then(m => m.ManageProfilePageModule)
       },
       {
