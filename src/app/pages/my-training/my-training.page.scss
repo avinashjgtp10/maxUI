@@ -1,0 +1,121 @@
+ion-header {
+    height: 6rem;
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    ion-toolbar{
+       --background: #FFFFFF;
+        padding-top: 30px;
+
+       ion-item{
+        --background: #FFFFFF;
+        ion-avatar{
+            width: 35.71px;
+            height: 39.14px;
+        }
+        ion-title{
+            font-weight: 500;
+            font-size: 18px;
+            color: #000000;
+        }
+        ion-label{
+            h5{
+                font-weight: 500;
+                font-size: 14px;
+                color: #171D33;
+            }
+            ion-text{
+                font-weight: normal;
+                font-size: 11px;
+                color: #444444;
+            }
+        }
+        ion-button{
+            width: 30%;
+            --color:#E02828;
+            --border-color:#E02828;
+            --background: #E02828;
+              ion-text{
+                font-weight: 500;
+                font-size: 12px;
+                color: #FFFFFF;
+                text-transform: none;
+              }
+        }
+       }
+    }
+}
+ion-content{
+    .live-class-section{
+        ion-slides{
+            ion-slide{
+                margin: 0 0 0 6px;
+                ion-img{
+                    width: 90%;
+                }
+            }
+        }
+    }
+    .offers-section{
+        ion-item{
+            ion-label{
+                min-width: 80%;
+                font-weight: normal;
+                font-size: 16px;
+                text-transform: uppercase;
+                color: #000000;
+            }
+        }
+        ion-slides{
+            ion-slide{
+                margin: 0 0 0 0px;
+                ion-img{
+                    width: 90%;
+                }
+            }
+        }
+    }
+    .reach-your-golas-section {
+        text-align: center;
+        h4{
+            text-align: left;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 25px;
+            color: #444444;
+        }
+        p{  
+            text-align: left;
+            margin: 0 0 0 0;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 16px;
+            color: rgba(68, 68, 68, 0.8);
+        }
+        ion-item{
+            text-align: left;
+            ion-label{
+                min-width: 80%;
+                ion-text{
+                    font-weight: normal;
+                    font-size: 18px;
+                    color: #444444;
+                    margin-right: 20px;
+                }
+            }
+           
+        }
+        ion-button{
+            width: 80%;
+            height: 2.5rem;
+            --color:#E02828;
+            --border-color:#E02828;
+            --background: #E02828;
+              ion-text{
+                font-weight: 500;
+                font-size: 20px;
+                color: #FFFFFF;
+                text-transform: none;
+              }
+        }
+    }
+}
