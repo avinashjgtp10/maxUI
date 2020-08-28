@@ -13,7 +13,7 @@ const routes: Routes = [
       },
       {
         path: 'tab2',
-        loadChildren: () => import('../pages/get-fit/get-fit.module').then(m => m.GetFitPageModule)
+        loadChildren: () => import('../pages/training-overview/training-overview.module').then(m => m.TrainingOverviewPageModule)
       },
       {
         path: 'tab3',
@@ -21,7 +21,7 @@ const routes: Routes = [
       },
       {
         path: 'tab4',
-        loadChildren: () => import('../pages/getting-started-training/getting-started-training.module').then(m => m.GettingStartedTrainingPageModule)
+        loadChildren: () => import('../pages/training-dashboard/training-dashboard.module').then(m => m.TrainingDashboardPageModule)
       },
       {
         path: 'tab5',

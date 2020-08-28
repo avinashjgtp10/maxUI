@@ -1,0 +1,52 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-text-center">
+    <ion-title>Rahul's Workout Plans</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-card>
+        <ion-img src="assets/img/trainingDashboardPlaceHolder.svg"></ion-img>
+        <ion-card-header class="ion-no-padding">
+            <ion-button shape="round" fill="outline">Start</ion-button>
+          <ion-card-title>Weight Loss</ion-card-title>
+          <ion-card-subtitle>28 days | 4 Weeks</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+      <div class="offers-section">
+          <ion-item lines="none">
+            <ion-label class="ion-no-margin" slot="start">
+               RECOMENDED PLANS FOR YOU
+            </ion-label>
+          </ion-item>
+            <ion-slides pager="false" [options]="offersOpts"  #offersSlider>
+                <ion-slide *ngFor="let liveClass of liveClassesData;let i = index">
+                  <ion-img [src]="liveClass.imgUrl ? liveClass.imgUrl:'assets/img/sliderPlaceHolder.svg'"></ion-img>
+                </ion-slide>
+              </ion-slides>
+        </div>
+        <div class="common-question-section">
+          <p class="question-header">Common Questions</p>
+            <ion-card  *ngFor="let item of items" class="ion-no-padding ion-no-margin">
+                  <ion-item lines="none">
+                     <ion-label slot="start">Question Text</ion-label>
+                     <ion-button (click)="expandItem(item)" slot="end" fill="clear" size="small" class="ion-no-margin">
+                        <ion-icon slot="icon-only"  src="assets/icon/icon_arrow.svg"></ion-icon>
+                    </ion-button>
+                  </ion-item>
+                  <app-expandable expandHeight="100px" [expanded]="item.expanded">
+                      <p>
+                        Hello there.
+                      </p>
+                      <p>
+                        Hello there.
+                      </p>
+                      <p>
+                        Hello there.
+                      </p>
+                      <p>
+                        Hello there.
+                      </p>
+                    </app-expandable>
+              </ion-card>
+        </div>
+</ion-content>

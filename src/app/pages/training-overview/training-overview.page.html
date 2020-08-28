@@ -1,0 +1,62 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-text-center">
+    <ion-title>Weight Loss</ion-title>
+    <ion-label>28 days | 4 Weeks</ion-label>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-segment mode="md" scrollable="true" [(ngModel)]="selectedSegment" (ionChange)="segmentChanged($event)">
+        <ion-segment-button  value="Overview">
+          <ion-label>Overview</ion-label>
+        </ion-segment-button>
+        <ion-segment-button  value="Workout">
+            <ion-label>Workout</ion-label>
+          </ion-segment-button>
+      </ion-segment>
+      <div class="segment-content" [ngSwitch]="selectedSegment">
+          <div class="about-section" *ngSwitchCase="'Overview'">
+             <p>About</p>
+             <ion-text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</ion-text>
+             <p>Benefits</p>
+             <ion-text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</ion-text>
+             <p>Focus Areas</p>
+             <ion-text>Abs | Core | Glutes | Lower Back</ion-text>
+             <ion-item lines="none">
+               <ion-label slot="start">Do not Miss Your Workout</ion-label>
+               <ion-text slot="end">Set Reminder</ion-text>
+             </ion-item>
+          </div>
+            <div class="common-question-section" *ngSwitchCase="'Workout'">
+                  <ion-card  *ngFor="let item of items" class="ion-no-padding ion-no-margin">
+                        <ion-item lines="none">
+                           <ion-label slot="start">Workout 1: Assesment</ion-label>
+                           <ion-button (click)="expandItem(item)" slot="end" fill="clear" size="small" class="ion-no-margin">
+                              <ion-icon slot="icon-only"  src="assets/icon/icon_arrow.svg"></ion-icon>
+                          </ion-button>
+                        </ion-item>
+                        <app-expandable expandHeight="100px" [expanded]="item.expanded">
+                            <p>
+                              Hello there.
+                            </p>
+                            <p>
+                              Hello there.
+                            </p>
+                            <p>
+                              Hello there.
+                            </p>
+                            <p>
+                              Hello there.
+                            </p>
+                          </app-expandable>
+                    </ion-card>
+              </div>
+      </div>
+</ion-content>
+<ion-footer class="ion-no-border ion-text-center">
+  <ion-toolbar>
+      <ion-button  shape="round" fill="outline">
+          <ion-text>Start Workout</ion-text>
+        </ion-button>
+  </ion-toolbar>
+</ion-footer>
