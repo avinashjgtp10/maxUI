@@ -3,7 +3,7 @@
    
        <div *ngFor="let tracker of tackersData;">
                 <ion-item lines="none" *ngIf="tracker.show" >
-                         <ion-icon *ngIf="!tracker.isAdded" (click)="openTracker(tracker)" name="ellipse" slot="start" class="reduce-margin-right icon-size"></ion-icon>
+                         <ion-icon *ngIf="!tracker.isAdded" (click)="openTracker(tracker)" [src]="tracker.src" slot="start" class="reduce-margin-right icon-size"></ion-icon>
                         <div *ngIf="tracker.isAdded" class="reduce-margin-right icon-size">
                                 <circle-progress [percent]="(tracker.todaysValue/tracker.totalValue)*100" [radius]="13" 
                                 [backgroundPadding]="-2"[outerStrokeWidth]="2" [innerStrokeWidth]="0" [showTitle]="false" [showSubtitle]="false" [showImage]="false" [showUnits]="false"
