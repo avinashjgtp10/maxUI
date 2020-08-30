@@ -23,6 +23,13 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
 
+// FCM
+import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
+import { PushService } from './services/push/push.service';
+
+//push
+
+
 export function createTranslateLoader(http:HttpClient){
  return new TranslateHttpLoader(http,'assets/i18n/','.json');
 }
@@ -52,8 +59,10 @@ export function createTranslateLoader(http:HttpClient){
     StatusBar,
     SplashScreen,
     AppVersion,
-    ImagePicker,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+      ImagePicker,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    FCM,
+    PushService
   ],
   bootstrap: [AppComponent]
 })
