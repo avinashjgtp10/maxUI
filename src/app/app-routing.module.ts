@@ -59,6 +59,10 @@ const routes: Routes = [
   {
     path: 'getting-started-training',
     loadChildren: () => import('./pages/getting-started-training/getting-started-training.module').then( m => m.GettingStartedTrainingPageModule)
+  },
+  {
+    path: 'share-template',
+    loadChildren: () => import('./pages/share-template/share-template.module').then( m => m.ShareTemplatePageModule)
   }
 ];
 
