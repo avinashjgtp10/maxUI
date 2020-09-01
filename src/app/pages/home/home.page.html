@@ -8,11 +8,12 @@
           <ion-icon src="assets/icon/icon_notifications.svg" class="input-icon" slot="end"></ion-icon>
         </ion-item>
   </ion-toolbar>
-  <app-drop-down-capsule (openTrackerDetail)="openTrackerDetail($event)"  >
-    </app-drop-down-capsule>
+ 
 </ion-header>
-
+<app-drop-down-capsule [trackersData]="trackersData" (openTrackerDetail)="openTrackerDetail($event)"  >
+  </app-drop-down-capsule>
 <ion-content>
+  
   <div class="live-class-section">
     <ion-item lines="none">
       <ion-label class="ion-no-margin" slot="start">

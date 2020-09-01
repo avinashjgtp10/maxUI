@@ -214,7 +214,9 @@ export class HandwashTrackerPage implements OnInit {
   }
   closeModal() {
     this.modalController.dismiss({
-      'dismissed': true
+      isUpdate: this.selectedActiveDateFormat === "Today" ? true : false,
+      goal: 16,
+      currentValue: this.htAchived
     });
   }
   addHandWashEntry() {
