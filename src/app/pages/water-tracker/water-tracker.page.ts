@@ -284,8 +284,8 @@ export class WaterTrackerPage implements OnInit {
       axisX: {
         title: "",
         labelMaxWidth: 40,
-        labelFontSize: 20,
-        labelFontColor:"#A5A5A5",
+        labelFontSize: 15,
+        labelFontColor:"#2E3034",
         gridThickness: 0,
         tickLength: 10,
         lineThickness: 0,

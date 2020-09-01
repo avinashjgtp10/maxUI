@@ -55,6 +55,10 @@ const routes: Routes = [
   {
     path: 'weight-tracker',
     loadChildren: () => import('./pages/weight-tracker/weight-tracker.module').then( m => m.WeightTrackerPageModule)
+  },
+  {
+    path: 'getting-started-training',
+    loadChildren: () => import('./pages/getting-started-training/getting-started-training.module').then( m => m.GettingStartedTrainingPageModule)
   }
 ];
 

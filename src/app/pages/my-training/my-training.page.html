@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-item lines="none"> 
+          <ion-avatar slot="start">
+            <img src="assets/img/manage-profile/avatar.svg">
+          </ion-avatar>
+          <ion-label class="ion-no-padding">
+            <h5>Hi Rahul !</h5>
+            <ion-text class="ion-no-padding">Basic plan</ion-text>
+          </ion-label>
+          <ion-button slot="end" shape="round" fill="outline">
+            <ion-text>Upgrade</ion-text>
+          </ion-button>
+        </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="live-class-section ion-margin-top">
+        <!-- <ion-item lines="none">
+          <ion-label class="ion-no-margin" slot="start">
+             Live Classes For You
+          </ion-label>
+        </ion-item> -->
+          <ion-slides pager="false" [options]="liveClassesOpts"  #liveClassesSlider>
+              <ion-slide *ngFor="let liveClass of liveClassesData;let i = index">
+                <ion-img [src]="liveClass.imgUrl ? liveClass.imgUrl:'assets/img/sliderPlaceHolder.svg'"></ion-img>
+              </ion-slide>
+            </ion-slides>
+      </div>
+      <div class="offers-section">
+          <ion-item lines="none">
+            <ion-label class="ion-no-margin" slot="start">
+               RECOMENDED PLANS FOR YOU
+            </ion-label>
+          </ion-item>
+            <ion-slides pager="false" [options]="offersOpts"  #offersSlider>
+                <ion-slide *ngFor="let liveClass of liveClassesData;let i = index">
+                  <ion-img [src]="liveClass.imgUrl ? liveClass.imgUrl:'assets/img/sliderPlaceHolder.svg'"></ion-img>
+                </ion-slide>
+              </ion-slides>
+        </div>
+        <div class="reach-your-golas-section ion-padding">
+           <h4>Reach Your Health Goals</h4>
+           <p>Get Your Customized</p>
+           <ion-item lines="none" class="ion-no-padding">
+             <ion-label slot="start">
+                <ion-text>Diet Plan</ion-text>
+                <ion-text>Fitness Plan</ion-text>
+             </ion-label>
+           </ion-item> 
+           <ion-button  shape="round" fill="outline">
+              <ion-text>Get Started</ion-text>
+            </ion-button>
+        </div>
+</ion-content>

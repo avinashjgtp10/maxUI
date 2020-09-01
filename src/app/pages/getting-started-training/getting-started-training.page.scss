@@ -1,0 +1,99 @@
+ion-header{
+    height: auto;
+    border: none;
+    ion-toolbar{
+        padding-top: 10px;
+        ion-button {
+          margin-right:10px;
+          --color:#000000;
+        }
+    }
+}
+ion-content{
+    ion-slides{
+        ion-slide{
+            .big-ellipse{
+                width: 154px;
+                height: 154px;
+                color: #C4C4C4;
+            }
+            .check-mark{
+                width: 50px;
+                height: 50px;
+                color: #696969;
+            }
+            .verical-center{
+                margin-top: 10rem;
+            }
+            ion-grid{
+                ion-row{
+                    ion-col{
+                            .big-heading{
+                                font-weight: bold;
+                                font-size: 30px;
+                                color: #444444;
+                            }
+                            .normal-heading{
+                                font-weight: normal;
+                                font-size: 30px;
+                                color: #444444;
+                            }
+                            .normal-para{
+                                font-weight: 300;
+                                font-size: 16px;
+                                color: rgba(68, 68, 68, 0.8);
+                            }
+                            button{
+                                width: 95%;
+                                height: 3rem;
+                                border-radius: 25px;
+                                background-color: transparent;
+                                border: 1px solid #000000;
+                                  ion-text{
+                                    font-weight: 500;
+                                    font-size: 20px;
+                                    color: #000000;
+                                    text-transform: none;
+                                  }
+                            }
+                            ion-chip{
+                                --color: #C4C4C4;
+                                width: 50px;
+                                height: 50px;
+                                border-radius: 25px;
+                                padding: 0px;
+                                ion-label{
+                                    font-weight: normal;
+                                    font-size: 16px;
+                                    color: #FFFFFF;
+                                    margin: 0 auto;
+                                }
+                            }
+
+                    }
+                }
+            }
+        }
+    }
+}
+ion-footer{
+    ion-toolbar{
+         ion-label{
+            font-weight: normal;
+            font-size: 18px;
+            color: #444444;
+            ion-text{
+                color: #444444;
+            }
+         }
+         ion-progress-bar{
+            --progress-background: #A5A5A5;
+            height: 5px;
+            box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 36px;
+            --background: #FFFFFF;
+            max-width: 30%;
+            margin: 0 auto;
+         }
+    }
+}
