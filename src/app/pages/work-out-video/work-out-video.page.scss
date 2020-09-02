@@ -1,0 +1,89 @@
+ion-header{
+    ion-toolbar{
+        .video{
+            background-color: #E0E0E0;
+            .video-player{
+                width: 100%;
+                height: 16rem;
+            }
+        }
+        .play-button{
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            ion-icon{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .next-button{
+            position: absolute;
+            top: 80%;
+            left: 90%;
+            transform: translate(-50%, -50%);
+            ion-icon{
+               
+            }
+        }
+        .pre-button{
+            position: absolute;
+            top: 80%;
+            right:80%;
+            transform: translate(-50%, -50%);
+            ion-icon{
+               
+            }
+        }
+        
+    }
+}
+ion-content{
+    .week-workout-section{
+        ion-list{
+            margin: 5px 10px 5px 10px;
+            ion-item{
+                margin: 20px 0px 0px 0px;
+                background: #FFFFFF;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+                border-radius: 10px;
+                --border-radius: 10px;
+                --padding-start: 0px;
+                --padding-end: 0px;
+                ion-thumbnail{
+                    width: 7rem;
+                    height: 6.5rem;
+                    margin: 0;
+                    --border-radius: 10px;
+                }
+                ion-label{
+                    margin-left:5px;
+                    min-width: 50%;
+                    p{
+                     margin-bottom: 5px;
+                     font-weight: bold;
+                     font-size: 16px;
+                     text-transform: uppercase;
+                     color: #000000;
+                    }
+                    ion-text{
+                        font-weight: normal;
+                        font-size: 14px;
+                        text-transform: capitalize;
+                        color: #060606;
+                    }
+                    ion-progress-bar {
+                        margin-top: 10px;
+                        --progress-background: #E02828;
+                        height: 3px;
+                        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+                        border-radius: 36px;
+                        --background: #FFFFFF;
+                    }
+                }
+            }
+        }
+    }
+}

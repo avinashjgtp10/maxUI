@@ -7,7 +7,10 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./getting-started-training.page.scss'],
 })
 export class GettingStartedTrainingPage implements OnInit {
-
+  Opts = {
+    initialSlide: 0,
+    speed: 400
+  };
   constructor(public modalController: ModalController) { }
 
   ngOnInit() {
