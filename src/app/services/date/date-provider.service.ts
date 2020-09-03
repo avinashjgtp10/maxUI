@@ -292,4 +292,7 @@ export class DateProviderService {
   getTodayDateInFormat() {
     return moment().format('DD/MM/YYYY');
   }
+  checkIsTodayWithMoment(date){
+    return moment().isSame(moment(date, 'DD/MM/YYYY'), 'd');
+  }
 }

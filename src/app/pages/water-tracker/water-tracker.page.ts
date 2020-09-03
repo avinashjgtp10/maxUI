@@ -110,7 +110,9 @@ export class WaterTrackerPage implements OnInit {
   }
   closeModal() {
     this.modalController.dismiss({
-      'dismissed': true
+      isUpdate: this.selectedActiveDateFormat === 'Today' ? true : false,
+      goal: this.currentData.wt_goal,
+      currentValue: this.currentData.wt_achived
     });
   }
   async openActionSheet() {

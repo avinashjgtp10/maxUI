@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
+import { Platform } from '@ionic/angular';
 import { IonSlides } from '@ionic/angular';
 import { Router,ActivatedRoute } from "@angular/router"
 import { Storage } from "@ionic/storage";
@@ -8,6 +9,9 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { Options } from 'ng5-slider';
 import { LoadingContollerService } from "../../services/loading/loading-contoller.service";
 import { NavController } from '@ionic/angular';
+import { PushService } from 'src/app/services/push/push.service';
+import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
+
 @Component({
   selector: 'app-manage-profile',
   templateUrl: './manage-profile.page.html',
@@ -84,11 +88,16 @@ export class ManageProfilePage implements OnInit {
     activity: ['',Validators.required],
   });
   constructor(private formBuilder: FormBuilder,
-              private storage:Storage, private imagePicker: ImagePicker,
+              private storage:Storage, 
+              private imagePicker: ImagePicker,
               public apiService: ApiCallService,
               public loadingService: LoadingContollerService,
-              private navController: NavController) { }
-
+              private navController: NavController,
+              private pushService: PushService,
+              private fcm: FCM,
+              private platform: Platform) {
+                this.pushService.initializePush();
+               }
   ngOnInit() {
      if(localStorage.getItem('c_id')) {
       this.isEditProfile = true;
@@ -140,7 +149,8 @@ export class ManageProfilePage implements OnInit {
           u_id : data.u_id,
           c_fitnessobjective :this.registrationForm.value.goal,
           c_exercise :this.registrationForm.value.activity,
-          c_name :this.registrationForm.value.name
+          c_name :this.registrationForm.value.name,
+          c_deviceid: this.pushService.getToken() || ''
         }
         console.log('args',args);
         this.apiService.updateProfileData(args,localStorage.getItem('c_id')).subscribe((response: any) => {

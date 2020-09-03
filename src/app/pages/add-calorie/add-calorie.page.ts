@@ -116,13 +116,13 @@ export class AddCaloriePage implements OnInit {
     if (searchTerm.length < 2) {
       return;
     }
-    this.loadingService.loadingPresent();
+    //this.loadingService.loadingPresent();
      this.apiService.searchUserFoodData(searchTerm).subscribe((data)=>{
        console.log('data',data);
        this.frequentlyFoodData = data;
-       this.loadingService.loadingDismiss();
+      // this.loadingService.loadingDismiss();
      }, (error)=> {
-      this.loadingService.loadingDismiss();
+      //this.loadingService.loadingDismiss();
      });
   }
   dismissToast() {
