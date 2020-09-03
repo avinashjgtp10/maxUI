@@ -1,18 +1,23 @@
 
 <ion-card class="ion-no-margin card-pannel">
    
-       <div *ngFor="let tracker of tackersData;">
+       <div *ngFor="let tracker of trackersData;">
                 <ion-item lines="none" *ngIf="tracker.show" >
                          <ion-icon *ngIf="!tracker.isAdded" (click)="openTracker(tracker)" name="ellipse" slot="start" class="reduce-margin-right icon-size"></ion-icon>
                         <div *ngIf="tracker.isAdded" class="reduce-margin-right icon-size">
-                                <circle-progress [percent]="(tracker.todaysValue/tracker.totalValue)*100" [radius]="13" 
-                                [backgroundPadding]="-2"[outerStrokeWidth]="2" [innerStrokeWidth]="0" [showTitle]="false" [showSubtitle]="false" [showImage]="false" [showUnits]="false"
+                                <circle-progress [percent]="(tracker.percent)" [radius]="13" 
+                                [backgroundPadding]="-2" [startFromZero]="false" [outerStrokeWidth]="2" [innerStrokeWidth]="0" [showTitle]="false" [showSubtitle]="false" [showImage]="false" [showUnits]="false"
                                 [outerStrokeColor]="tracker.color"  [backgroundColor] = "'#D2D2D2'"  [animation]="true" [animationDuration]="600" >
                                 </circle-progress>
                         </div>
                         <ion-label (click)="openTracker(tracker)">
                                 <h4 class="ion-no-padding item-lable">{{ tracker.name }}</h4>
-                                <p class="item-data" *ngIf="tracker.isAdded" ><b>{{ tracker.todaysValue }}</b> of <b>{{ tracker.totalValue }}</b> {{ tracker.UnitText}}</p>
+                                <p class="item-data" *ngIf="tracker.isAdded" >
+                                  <span>{{ tracker.text1 }}</span>
+                                  <span><b> {{ tracker.todaysValue }} </b></span>
+                                  <span> {{ tracker.text2 }} </span>
+                                  <span><b> {{ tracker.totalValue }} </b></span>
+                                  <span> {{ tracker.text3 }} </span>
                         </ion-label>
                         <ion-icon (click)="addTracker(tracker)" class="icon-size" [src]="tracker.isAdded ? 'assets/icon/icon_tick.svg' : 'assets/icon/icon_add.svg'" slot="end"></ion-icon>
                 </ion-item>

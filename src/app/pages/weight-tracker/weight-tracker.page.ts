@@ -173,7 +173,10 @@ export class WeightTrackerPage implements OnInit {
 
   closeModal() {
     this.modalController.dismiss({
-      'dismissed': true
+      isUpdate: this.presentData.wet_goal ? true : false,
+      goal: this.presentData.wet_goal,
+      currentValue: this.presentData.wet_currentweight,
+      startingValue: this.presentData.wet_startingweight
     });
   }
 
