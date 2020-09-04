@@ -59,6 +59,18 @@ const routes: Routes = [
   {
     path: 'getting-started-training',
     loadChildren: () => import('./pages/getting-started-training/getting-started-training.module').then( m => m.GettingStartedTrainingPageModule)
+  },
+  {
+    path: 'share-template',
+    loadChildren: () => import('./pages/share-template/share-template.module').then( m => m.ShareTemplatePageModule)
+  },
+  {
+    path: 'day-schedule',
+    loadChildren: () => import('./pages/day-schedule/day-schedule.module').then( m => m.DaySchedulePageModule)
+  },
+  {
+    path: 'work-out-video',
+    loadChildren: () => import('./pages/work-out-video/work-out-video.module').then( m => m.WorkOutVideoPageModule)
   }
 ];
 

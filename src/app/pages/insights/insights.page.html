@@ -16,13 +16,10 @@
     <ion-card class="ion-no-margin ion-no-border">
         <ion-item lines="none" class="ion-margin-top">
             <ion-label slot="start">Daily Calorie Trend</ion-label>
-            <ion-text>200 Kcal</ion-text>
-            <ion-button slot="end" fill="clear" size="small" class="ion-no-margin">
+            <ion-text>{{calorieEstimated | fixedValue}} cal</ion-text>
+            <ion-button (click)="openSharePopUp()" slot="end" fill="clear" size="small" class="ion-no-margin">
                 <ion-icon slot="icon-only" src="assets/icon/icon_share.svg"></ion-icon>
             </ion-button>
-        </ion-item>
-        <ion-item lines="none">
-            <div id="highcharts"></div>
         </ion-item>
         <ion-item lines="none">
             <ion-label>
@@ -63,6 +60,9 @@
                 </p>
                 <ion-progress-bar [value]="fiberBar"></ion-progress-bar>
             </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+            <div id="highcharts"></div>
         </ion-item>
     </ion-card>
 </ion-content>

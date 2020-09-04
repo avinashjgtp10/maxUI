@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-getting-started-training',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./getting-started-training.page.scss'],
 })
 export class GettingStartedTrainingPage implements OnInit {
-
-  constructor() { }
+  Opts = {
+    initialSlide: 0,
+    speed: 400
+  };
+  constructor(public modalController: ModalController) { }
 
   ngOnInit() {
   }
-
+  closeModal() {
+    this.modalController.dismiss({
+      'dismissed': true
+    });
+  }
 }

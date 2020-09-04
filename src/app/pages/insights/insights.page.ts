@@ -6,6 +6,9 @@ import { ChartCalculationsService } from "../../services/chart/chart-calculation
 import { LoadingContollerService } from "../../services/loading/loading-contoller.service";
 import { DateProviderService } from "../../services/date/date-provider.service";
 import * as moment from 'moment';
+import {PopoverController} from '@ionic/angular';
+import { ShareTemplatePage } from '../share-template/share-template.page';
+
 @Component({
   selector: 'app-insights',
   templateUrl: './insights.page.html',
@@ -16,6 +19,7 @@ export class InsightsPage implements OnInit {
   selectedSegment: any = 'all_meals';
   segmentData: any = [];
   dateRange: number = 7;
+  multiplyFactor: number = 1;
   mealPercetage: any = {
     'breakfast': 0.250,
     'morning_snack': 0.125,
@@ -45,7 +49,8 @@ export class InsightsPage implements OnInit {
     public apiService: ApiCallService,
     public dateService: DateProviderService,  
     public chartCalcService: ChartCalculationsService,  
-    public loadingService: LoadingContollerService) { }
+    public loadingService: LoadingContollerService,
+    public pop:PopoverController) { }
 
   ngOnInit() {
     this.segmentData = [{
@@ -91,6 +96,53 @@ export class InsightsPage implements OnInit {
      console.log("error",error);
    });
   }
+  async openSharePopUp(ev:Event){
+    let mypopover = await this.pop.create(
+      {
+      component: ShareTemplatePage,
+      event: ev,
+      mode: 'md',
+      cssClass: 'share-popup-class',
+      componentProps: {
+        shareCase: 'Insights',
+        data: [{
+          name: 'Calories',
+          icon: 'assets/icon/icon_calorie_tracker.svg',
+          consumed: this.calorieConsumed,
+          estimate: this.calorieEstimated,
+         },
+         {
+          name: 'Proteins',
+          icon: 'assets/icon/icon_calorie_tracker.svg',
+          consumed: this.proteinsConsumed,
+          estimate: this.proteinsEstimated,
+         },
+         {
+          name: 'Fats',
+          icon: 'assets/icon/icon_calorie_tracker.svg',
+          consumed: this.fatConsumed,
+          estimate: this.fatEstimated,
+         },
+         {
+          name: 'Fibers',
+          icon: 'assets/icon/icon_calorie_tracker.svg',
+          consumed: this.fiberConsumed,
+          estimate: this.fiberEstimated,
+         },
+         {
+          name: 'Carbs',
+          icon: 'assets/icon/icon_calorie_tracker.svg',
+          consumed: this.carbsConsumed,
+          estimate: this.carbsEstimated,
+         }]
+      }
+    });
+  
+    mypopover.onDidDismiss()
+        .then((data) => {
+      });
+    return await mypopover.present();
+  }
   mapPrgressBarValues(data){
     console.log('data',data);
     console.log('allEstimatedData',this.allEstimatedData);
@@ -100,17 +152,17 @@ export class InsightsPage implements OnInit {
     this.proteinsConsumed = (data.proteinsConsumed).toFixed(2);
     this.carbsConsumed =  (data.carbsConsumed).toFixed(2);
     if(this.selectedSegment === 'all_meals') {
-      this.calorieEstimated = (this.allEstimatedData.calorieEstimate).toFixed(2) * this.dateRange;
-      this.fatEstimated = (this.allEstimatedData.fatsEstimate).toFixed(2) * this.dateRange;
-      this.fiberEstimated = (this.allEstimatedData.fiberEstimate).toFixed(2) * this.dateRange;
-      this.proteinsEstimated = (this.allEstimatedData.proteinEstimate).toFixed(2) * this.dateRange;
-      this.carbsEstimated =  (this.allEstimatedData.carbsEstimate).toFixed(2) * this.dateRange;
+      this.calorieEstimated = (this.allEstimatedData.calorieEstimate).toFixed(2) * this.multiplyFactor;
+      this.fatEstimated = (this.allEstimatedData.fatsEstimate).toFixed(2) * this.multiplyFactor;
+      this.fiberEstimated = (this.allEstimatedData.fiberEstimate).toFixed(2) * this.multiplyFactor;
+      this.proteinsEstimated = (this.allEstimatedData.proteinEstimate).toFixed(2) * this.multiplyFactor;
+      this.carbsEstimated =  (this.allEstimatedData.carbsEstimate).toFixed(2) * this.multiplyFactor;
     } else {
-    this.calorieEstimated = (this.allEstimatedData.calorieEstimate).toFixed(2) * this.dateRange * this.mealPercetage[this.selectedSegment];
-    this.fatEstimated = (this.allEstimatedData.fatsEstimate).toFixed(2) * this.dateRange * this.mealPercetage[this.selectedSegment];
-    this.fiberEstimated = (this.allEstimatedData.fiberEstimate).toFixed(2) * this.dateRange * this.mealPercetage[this.selectedSegment];
-    this.proteinsEstimated = (this.allEstimatedData.proteinEstimate).toFixed(2) * this.dateRange * this.mealPercetage[this.selectedSegment];
-    this.carbsEstimated =  (this.allEstimatedData.carbsEstimate).toFixed(2) * this.dateRange * this.mealPercetage[this.selectedSegment];
+    this.calorieEstimated = (this.allEstimatedData.calorieEstimate).toFixed(2) * this.multiplyFactor * this.mealPercetage[this.selectedSegment];
+    this.fatEstimated = (this.allEstimatedData.fatsEstimate).toFixed(2) * this.multiplyFactor * this.mealPercetage[this.selectedSegment];
+    this.fiberEstimated = (this.allEstimatedData.fiberEstimate).toFixed(2) * this.multiplyFactor * this.mealPercetage[this.selectedSegment];
+    this.proteinsEstimated = (this.allEstimatedData.proteinEstimate).toFixed(2) * this.multiplyFactor * this.mealPercetage[this.selectedSegment];
+    this.carbsEstimated =  (this.allEstimatedData.carbsEstimate).toFixed(2) * this.multiplyFactor * this.mealPercetage[this.selectedSegment];
     }
     this.progressBarCalculation();
          

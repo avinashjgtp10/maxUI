@@ -20,6 +20,8 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 //Ionic Storage
 import { IonicStorageModule } from "@ionic/storage";
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { Screenshot } from '@ionic-native/screenshot/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
 
@@ -57,7 +59,9 @@ export function createTranslateLoader(http:HttpClient){
     StatusBar,
     SplashScreen,
     AppVersion,
-      ImagePicker,
+    ImagePicker,
+    Screenshot,
+    SocialSharing,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     FCM,
     PushService

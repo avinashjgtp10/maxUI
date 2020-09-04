@@ -89,12 +89,11 @@
     </ion-col>
   </ion-row>
 </ion-grid>
-<div class="daily-intake">
-  <p>Daily Water Intake<span>
-      <ion-icon src="assets/icon/icon_share.svg"></ion-icon>
-    </span></p>
-  <span>{{graphViewableDateText}}</span>
-</div>
+<ion-item lines="none" class="daily-intake">
+    <ion-label slot="start">Daily Water Intake</ion-label>
+    <ion-text>{{graphViewableDateText}}</ion-text>
+    <ion-icon (click)="openSharePopUp()" slot="end" src="assets/icon/icon_share.svg"></ion-icon>
+</ion-item>
 <ion-slides style="width: 100%" pager="false" [options]="slideOpts" #graphSlider (ionSlideDidChange)="slideChanged($event)">
   <ion-slide>
     <div id="chartContainer1" style="width: 375px; height: 400px;"></div>

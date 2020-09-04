@@ -1,0 +1,36 @@
+<ion-header class="ion-text-center">
+  <ion-toolbar>
+    <ion-title>Share Via</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center">
+  <div *ngIf="(shareCase == 'Insights')">
+    <ion-item lines="none" *ngFor="let item of data">
+      <ion-icon slot="start" [src]="item.icon"></ion-icon>
+      <ion-text>{{item.name}}</ion-text>
+      <ion-text slot="end">{{item.consumed | fixedValue}} of {{item.estimate | fixedValue}} Cal</ion-text>
+    </ion-item>
+  </div>
+  <div *ngIf="(shareCase == 'Handwash')">
+    <p>{{data[0].date}}</p>
+      <ion-item lines="none">
+        <ion-icon slot="start" [src]="data[0].icon"></ion-icon>
+        <ion-text>{{data[0].name}}</ion-text>
+        <ion-text slot="end">{{data[0].achieved}} of {{data[0].goal}}</ion-text>
+      </ion-item>
+    </div>
+</ion-content>
+<ion-footer class="ion-text-center">
+  <ion-toolbar>
+    <ion-button (click)="shareWhatsApp()" fill="clear" size="small">
+      <ion-icon slot="icon-only" name="logo-whatsapp"></ion-icon>
+    </ion-button>
+    <ion-button (click)="shareFaceBook()" fill="clear" size="small">
+      <ion-icon  slot="icon-only" name="logo-facebook"></ion-icon>
+    </ion-button>
+    <ion-button (click)="shareInsta()" fill="clear" size="small">
+      <ion-icon slot="icon-only" name="logo-instagram"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

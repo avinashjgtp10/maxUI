@@ -10,6 +10,8 @@ import { ChartCalculationsService } from "../../services/chart/chart-calculation
 import { DateProviderService } from 'src/app/services/date/date-provider.service';
 import { ToastController } from '@ionic/angular';
 import { Howl } from 'howler';
+import {PopoverController} from '@ionic/angular';
+import { ShareTemplatePage } from '../share-template/share-template.page';
 
 @Component({
   selector: 'app-handwash-tracker',
@@ -52,7 +54,8 @@ export class HandwashTrackerPage implements OnInit {
     public modalController: ModalController,
     public chartCalcService: ChartCalculationsService,
     private dateProviderService: DateProviderService,
-    public apiService: ApiCallService) { }
+    public apiService: ApiCallService,
+    public pop:PopoverController) { }
 
   ngOnInit() {
     this.initAllValues();
@@ -96,6 +99,7 @@ export class HandwashTrackerPage implements OnInit {
   }
   plotChart(yAc, yGo, i) {
     let chartPart = new CanvasJS.Chart("chartContainer" + i, {
+      dataPointWidth: 15,
       toolTip: {
         enabled: false
       },
@@ -103,8 +107,8 @@ export class HandwashTrackerPage implements OnInit {
       axisX: {
         title: "",
         labelMaxWidth: 40,
-        labelFontSize: 20,
-        labelFontColor: "#A5A5A5",
+        labelFontSize: 15,
+        labelFontColor:"#2E3034",
         gridThickness: 0,
         tickLength: 10,
         lineThickness: 0,
@@ -128,24 +132,48 @@ export class HandwashTrackerPage implements OnInit {
           type: "column",
           legendText: "Goal",
           showInLegend: true,
-          color: "#A5A5A5",
+          color: "#D1ECFF",
           indexLabel: "{y}",
           indexLabelFontSize: 15,
           dataPoints: yAc,
         },
         {
           type: "column",
-          legendText: "Consumed Water",
+          legendText: "Achieved",
           showInLegend: true,
           indexLabel: "{y}",
           indexLabelFontSize: 15,
-          color: "#EBF4FA",
+          color: "#86CEFF",
           dataPoints: yGo
         }
       ]
     });
     chartPart.render();
     this.graphSlider.slideTo(this.chartData.length - 1);
+  }
+  async openSharePopUp(ev:Event){
+    let mypopover = await this.pop.create(
+      {
+      component: ShareTemplatePage,
+      event: ev,
+      mode: 'md',
+      cssClass: 'share-popup-class',
+      componentProps: {
+        shareCase: 'Handwash',
+        data: [{
+          name: 'Handwash',
+          date: this.selectedDate,
+          icon: 'assets/icon/icon_handwash.svg',
+          achieved: this.htAchived,
+          goal: this.htGoal,
+         }]
+      }
+    });
+  
+    mypopover.onDidDismiss()
+        .then((data) => {
+      });
+    return await mypopover.present();
   }
   openDateSlide() {
     if (!this.isDateSliderOpened) {

@@ -1,0 +1,36 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar class="ion-text-center">
+      <ion-title>Weight Loss</ion-title>
+      <ion-label>28 days | 4 Weeks</ion-label>
+      <ion-progress-bar [value]="scheduleData.progress"></ion-progress-bar>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <div class="segment-content">
+      <div class="week-workout-section">
+        <ion-list>
+          <ion-item *ngFor="let item of items" (click)="openVideo(item)">
+              <ion-thumbnail slot="start">
+                  <img src="assets/img/sliderPlaceHolder.svg">
+              </ion-thumbnail>
+              <ion-label slot="start">
+                <p>Day {{item.day}}</p>
+                <ion-text>{{item.title}}</ion-text>
+              </ion-label>
+              <ion-button  slot="end" (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
+                  <ion-icon *ngIf="item.isChecked" slot="icon-only" src="assets/icon/icon_tick.svg"></ion-icon>
+                  <ion-icon *ngIf="!item.isChecked" slot="icon-only" src="assets/icon/icon_unChecked.svg"></ion-icon>
+              </ion-button>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </ion-content>
+  <ion-footer class="ion-no-border ion-text-center">
+    <ion-toolbar>
+      <ion-button shape="round" fill="outline">
+        <ion-text>Start Workout</ion-text>
+      </ion-button>
+    </ion-toolbar>
+  </ion-footer>

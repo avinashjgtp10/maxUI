@@ -1,0 +1,77 @@
+ion-header{
+    ion-toolbar{
+        ion-header{
+            font-weight: normal;
+            font-size: 16px;
+            text-transform: uppercase;
+            color: #000000;
+        }
+    }
+}
+ion-content{
+    ion-card{
+        img{
+            width: 100%;
+            height: 50px;
+        }
+        ion-card-header{
+            padding: 0 10px 10px 10px;
+            ion-card-title{
+                font-weight: bold;
+                font-size: 16px;
+                text-transform: uppercase;
+                color: #000000;
+            }
+            ion-card-subtitle{
+                font-weight: normal;
+                font-size: 14px;
+                color: #060606;
+            }
+            ion-button{
+                float: right;
+                --color:#E02828;
+                --border-color:#E02828;
+            }
+        }
+    }
+    .offers-section{
+        ion-item{
+            ion-label{
+                min-width: 80%;
+                font-weight: normal;
+                font-size: 16px;
+                text-transform: uppercase;
+                color: #000000;
+            }
+        }
+        ion-slides{
+            ion-slide{
+                margin: 0 0 0 0px;
+                ion-img{
+                    width: 90%;
+                }
+            }
+        }
+    }
+    .common-question-section{
+        .question-header{
+            font-weight: 500;
+            font-size: 16px;
+            color: #000000;
+            margin-left: 15px;
+        }
+        ion-card{
+            box-shadow: none;
+            border-top: 1px solid #F3F4F3;
+            border-bottom: 1px solid #F3F4F3;
+            box-sizing: border-box;
+            ion-item{
+                ion-label{
+                    font-weight: 300;
+                    font-size: 14px;
+                    color: rgba(68, 68, 68, 0.8);
+                }
+            }
+        }
+    }
+}
