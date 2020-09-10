@@ -10,8 +10,8 @@ ion-header{
     }
 }
 ion-content{
-    ion-slides{
         ion-slide{
+            display: block;
             .big-ellipse{
                 width: 154px;
                 height: 154px;
@@ -25,56 +25,55 @@ ion-content{
             .verical-center{
                 margin-top: 10rem;
             }
-            ion-grid{
-                ion-row{
-                    ion-col{
-                            .big-heading{
-                                font-weight: bold;
-                                font-size: 30px;
-                                color: #444444;
-                            }
-                            .normal-heading{
+        }
+        ion-grid{
+            ion-row{
+                ion-col{
+                        .big-heading{
+                            font-weight: bold;
+                            font-size: 30px;
+                            color: #444444;
+                        }
+                        .normal-heading{
+                            font-weight: normal;
+                            font-size: 30px;
+                            color: #444444;
+                        }
+                        .normal-para{
+                            font-weight: 300;
+                            font-size: 16px;
+                            color: rgba(68, 68, 68, 0.8);
+                        }
+                        button{
+                            width: 95%;
+                            height: 3rem;
+                            border-radius: 25px;
+                            background-color: transparent;
+                            border: 1px solid #000000;
+                              ion-text{
+                                font-weight: 500;
+                                font-size: 20px;
+                                color: #000000;
+                                text-transform: none;
+                              }
+                        }
+                        ion-chip{
+                            --color: #C4C4C4;
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 25px;
+                            padding: 0px;
+                            ion-label{
                                 font-weight: normal;
-                                font-size: 30px;
-                                color: #444444;
-                            }
-                            .normal-para{
-                                font-weight: 300;
                                 font-size: 16px;
-                                color: rgba(68, 68, 68, 0.8);
+                                color: #FFFFFF;
+                                margin: 0 auto;
                             }
-                            button{
-                                width: 95%;
-                                height: 3rem;
-                                border-radius: 25px;
-                                background-color: transparent;
-                                border: 1px solid #000000;
-                                  ion-text{
-                                    font-weight: 500;
-                                    font-size: 20px;
-                                    color: #000000;
-                                    text-transform: none;
-                                  }
-                            }
-                            ion-chip{
-                                --color: #C4C4C4;
-                                width: 50px;
-                                height: 50px;
-                                border-radius: 25px;
-                                padding: 0px;
-                                ion-label{
-                                    font-weight: normal;
-                                    font-size: 16px;
-                                    color: #FFFFFF;
-                                    margin: 0 auto;
-                                }
-                            }
+                        }
 
-                    }
                 }
             }
         }
-    }
 }
 ion-footer{
     ion-toolbar{
@@ -86,6 +85,19 @@ ion-footer{
                 color: #444444;
             }
          }
+         ion-button{
+            width: 80%;
+            height: 2.5rem;
+            --color:#E02828;
+            --border-color:#E02828;
+            --background: #E02828;
+              ion-text{
+                font-weight: 500;
+                font-size: 20px;
+                color: #FFFFFF;
+                text-transform: none;
+              }
+        }
          ion-progress-bar{
             --progress-background: #A5A5A5;
             height: 5px;

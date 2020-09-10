@@ -199,5 +199,22 @@ export class ApiCallService {
           )
       }
 
+      // Get My Training Data
+      getMyTrainingData(category, plan): Observable<JSON> {
+        return this.http
+          .get<JSON>(this.base_path + `/mytraining/getData/${category}/${plan}`)
+          .pipe(
+            catchError(this.handleError)
+          )
+      }
 
+       // Post Getting Started Data
+       gettingStartedData(data): Observable<JSON> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http
+        .post<JSON>(this.base_path + `/mytraining/createTraining`, JSON.stringify(data), {headers: headers} )
+        .pipe(
+          catchError(this.handleError)
+        )
+      }
 }

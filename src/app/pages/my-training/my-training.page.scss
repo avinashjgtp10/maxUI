@@ -45,29 +45,29 @@ ion-header {
     }
 }
 ion-content{
+    .video-section{
+        background-color: #E0E0E0;
+        .video-player{
+            width: 100%;
+            height: 16rem;
+        }
+        .play-button{
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            ion-icon{
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
     .live-class-section{
         ion-slides{
             ion-slide{
                 margin: 0 0 0 6px;
-                ion-img{
-                    width: 90%;
-                }
-            }
-        }
-    }
-    .offers-section{
-        ion-item{
-            ion-label{
-                min-width: 80%;
-                font-weight: normal;
-                font-size: 16px;
-                text-transform: uppercase;
-                color: #000000;
-            }
-        }
-        ion-slides{
-            ion-slide{
-                margin: 0 0 0 0px;
                 ion-img{
                     width: 90%;
                 }
@@ -91,29 +91,18 @@ ion-content{
             font-size: 16px;
             color: rgba(68, 68, 68, 0.8);
         }
-        ion-item{
-            text-align: left;
-            ion-label{
-                min-width: 80%;
-                ion-text{
-                    font-weight: normal;
-                    font-size: 18px;
-                    color: #444444;
-                    margin-right: 20px;
-                }
-            }
-           
-        }
-        ion-button{
-            width: 80%;
+        button{
+            width: 85%;
             height: 2.5rem;
-            --color:#E02828;
-            --border-color:#E02828;
-            --background: #E02828;
+            border: 1px solid #E02828;
+            box-sizing: border-box;
+            border-radius: 25px;
+            background-color: white;
+            margin-top: 15px;
               ion-text{
                 font-weight: 500;
-                font-size: 20px;
-                color: #FFFFFF;
+                font-size: 18px;
+                color: #E02828;
                 text-transform: none;
               }
         }

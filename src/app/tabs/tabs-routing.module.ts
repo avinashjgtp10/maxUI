@@ -21,7 +21,7 @@ const routes: Routes = [
       },
       {
         path: 'tab4',
-        loadChildren: () => import('../pages/training-dashboard/training-dashboard.module').then(m => m.TrainingDashboardPageModule)
+        loadChildren: () => import('../pages/getting-started-training/getting-started-training.module').then(m => m.GettingStartedTrainingPageModule)
       },
       {
         path: 'tab5',
