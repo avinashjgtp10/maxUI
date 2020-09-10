@@ -28,50 +28,6 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
-  {
-    path: 'calorie-tracker',
-    loadChildren: () => import('./pages/calorie-tracker/calorie-tracker.module').then( m => m.CalorieTrackerPageModule)
-  },
-  {
-    path: 'add-calorie',
-    loadChildren: () => import('./pages/add-calorie/add-calorie.module').then( m => m.AddCaloriePageModule)
-  },
-  {
-    path: 'insights',
-    loadChildren: () => import('./pages/insights/insights.module').then( m => m.InsightsPageModule)
-  },
-  {
-    path: 'water-tracker',
-    loadChildren: () => import('./pages/water-tracker/water-tracker.module').then( m => m.WaterTrackerPageModule)
-  },
-  {
-    path: 'handwash-tracker',
-    loadChildren: () => import('./pages/handwash-tracker/handwash-tracker.module').then( m => m.HandwashTrackerPageModule)
-  },
-  { 
-    path: 'date-slider',
-    loadChildren: () => import('./pages/date-slider/date-slider.module').then( m => m.DateSliderPageModule)
-  },
-  {
-    path: 'weight-tracker',
-    loadChildren: () => import('./pages/weight-tracker/weight-tracker.module').then( m => m.WeightTrackerPageModule)
-  },
-  {
-    path: 'getting-started-training',
-    loadChildren: () => import('./pages/getting-started-training/getting-started-training.module').then( m => m.GettingStartedTrainingPageModule)
-  },
-  {
-    path: 'share-template',
-    loadChildren: () => import('./pages/share-template/share-template.module').then( m => m.ShareTemplatePageModule)
-  },
-  {
-    path: 'day-schedule',
-    loadChildren: () => import('./pages/day-schedule/day-schedule.module').then( m => m.DaySchedulePageModule)
-  },
-  {
-    path: 'work-out-video',
-    loadChildren: () => import('./pages/work-out-video/work-out-video.module').then( m => m.WorkOutVideoPageModule)
-  }
 ];
 
 @NgModule({

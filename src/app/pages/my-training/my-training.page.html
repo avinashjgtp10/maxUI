@@ -16,17 +16,15 @@
 </ion-header>
 
 <ion-content>
-    <div class="live-class-section ion-margin-top">
-        <!-- <ion-item lines="none">
-          <ion-label class="ion-no-margin" slot="start">
-             Live Classes For You
-          </ion-label>
-        </ion-item> -->
-          <ion-slides pager="false" [options]="liveClassesOpts"  #liveClassesSlider>
-              <ion-slide *ngFor="let liveClass of liveClassesData;let i = index">
-                <ion-img [src]="liveClass.imgUrl ? liveClass.imgUrl:'assets/img/sliderPlaceHolder.svg'"></ion-img>
-              </ion-slide>
-            </ion-slides>
+    <div class="video-section">
+        <video id="video_1" class="video-player" preload="none"
+          #videoPlayer>
+          <source  type="video/mp4" />
+          Browser not supported
+        </video>
+        <ion-button (click)="playVideo()" fill="clear" size="small" class="ion-no-margin play-button">
+            <ion-icon slot="icon-only" src="assets/icon/icon_play.svg"></ion-icon>
+          </ion-button>
       </div>
       <div class="offers-section">
           <ion-item lines="none">
@@ -36,21 +34,18 @@
           </ion-item>
             <ion-slides pager="false" [options]="offersOpts"  #offersSlider>
                 <ion-slide *ngFor="let liveClass of liveClassesData;let i = index">
-                  <ion-img [src]="liveClass.imgUrl ? liveClass.imgUrl:'assets/img/sliderPlaceHolder.svg'"></ion-img>
+                  <ion-img [src]="liveClass.ic_url ? liveClass.ic_url:'assets/img/sliderPlaceHolder.svg'"></ion-img>
                 </ion-slide>
               </ion-slides>
         </div>
         <div class="reach-your-golas-section ion-padding">
            <h4>Reach Your Health Goals</h4>
-           <p>Get Your Customized</p>
-           <ion-item lines="none" class="ion-no-padding">
-             <ion-label slot="start">
-                <ion-text>Diet Plan</ion-text>
+           <p>Get your standardize</p>
+           <button (click)="openSlideShow()">
+              <ion-text>Diet Plan</ion-text>
+           </button>
+            <button (click)="openSubcriptionModal()">
                 <ion-text>Fitness Plan</ion-text>
-             </ion-label>
-           </ion-item> 
-           <ion-button (click)="openSlideShow()" shape="round" fill="outline">
-              <ion-text>Get Started</ion-text>
-            </ion-button>
+            </button>   
         </div>
 </ion-content>

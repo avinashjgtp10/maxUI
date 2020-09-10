@@ -124,8 +124,7 @@
       "cordova-plugin-androidx-adapter": {},
       "cordova-plugin-fcm-with-dependecy-updated": {},
       "cordova-support-google-services": {},
-      "cordova-plugin-telerik-imagepicker": {},
-      "cordova-plugin-androidx": {}
+      "cordova-plugin-telerik-imagepicker": {}
     },
     "platforms": [
       "android"
