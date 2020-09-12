@@ -39,7 +39,9 @@
                 "input": "src/global.scss"
               }
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/lib/player.js"
+            ]
           },
           "configurations": {
             "production": {
