@@ -1,26 +1,35 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { CommonModule } from '@angular/common';
 
 import { HomePage } from './home.page';
 import { ComponentsModule } from '../../components/components.module';
 import { PipesModule } from '../../pipes/pipes.module';
 import { ToastProvider } from 'src/app/services/toast/toast';
+import { WeightTrackerPageModule } from '../weight-tracker/weight-tracker.module';
+import { HandwashTrackerPageModule } from '../handwash-tracker/handwash-tracker.module';
+import { WaterTrackerPageModule } from '../water-tracker/water-tracker.module';
+
+
 
 
 
 @NgModule({
   imports: [
-    ComponentsModule,
     CommonModule,
+    ComponentsModule,
     FormsModule,
     IonicModule,
     PipesModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    WeightTrackerPageModule,
+    HandwashTrackerPageModule,
+    WaterTrackerPageModule
   ],
   declarations: [HomePage],
   providers: [ToastProvider]
