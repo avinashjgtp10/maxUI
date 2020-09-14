@@ -36,6 +36,7 @@ export class HomePage implements OnInit {
     trackerFunctionName: "calorieTracker",
     color: "blue",
     percent:0,
+    iconSrc: "assets/icon/icon_calorie_tracker.svg"
    },
    {
     name: 'Water Tracker',
@@ -48,7 +49,8 @@ export class HomePage implements OnInit {
     isAdded: false,
     percent:0,
     trackerFunctionName: "waterTracker",
-    color: '#E02828'
+    color: '#86CEFF',
+    iconSrc: "assets/icon/icon_water_tracker_icon.svg"
    },
    {
     name: 'Weight Tracker',
@@ -61,8 +63,9 @@ export class HomePage implements OnInit {
     isAdded: false,
     trackerFunctionName: "weightTracker",
     percent:0,
-    color: 'black',
-    isGoalSet: false
+    color: '#E02828',
+    isGoalSet: false,
+    iconSrc: "assets/icon/icon_weight_tracker.svg"
    },
    {
     name: 'Handwash Tracker',
@@ -76,6 +79,8 @@ export class HomePage implements OnInit {
     trackerFunctionName: "handwashTracker",
     color: 'green',
     percent:0,
+    iconSrc: "assets/icon/icon_handwash_tracker.svg"
+
    },
   ];
   liveClassesData: Array<Object> = [];
@@ -188,7 +193,7 @@ export class HomePage implements OnInit {
              this.trackersData[3].todaysValue = data[key][0].ht_achived;
              this.trackersData[3].percent =  (data[key][0].ht_achived/16)* 100;;
             }else{ // data found without todays entry
-             this.trackersData[3].totalValue = '0'; //keep same goal
+             this.trackersData[3].totalValue = '16'; //keep same goal
              this.trackersData[3].todaysValue = '0';
              this.trackersData[3].percent = 0;
             }

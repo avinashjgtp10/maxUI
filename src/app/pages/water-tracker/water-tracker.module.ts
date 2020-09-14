@@ -8,6 +8,8 @@ import { WaterTrackerPageRoutingModule } from './water-tracker-routing.module';
 
 import { WaterTrackerPage } from './water-tracker.page';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { DateSliderPageModule } from '../date-slider/date-slider.module';
+
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     FormsModule,
     IonicModule,
     WaterTrackerPageRoutingModule,
-    NgCircleProgressModule
+    NgCircleProgressModule,
+    DateSliderPageModule
   ],
   declarations: [WaterTrackerPage]
 })
