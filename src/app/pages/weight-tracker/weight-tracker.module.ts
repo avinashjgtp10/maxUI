@@ -8,6 +8,8 @@ import { WeightTrackerPageRoutingModule } from './weight-tracker-routing.module'
 
 import { WeightTrackerPage } from './weight-tracker.page';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
+import { DateSliderPageModule } from '../date-slider/date-slider.module';
+
 
 
 @NgModule({
@@ -16,7 +18,8 @@ import { RoundProgressModule } from 'angular-svg-round-progressbar';
     FormsModule,
     IonicModule,
     WeightTrackerPageRoutingModule,
-    RoundProgressModule
+    RoundProgressModule,
+    DateSliderPageModule
   ],
   declarations: [WeightTrackerPage]
 })

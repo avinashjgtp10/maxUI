@@ -8,13 +8,17 @@ import { HandwashTrackerPageRoutingModule } from './handwash-tracker-routing.mod
 
 import { HandwashTrackerPage } from './handwash-tracker.page';
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
+import { DateSliderPageModule } from '../date-slider/date-slider.module';
+
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     RoundProgressModule,
-    HandwashTrackerPageRoutingModule
+    HandwashTrackerPageRoutingModule,
+    DateSliderPageModule
   ],
   declarations: [HandwashTrackerPage]
 })

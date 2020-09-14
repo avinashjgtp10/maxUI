@@ -5,9 +5,9 @@
                 <ion-item lines="none" *ngIf="tracker.show" >
                          <ion-icon *ngIf="!tracker.isAdded" (click)="openTracker(tracker)" [src]="tracker.src" slot="start" class="reduce-margin-right icon-size"></ion-icon>
                         <div *ngIf="tracker.isAdded" class="reduce-margin-right icon-size">
-                                <circle-progress [percent]="(tracker.percent)" [radius]="13" 
-                                [backgroundPadding]="-2" [startFromZero]="false" [outerStrokeWidth]="2" [innerStrokeWidth]="0" [showTitle]="false" [showSubtitle]="false" [showImage]="false" [showUnits]="false"
-                                [outerStrokeColor]="tracker.color"  [backgroundColor] = "'#D2D2D2'"  [animation]="true" [animationDuration]="600" >
+                                <circle-progress [percent]="(tracker.percent)" [radius]="16" 
+                                [backgroundPadding]="-2" [startFromZero]="false" [imageHeight]="20" [imageWidth]="20" [showImage]="true" [imageSrc]="tracker.iconSrc" [outerStrokeWidth]="2" [space]="-2" [innerStrokeWidth]="2" [showTitle]="false" [showSubtitle]="false"  [showUnits]="false"
+                                [outerStrokeColor]="tracker.color" [showInnerStroke]="true" innerStrokeColor="#F6F6F6"  [animation]="true" [animationDuration]="600" >
                                 </circle-progress>
                         </div>
                         <ion-label (click)="openTracker(tracker)">
