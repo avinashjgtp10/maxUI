@@ -9,7 +9,8 @@
     <ion-item lines="none" *ngFor="let item of data">
       <ion-icon slot="start" [src]="item.icon"></ion-icon>
       <ion-text>{{item.name}}</ion-text>
-      <ion-text slot="end">{{item.consumed | fixedValue}} of {{item.estimate | fixedValue}} Cal</ion-text>
+      <!-- <ion-text slot="end">{{item.consumed | fixedValue}} of {{item.estimate | fixedValue}} Cal</ion-text> -->
+      <ion-text slot="end">{{item.consumed}} of {{item.estimate}} Cal</ion-text>
     </ion-item>
   </div>
   <div *ngIf="(shareCase == 'Handwash')">

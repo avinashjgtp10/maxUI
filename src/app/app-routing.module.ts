@@ -28,6 +28,14 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
+  {
+    path: 'training-dashboard',
+    loadChildren: () => import('./pages/training-dashboard/training-dashboard.module').then(m => m.TrainingDashboardPageModule)
+  },
+  {
+    path: 'calendar-selection',
+    loadChildren: () => import('./pages/calendar-selection/calendar-selection.module').then( m => m.CalendarSelectionPageModule)
+  },
 ];
 
 @NgModule({

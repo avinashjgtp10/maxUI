@@ -7,7 +7,8 @@
   </ion-toolbar>
   <ion-item lines="none" class="ion-no-padding">
     <ion-label>
-      <p><b>{{calorieToReach | fixedValue}} cal</b> to reach your goal</p>
+      <!-- <p><b>{{calorieToReach | fixedValue}} cal</b> to reach your goal</p> -->
+      <p><b>{{calorieToReach}} cal</b> to reach your goal</p>
       <ion-progress-bar [value]="calorieProgressBar"></ion-progress-bar>
     </ion-label>
   </ion-item>
@@ -31,7 +32,8 @@
       <ion-list-header lines="full">
         <ion-label>{{selectedSegment}}</ion-label>
         <ion-label class="ion-text-right">
-          <p>{{calorieConsumed | fixedValue}} OF {{calorieEstimated | fixedValue}} Cal</p>
+          <!-- <p>{{calorieConsumed | fixedValue}} OF {{calorieEstimated | fixedValue}} Cal</p> -->
+          <p>{{calorieConsumed}} OF {{calorieEstimated}} Cal</p>
         </ion-label>
         <ion-button (click)="openAddYourMeal()" fill="clear" size="small" class="ion-no-margin">
           <ion-icon slot="icon-only" src="assets/icon/icon_red_add.svg"></ion-icon>

@@ -200,9 +200,9 @@ export class ApiCallService {
       }
 
       // Get My Training Data
-      getMyTrainingData(category, plan): Observable<JSON> {
+      getMyTrainingData(category, plan, c_id): Observable<JSON> {
         return this.http
-          .get<JSON>(this.base_path + `/mytraining/getData/${category}/${plan}`)
+          .get<JSON>(this.base_path + `/mytraining/getData/${category}/${plan}/${c_id}`)
           .pipe(
             catchError(this.handleError)
           )
@@ -217,4 +217,41 @@ export class ApiCallService {
           catchError(this.handleError)
         )
       }
+
+        // Get My Training Dashboard Data
+        getMyTrainingDashboardData(c_id): Observable<JSON> {
+          return this.http
+            .get<JSON>(this.base_path + `/mytraining/getTrainingData/${c_id}`)
+            .pipe(
+              catchError(this.handleError)
+            )
+        }
+
+        // Post Workout Schedule
+        workoutSchedule(data): Observable<JSON> {
+          let headers = new HttpHeaders().set('Content-Type', 'application/json');
+          return this.http
+          .post<JSON>(this.base_path + `/mytraining/workoutSchedule`, JSON.stringify(data), {headers: headers} )
+          .pipe(
+            catchError(this.handleError)
+          )
+        }
+
+         // Get My Training Overview Data
+         getMyTrainingOverviewData(c_id): Observable<JSON> {
+          return this.http
+            .get<JSON>(this.base_path + `/mytraining/getTrainingWorkoutSchedule/${c_id}`)
+            .pipe(
+              catchError(this.handleError)
+            )
+        }
+
+         // Get My Day-wise Video Data
+         getDayWiseData(day,week,c_id): Observable<JSON> {
+          return this.http
+            .get<JSON>(this.base_path + `/mytraining/getDayVideo/${c_id}/${day}/${week}`)
+            .pipe(
+              catchError(this.handleError)
+            )
+        }
 }

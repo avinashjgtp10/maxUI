@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Router,ActivatedRoute } from "@angular/router"
 import { ApiCallService } from "../../services/api/api-call.service";
 import { IonSlides } from '@ionic/angular';
 import { LoadingContollerService } from "../../services/loading/loading-contoller.service";
@@ -16,6 +17,7 @@ export class GettingStartedTrainingPage implements OnInit {
     preloadImages: true,
     allowTouchMove: false,
   };
+  result:any
   @ViewChild('loginSlider', { static: false }) loginSlider: IonSlides;
   slideIndex: number = 1;
   totalSlides: number = 5;
@@ -28,7 +30,8 @@ export class GettingStartedTrainingPage implements OnInit {
     "cid": localStorage.getItem('c_id'),
     "plan":"standard"
   };
-  constructor(public modalController: ModalController,
+  constructor(
+    private route:Router,public modalController: ModalController,
     private apiCallService: ApiCallService,
     private loadingContollerService: LoadingContollerService) { }
 
@@ -41,8 +44,6 @@ export class GettingStartedTrainingPage implements OnInit {
   }
  setData(key, value){
    this.dataObj[key] = value;
-   console.log('this.dataObj', this.dataObj);
-   console.log('this.slideIndex',this.slideIndex);
    if(this.slideIndex === (this.totalSlides-1)){
       this.storeAllInfo();
    } else {
@@ -55,6 +56,7 @@ export class GettingStartedTrainingPage implements OnInit {
   this.apiCallService.gettingStartedData(this.dataObj).subscribe((result:any) =>{
     this.loadingContollerService.loadingDismiss();
     console.log('result',result);
+    this.result = result;
     this.slideToNext();
   })
  }
@@ -71,7 +73,9 @@ export class GettingStartedTrainingPage implements OnInit {
   async goToTrainigDasboard(){
     const modal = await this.modalController.create({
       component: TrainingDashboardPage,
+      cssClass: 'my-custom-class'
     });
     return await modal.present();
+
   }
 }

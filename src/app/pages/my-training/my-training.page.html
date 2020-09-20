@@ -17,9 +17,9 @@
 
 <ion-content>
     <div class="video-section">
-        <video id="video_1" class="video-player" preload="none"
-          #videoPlayer>
-          <source  type="video/mp4" />
+          <video id="video_1" class="video-player" preload="none"
+          #videoPlayer (ended)="videoEnded()">
+          <source [src]="playingVideoSrc" type="video/mp4" />
           Browser not supported
         </video>
         <ion-button (click)="playVideo()" fill="clear" size="small" class="ion-no-margin play-button">
@@ -44,7 +44,7 @@
            <button (click)="openSlideShow()">
               <ion-text>Diet Plan</ion-text>
            </button>
-            <button (click)="openSubcriptionModal()">
+            <button (click)="openFintessPlan()">
                 <ion-text>Fitness Plan</ion-text>
             </button>   
         </div>

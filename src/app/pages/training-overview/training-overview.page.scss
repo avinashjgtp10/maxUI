@@ -1,9 +1,16 @@
 ion-header{
     height: 10rem;
     background-color: #E0E0E0;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
     ion-toolbar{
         margin-top: 6rem;
         --background: #E0E0E0;
+        ion-button {
+            position: absolute;
+            --color:#000000;
+          }
         ion-title{
             font-weight: bold;
             font-size: 16px;
@@ -34,14 +41,16 @@ ion-content{
         }
     }
     .about-section{
+        padding-top: 15px;
+        .inner-about{
+         padding: 15px;
+        }
         p{
-           margin: 5px 0px 5px 10px;
            font-weight: 500;
            font-size: 16px;
            color: #000000;
         }
         ion-text{
-            padding: 0px 0px 0px 10px;
             font-style: normal;
             font-weight: 300;
             font-size: 14px;

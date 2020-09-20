@@ -1,5 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { CalendarSelectionPage } from '../calendar-selection/calendar-selection.page';
+import { ApiCallService } from 'src/app/services/api/api-call.service';
+import { LoadingContollerService } from 'src/app/services/loading/loading-contoller.service';
+import { TrainingOverviewPage } from '../training-overview/training-overview.page';
 
 @Component({
   selector: 'app-training-dashboard',
@@ -9,14 +14,36 @@ import { IonSlides } from '@ionic/angular';
 export class TrainingDashboardPage implements OnInit {
   @ViewChild('offersSlider', { static: false }) offersSlider: IonSlides;
   public items: any = [];
+  completeData:any;
+  isPlaying:boolean = false;
+  playingVideoSrc:string;
   liveClassesData: Array<Object> = [];
   specialPlanesData: Array<Object> = [];
-  offersOpts = {
-    initialSlide: 0,
-    slidesPerView: 3.5,
-    speed: 400
-  };
-  constructor() {
+    offersOpts = {
+      initialSlide: 0,
+      speed: 400,
+      slidesPerView: 3.5
+    };
+  constructor(public modalController: ModalController,
+    private apiCallService: ApiCallService,
+    private loadingContollerService: LoadingContollerService) {
+   }
+   ionViewWillEnter(){
+    this.offersSlider.update();
+   
+  }
+  ngAfterViewInit(){
+  }
+  ngOnInit() {
+    this.loadingContollerService.loadingPresent();
+    this.apiCallService.getMyTrainingDashboardData(localStorage.getItem('c_id')).subscribe((data:any) =>{
+      this.completeData = data.data;
+      console.log('res',data.data);
+      this.loadingContollerService.loadingDismiss();
+      this.liveClassesData = data.data.image;
+      this.playingVideoSrc = this.completeData.video[1].aw_url;
+      console.log('this.playingVideoSrc',this.playingVideoSrc);
+    })
     this.items = [
       { expanded: false },
       { expanded: false },
@@ -28,25 +55,44 @@ export class TrainingDashboardPage implements OnInit {
       { expanded: false },
       { expanded: false }
     ];
-   }
-
-  ngOnInit() {
-    this.liveClassesData = [{
-      name: 'Live1',
-      imgUrl: ''
-    },{
-      name: 'Live2',
-      imgUrl: ''
-    },{
-      name: 'Live3',
-      imgUrl: ''
-    },
-    {
-      name: 'Live4',
-      imgUrl: ''
-    }]
   }
-
+  closeModal(refresh = false) {
+    this.modalController.dismiss({
+      isRefresh: refresh
+    });
+  }
+  async startWorkout(){
+    const modal = await this.modalController.create({
+      component: CalendarSelectionPage,
+      cssClass: 'calendar-modal-component'
+    });
+    return await modal.present();
+  }
+  start(){
+    if(this.completeData.isStarted){
+      this.startOverview();
+    } else {
+      this.startWorkout();
+    }
+  }
+  playVideo(event: any) {
+    let myVideo: any = document.getElementById("video_1");
+    if (myVideo.paused) {
+      myVideo.play();
+      this.isPlaying = true;
+    } 
+    else {
+      myVideo.pause();
+      this.isPlaying = false;
+    }
+  }
+  async startOverview(){
+    const modal = await this.modalController.create({
+      component: TrainingOverviewPage,
+      cssClass: ''
+    });
+    return await modal.present();
+  }
   expandItem(item): void {
     if (item.expanded) {
       item.expanded = false;
