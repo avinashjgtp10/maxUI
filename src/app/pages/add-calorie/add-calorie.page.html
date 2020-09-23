@@ -1,42 +1,86 @@
 <ion-header>
-    <ion-toolbar class="ion-text-center">
-        <ion-button (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
-            <ion-icon slot="icon-only"  name="arrow-back-outline"></ion-icon>
+  <ion-toolbar class="ion-text-center">
+    <ion-button
+      (click)="closeModal()"
+      slot="start"
+      fill="clear"
+      size="small"
+      class="ion-no-margin"
+    >
+      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title class="ion-no-padding">Add your Meal</ion-title>
+  </ion-toolbar>
+
+  <ion-slides
+    pager="false"
+    [options]="slideOpts"
+    #dateSlider
+    (ionSlideDidChange)="slideChanged($event)"
+  >
+    <div *ngFor="let date of dateSliderData; let d = index">
+      <ion-slide>
+        <ion-button
+          fill="clear"
+          (click)="slideToSelected(data,d)"
+          class="ion-no-padding"
+          [disabled]="date.isDisabled"
+          [class.active-slide]="date.isSelected"
+        >
+          <ion-label>
+            <p>{{date.day}}</p>
+            <ion-text>{{date.date}}</ion-text>
+          </ion-label>
         </ion-button>
-      <ion-title class="ion-no-padding">Add your Meal</ion-title>
-    </ion-toolbar>
-    <ion-slides pager="false" [options]="slideOpts" #dateSlider (ionSlideDidChange)="slideChanged($event)">
-        <ion-slide *ngFor="let date of dateSliderData; let d = index"> 
-          <ion-button fill="clear"  (click)="slideToSelected(data,d)" class="ion-no-padding" [disabled]="date.isDisabled" [class.active-slide]="date.isSelected">
-              <ion-label>
-                  <p>{{date.day}}</p>
-                  <ion-text>{{date.date}}</ion-text>
-              </ion-label>
-          </ion-button>
-        </ion-slide>
-      </ion-slides>
-      <ion-item lines="none">
-          <ion-searchbar inputmode="text" type="text" mode="ios" debounce="700" (ionInput)="searchFood($event)"  search-icon=“undefined” placeholder="Search for Food" type="text"></ion-searchbar>
-      </ion-item>
-  </ion-header>
+      </ion-slide>
+    </div>
+  </ion-slides>
+  <ion-item lines="none">
+    <ion-searchbar
+      inputmode="text"
+      type="text"
+      mode="ios"
+      debounce="700"
+      (ionInput)="searchFood($event)"
+      search-icon="“undefined”"
+      placeholder="Search for Food"
+      type="text"
+    ></ion-searchbar>
+  </ion-item>
+</ion-header>
 
 <ion-content>
   <ion-list>
-        <ion-list-header>
-                <ion-label>Frequently Tracked Foods</ion-label>
-        </ion-list-header>
-      <ion-item lines="none" *ngFor="let food of frequentlyFoodData; let i = index">
+    <ion-list-header>
+      <ion-label>Frequently Tracked Foods</ion-label>
+    </ion-list-header>
+    <div *ngFor="let food of frequentlyFoodData; let i = index">
+      <ion-item lines="none">
         <ion-label slot="start">
-            <h4>{{food.c_item}}</h4>
-            <ion-text>{{food.c_amount}} {{food.c_clientmeasure}}</ion-text>
+          <h4>{{food.c_item}}</h4>
+          <ion-text>{{food.c_amount}} {{food.c_clientmeasure}}</ion-text>
         </ion-label>
-        <ion-text  slot="end">{{food.c_calories}} Cals</ion-text>
-         <ion-button (click)="foodSelected(food,i)" slot="end" fill="clear" size="small" class="ion-no-margin">
-              <ion-icon slot="icon-only"  [src]="food.isAdded ? 'assets/icon/icon_tick.svg' : 'assets/icon/icon_add.svg'"></ion-icon>
+        <ion-text slot="end">{{food.c_calories}} Cals</ion-text>
+        <ion-button
+          (click)="foodSelected(food,i)"
+          slot="end"
+          fill="clear"
+          size="small"
+          class="ion-no-margin"
+        >
+          <ion-icon
+            slot="icon-only"
+            [src]="food.isAdded ? 'assets/icon/icon_tick.svg' : 'assets/icon/icon_add.svg'"
+          ></ion-icon>
         </ion-button>
       </ion-item>
-      <ion-toolbar *ngIf="!frequentlyFoodData.length" class="ion-text-center" lines="none">
-        <p>No items Present</p>
-      </ion-toolbar>
+    </div>
+    <ion-toolbar
+      *ngIf="!frequentlyFoodData.length"
+      class="ion-text-center"
+      lines="none"
+    >
+      <p>No items Present</p>
+    </ion-toolbar>
   </ion-list>
 </ion-content>
