@@ -1,29 +1,53 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar class="ion-text-center">
-    <ion-title>Rahul's Workout Plans</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-header>
+    <ion-toolbar>
+        <ion-item lines="none"> 
+            <ion-button (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
+                <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+              </ion-button>
+            <ion-label class="ion-no-padding ion-text-center">
+              <ion-text class="ion-no-padding">Rahul's Workout Plan</ion-text>
+            </ion-label>
+            <ion-button (click)="closeModal()" slot="end" fill="clear" size="small" class="ion-no-margin">
+                <ion-icon slot="icon-only" src="assets/icon/icon_settings.svg"></ion-icon>
+              </ion-button>
+          </ion-item>
+    </ion-toolbar>
+  </ion-header>
 <ion-content>
-    <ion-card>
+    <!-- <ion-card>
         <ion-img src="assets/img/trainingDashboardPlaceHolder.svg"></ion-img>
         <ion-card-header class="ion-no-padding">
             <ion-button shape="round" fill="outline">Start</ion-button>
           <ion-card-title>Weight Loss</ion-card-title>
           <ion-card-subtitle>28 days | 4 Weeks</ion-card-subtitle>
         </ion-card-header>
-      </ion-card>
-      <div class="offers-section">
-          <ion-item lines="none">
-            <ion-label class="ion-no-margin" slot="start">
-               RECOMENDED PLANS FOR YOU
-            </ion-label>
-          </ion-item>
-            <ion-slides pager="false" [options]="offersOpts"  #offersSlider>
-                <ion-slide *ngFor="let liveClass of liveClassesData;let i = index">
-                  <ion-img [src]="liveClass.imgUrl ? liveClass.imgUrl:'assets/img/sliderPlaceHolder.svg'"></ion-img>
-                </ion-slide>
-              </ion-slides>
+      </ion-card> -->
+      <div class="video-section">
+            <video id="video_1" class="video-player"
+            #videoPlayer controls>
+            <source [src]="playingVideoSrc" type="video/mp4" />
+            Browser not supported
+          </video>
+          <ion-button (click)="playVideo()" fill="clear" size="small" class="ion-no-margin play-button">
+              <ion-icon slot="icon-only" src="assets/icon/icon_play.svg"></ion-icon>
+            </ion-button>
         </div>
+        <div class="progress-section ion-text-center"> 
+              <p>WEIGHT LOSS  <ion-text>28 days | 4 weeks</ion-text></p>
+              <ion-progress-bar value="0.5"></ion-progress-bar>
+        </div>
+        <div class="offers-section">
+            <ion-item lines="none">
+              <ion-label class="ion-no-margin" slot="start">
+                 RECOMENDED PLANS FOR YOU
+              </ion-label>
+            </ion-item>
+              <ion-slides pager="false" [options]="offersOpts"  #offersSlider>
+                  <ion-slide *ngFor="let liveClass of liveClassesData;let i = index">
+                    <ion-img [src]="liveClass.ic_url ? liveClass.ic_url:'assets/img/sliderPlaceHolder.svg'"></ion-img>
+                  </ion-slide>
+                </ion-slides>
+          </div>
         <div class="common-question-section">
           <p class="question-header">Common Questions</p>
             <ion-card  *ngFor="let item of items" class="ion-no-padding ion-no-margin">
@@ -50,3 +74,10 @@
               </ion-card>
         </div>
 </ion-content>
+<ion-footer class="ion-no-border ion-text-center">
+    <ion-toolbar>
+      <ion-button (click)="start()" shape="round" fill="outline">
+        <ion-text>Start Workout</ion-text>
+      </ion-button>
+    </ion-toolbar>
+  </ion-footer>

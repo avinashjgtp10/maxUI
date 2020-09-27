@@ -1,5 +1,8 @@
-<ion-header class="ion-no-border">
+<ion-header class="ion-no-border" [style.backgroundImage]="'url(' + bgImage + ')'">
   <ion-toolbar class="ion-text-center">
+      <ion-button  (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
+          <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+        </ion-button>
     <ion-title>Weight Loss</ion-title>
     <ion-label>28 days | 4 Weeks</ion-label>
   </ion-toolbar>
@@ -16,14 +19,14 @@
   </ion-segment>
   <div class="segment-content" [ngSwitch]="selectedSegment">
     <div class="about-section" *ngSwitchCase="'Overview'">
-      <p>About</p>
-      <ion-text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-        industry's standard dummy text ever since the 1500s,</ion-text>
-      <p>Benefits</p>
-      <ion-text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-        industry's standard dummy text ever since the 1500s,</ion-text>
-      <p>Focus Areas</p>
-      <ion-text>Abs | Core | Glutes | Lower Back</ion-text>
+      <div class="inner-about">
+          <p>About</p>
+          <ion-text class="ion-text-wrap">{{aboutText}}</ion-text>
+          <p>Benefits</p>
+          <ion-text class="ion-text-wrap">{{benefitsText}}</ion-text>
+          <p>Focus Areas</p>
+          <ion-text>Abs | Core | Glutes | Lower Back</ion-text>
+      </div>
       <ion-item lines="none">
         <ion-label slot="start">Do not Miss Your Workout</ion-label>
         <ion-text slot="end">Set Reminder</ion-text>
@@ -31,28 +34,29 @@
     </div>
     <div class="week-workout-section" *ngSwitchCase="'Workout'">
       <ion-list>
-        <ion-item *ngFor="let item of items" (click)="openDaySchedule(item)">
+        <ion-item *ngFor="let item of items" (click)="getDayCompleteData(item)">
             <ion-thumbnail slot="start">
-                <img src="assets/img/sliderPlaceHolder.svg">
+                <img [src]="item.image">
             </ion-thumbnail>
             <ion-label slot="start">
               <p>Week {{item.week}}</p>
-              <ion-text>{{item.title}}</ion-text>
-              <ion-progress-bar [value]="item.progress"></ion-progress-bar>
+              <ion-text>{{item.days}}</ion-text>
+              <ion-progress-bar *ngIf="item.status" value="1"></ion-progress-bar>
+              <ion-progress-bar *ngIf="!item.status" value="0"></ion-progress-bar>
             </ion-label>
             <ion-button  slot="end" (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
-                <ion-icon *ngIf="item.isChecked" slot="icon-only" src="assets/icon/icon_tick.svg"></ion-icon>
-                <ion-icon *ngIf="!item.isChecked" slot="icon-only" src="assets/icon/icon_unChecked.svg"></ion-icon>
+                <ion-icon *ngIf="item.status" slot="icon-only" src="assets/icon/icon_tick.svg"></ion-icon>
+                <ion-icon *ngIf="!item.status" slot="icon-only" src="assets/icon/icon_unChecked.svg"></ion-icon>
             </ion-button>
         </ion-item>
       </ion-list>
     </div>
   </div>
 </ion-content>
-<ion-footer class="ion-no-border ion-text-center">
+<!-- <ion-footer class="ion-no-border ion-text-center">
   <ion-toolbar>
     <ion-button shape="round" fill="outline">
       <ion-text>Start Workout</ion-text>
     </ion-button>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

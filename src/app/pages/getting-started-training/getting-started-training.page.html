@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-slides pager="false" [options]="loginSliderOpts" #loginSlider>
+  <ion-slides pager="false" (ionSlidesDidLoad)="slideDidLoad($event)" [options]="trainingSliderOpts" #trainingSlider>
     <ion-slide>
       <ion-grid>
         <ion-row>

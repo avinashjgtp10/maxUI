@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { DateProviderService } from "../../services/date/date-provider.service";
@@ -12,7 +12,8 @@ import { LoadingContollerService } from "../../services/loading/loading-contolle
   styleUrls: ['./add-calorie.page.scss'],
 })
 export class AddCaloriePage implements OnInit {
-  @ViewChild('dateSlider', { static: false }) dateSlider: IonSlides;
+  // @ViewChild('dateSlider', { static: false }) dateSlider: IonSlides;
+  @ViewChild('dateSlider', {read: ElementRef}) dateSlider: ElementRef;
   @Input() selectedSegment: string;
   slideOpts = {
     initialSlide: 0,
@@ -49,7 +50,7 @@ export class AddCaloriePage implements OnInit {
             return v;
           }
         });
-        this.dateSlider.slideTo(this.activeSlide[0].index, 400).then(()=> {
+        this.dateSlider.nativeElement.slideTo(this.activeSlide[0].index, 400).then(()=> {
           this.loadingService.loadingDismiss();
         });
       });
@@ -67,7 +68,7 @@ export class AddCaloriePage implements OnInit {
     console.log('e',e);
   }
   slideToSelected(d,i) {
-    this.dateSlider.slideTo(i,400).then(()=>{
+    this.dateSlider.nativeElement.slideTo(i,400).then(()=>{
       this.dateSliderData.forEach(element => {
          if(element.index === i) {
            element.isSelected = true
