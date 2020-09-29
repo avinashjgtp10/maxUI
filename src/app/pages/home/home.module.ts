@@ -1,21 +1,24 @@
-import { NgModule } from "@angular/core";
 
-import { FormsModule } from "@angular/forms";
+import { NgModule } from '@angular/core';
 
-import { IonicModule } from "@ionic/angular";
+import { FormsModule } from '@angular/forms';
 
-import { HomePageRoutingModule } from "./home-routing.module";
-import { CommonModule } from "@angular/common";
+import { IonicModule } from '@ionic/angular';
 
-import { HomePage } from "./home.page";
-import { ComponentsModule } from "../../components/components.module";
-import { PipesModule } from "../../pipes/pipes.module";
-import { ToastProvider } from "src/app/services/toast/toast";
-import { WeightTrackerPageModule } from "../weight-tracker/weight-tracker.module";
-import { HandwashTrackerPageModule } from "../handwash-tracker/handwash-tracker.module";
-import { WaterTrackerPageModule } from "../water-tracker/water-tracker.module";
-import { AddCaloriePage } from "../add-calorie/add-calorie.page";
-import { CalorieTrackerPage } from '../calorie-tracker/calorie-tracker.page';
+import { HomePageRoutingModule } from './home-routing.module';
+import { CommonModule } from '@angular/common';
+
+import { HomePage } from './home.page';
+import { ComponentsModule } from '../../components/components.module';
+import { PipesModule } from '../../pipes/pipes.module';
+import { ToastProvider } from 'src/app/services/toast/toast';
+import { WeightTrackerPageModule } from '../weight-tracker/weight-tracker.module';
+import { HandwashTrackerPageModule } from '../handwash-tracker/handwash-tracker.module';
+import { WaterTrackerPageModule } from '../water-tracker/water-tracker.module';
+import { AddCaloriePageModule } from '../add-calorie/add-calorie.module';
+import { CalorieTrackerPageModule } from '../calorie-tracker/calorie-tracker.module';
+import { InsightsPageModule } from '../insights/insights.module';
+
 
 @NgModule({
   imports: [
@@ -28,6 +31,9 @@ import { CalorieTrackerPage } from '../calorie-tracker/calorie-tracker.page';
     WeightTrackerPageModule,
     HandwashTrackerPageModule,
     WaterTrackerPageModule,
+    AddCaloriePageModule,
+    CalorieTrackerPageModule,
+    InsightsPageModule
   ],
   declarations: [HomePage, AddCaloriePage, CalorieTrackerPage],
   providers: [ToastProvider],

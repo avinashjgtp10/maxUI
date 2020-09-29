@@ -11,6 +11,7 @@ import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-m
 declare var dacast: any;
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { TrainingDashboardPage } from '../training-dashboard/training-dashboard.page';
+import { DietPlanPage } from '../diet-plan/diet-plan.page';
 
 @Component({
   selector: 'app-my-training',
@@ -63,7 +64,7 @@ export class MyTrainingPage implements OnInit {
   }
   async openSlideShow() {
     const modal = await this.modalController.create({
-      component: GettingStartedTrainingPage,
+      component: DietPlanPage,
     });
     return await modal.present();
   }
