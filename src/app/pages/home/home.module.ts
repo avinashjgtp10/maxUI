@@ -14,10 +14,9 @@ import { ToastProvider } from 'src/app/services/toast/toast';
 import { WeightTrackerPageModule } from '../weight-tracker/weight-tracker.module';
 import { HandwashTrackerPageModule } from '../handwash-tracker/handwash-tracker.module';
 import { WaterTrackerPageModule } from '../water-tracker/water-tracker.module';
-
-
-
-
+import { AddCaloriePageModule } from '../add-calorie/add-calorie.module';
+import { CalorieTrackerPageModule } from '../calorie-tracker/calorie-tracker.module';
+import { InsightsPageModule } from '../insights/insights.module';
 
 @NgModule({
   imports: [
@@ -29,7 +28,10 @@ import { WaterTrackerPageModule } from '../water-tracker/water-tracker.module';
     HomePageRoutingModule,
     WeightTrackerPageModule,
     HandwashTrackerPageModule,
-    WaterTrackerPageModule
+    WaterTrackerPageModule,
+    AddCaloriePageModule,
+    CalorieTrackerPageModule,
+    InsightsPageModule
   ],
   declarations: [HomePage],
   providers: [ToastProvider]

@@ -254,4 +254,13 @@ export class ApiCallService {
               catchError(this.handleError)
             )
         }
+
+           // Get My Diet Plan Details
+           getDietPlan(c_id): Observable<JSON> {
+            return this.http
+              .get<JSON>(this.base_path + `/dietplan/${c_id}`)
+              .pipe(
+                catchError(this.handleError)
+              )
+          }
 }
