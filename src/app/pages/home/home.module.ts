@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
@@ -18,6 +19,7 @@ import { AddCaloriePageModule } from '../add-calorie/add-calorie.module';
 import { CalorieTrackerPageModule } from '../calorie-tracker/calorie-tracker.module';
 import { InsightsPageModule } from '../insights/insights.module';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -33,7 +35,7 @@ import { InsightsPageModule } from '../insights/insights.module';
     CalorieTrackerPageModule,
     InsightsPageModule
   ],
-  declarations: [HomePage],
-  providers: [ToastProvider]
+  declarations: [HomePage, AddCaloriePage, CalorieTrackerPage],
+  providers: [ToastProvider],
 })
 export class HomePageModule {}
