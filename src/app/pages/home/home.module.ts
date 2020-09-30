@@ -18,6 +18,8 @@ import { WaterTrackerPageModule } from '../water-tracker/water-tracker.module';
 import { AddCaloriePageModule } from '../add-calorie/add-calorie.module';
 import { CalorieTrackerPageModule } from '../calorie-tracker/calorie-tracker.module';
 import { InsightsPageModule } from '../insights/insights.module';
+// import { AddCaloriePage } from '../add-calorie/add-calorie.page';
+// import { CalorieTrackerPage } from '../calorie-tracker/calorie-tracker.page';
 
 
 @NgModule({
@@ -35,7 +37,7 @@ import { InsightsPageModule } from '../insights/insights.module';
     CalorieTrackerPageModule,
     InsightsPageModule
   ],
-  declarations: [HomePage, AddCaloriePage, CalorieTrackerPage],
+  declarations: [HomePage],
   providers: [ToastProvider],
 })
 export class HomePageModule {}
