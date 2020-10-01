@@ -69,6 +69,7 @@
     "howler": "^2.2.0",
     "igniteui-angular": "^10.0.5",
     "ion2-calendar": "^3.0.0-rc.0",
+    "ionicons": "^5.1.2",
     "moment": "^2.28.0",
     "ng-circle-progress": "^1.5.1",
     "ng-otp-input": "^1.7.1",

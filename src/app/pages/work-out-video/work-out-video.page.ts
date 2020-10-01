@@ -9,7 +9,7 @@ export class WorkOutVideoPage implements OnInit {
   public items: any = [];
   @Input() playlistData: any;
   @ViewChild("videoPlayer", { static: false }) videoplayer: ElementRef;
-  isPlaying: boolean = false;
+  isPlaying: boolean = true;
   playingVideoSrc: string;
   currentPlayingItem: any;
   completePlaylist: any;
@@ -61,7 +61,16 @@ export class WorkOutVideoPage implements OnInit {
       }
     }
   }
-  pre() {
-
+  previousVideo() {
+    let myVideo: any = document.getElementById("my_video_1");
+    this.currentPlayingIndex--;
+    if (this.completePlaylist[this.currentPlayingIndex]) {
+      this.currentPlayingItem = this.completePlaylist[this.currentPlayingIndex];
+      this.playingVideoSrc = this.currentPlayingItem.tmvideourl;
+      myVideo.src = this.currentPlayingItem.tmvideourl;
+      myVideo.play();
+    } else {
+      console.log('Prev is not allowed');
+    }
   }
 }

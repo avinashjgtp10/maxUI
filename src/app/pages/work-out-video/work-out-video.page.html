@@ -1,21 +1,17 @@
 <ion-header class="ion-no-border">
   <ion-toolbar class="ion-text-center">
     <div class="video">
-      <video id="my_video_1" class="video-player" preload="none"
-        #videoPlayer (ended)="videoEnded()">
+      <video id="my_video_1" class="video-player" controls preload="none" #videoPlayer (ended)="videoEnded()">
         <source [src]="playingVideoSrc" type="video/mp4" />
         Browser not supported
       </video>
+      <ion-button (click)="next()" fill="clear" size="small" class="ion-no-margin next-button">
+        <ion-icon name="play-skip-forward"></ion-icon>
+      </ion-button>
+      <ion-button [disabled]="!currentPlayingIndex" (click)="previousVideo()" fill="clear" size="small" class="ion-no-margin pre-button">
+        <ion-icon name="play-skip-back"></ion-icon>
+      </ion-button>
     </div>
-    <ion-button (click)="playVideo()" fill="clear" size="small" class="ion-no-margin play-button">
-      <ion-icon slot="icon-only" src="assets/icon/icon_play.svg"></ion-icon>
-    </ion-button>
-    <ion-button (click)="next()" fill="clear" size="small" class="ion-no-margin next-button">
-      <ion-icon slot="icon-only" src="assets/icon/icon_next.svg"></ion-icon>
-    </ion-button>
-    <ion-button (click)="pre()" fill="clear" size="small" class="ion-no-margin pre-button">
-      <ion-icon slot="icon-only" src="assets/icon/icon_pre.svg"></ion-icon>
-    </ion-button>
   </ion-toolbar>
 </ion-header>
 
