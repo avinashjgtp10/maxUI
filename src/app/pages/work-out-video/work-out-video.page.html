@@ -1,5 +1,10 @@
 <ion-header class="ion-no-border">
   <ion-toolbar class="ion-text-center">
+    <ion-item lines="none">
+      <ion-button (click)="closeModal()" slot="start" fill="clear" size="small" class="back-btn">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
     <div class="video">
       <video id="my_video_1" class="video-player" controls preload="none" #videoPlayer (ended)="videoEnded()">
         <source [src]="playingVideoSrc" type="video/mp4" />
@@ -8,7 +13,8 @@
       <ion-button (click)="next()" fill="clear" size="small" class="ion-no-margin next-button">
         <ion-icon name="play-skip-forward"></ion-icon>
       </ion-button>
-      <ion-button [disabled]="!currentPlayingIndex" (click)="previousVideo()" fill="clear" size="small" class="ion-no-margin pre-button">
+      <ion-button [disabled]="!currentPlayingIndex" (click)="previousVideo()" fill="clear" size="small"
+        class="ion-no-margin pre-button">
         <ion-icon name="play-skip-back"></ion-icon>
       </ion-button>
     </div>
