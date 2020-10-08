@@ -1,0 +1,49 @@
+<div class="basic-plan">
+  <ion-img class="basic-plan-img"
+    [src]="basicPlan.length && basicPlan[0].p_image ? basicPlan[0].p_image :'assets/img/sliderPlaceHolder.svg'">
+  </ion-img>
+</div>
+<ion-content class="my-plan-page">
+  <div class="testimonials">
+    <ion-item lines="none">
+      <ion-label class="ion-no-margin" slot="start">
+        TESTIMONIALS
+      </ion-label>
+    </ion-item>
+    <ion-slides pager="false" class="testimonials-slide" [options]="testiMonials" #testimonialSlider>
+      <ion-slide *ngFor="let testimonial of testimonialsData;let i = index">
+        <ion-img [src]="testimonial ? testimonial:'assets/img/sliderPlaceHolder.svg'"></ion-img>
+      </ion-slide>
+    </ion-slides>
+  </div>
+  <div class="standard-plan">
+    <ion-img
+      [src]="standardPlan.length && standardPlan[0].p_image ? standardPlan[0].p_image:'assets/img/offerSliderPlaceHolder.svg'"
+      (click)="OnPlan(standardPlan[0])"></ion-img>
+    <div *ngIf="standardPlan.length && standardPlan[0].p_desc" class="plan-text">
+      {{standardPlan[0].p_desc}}
+    </div>
+  </div>
+  <div class="premium-plan">
+    <ion-img
+      [src]="premiumPlan.length && premiumPlan[0].p_image ? premiumPlan[0].p_image:'assets/img/offerSliderPlaceHolder.svg'"
+      (click)="OnPlan(premiumPlan[0])"></ion-img>
+      <div *ngIf="premiumPlan.length && premiumPlan[0].p_desc" class="plan-text">
+        {{premiumPlan[0].p_desc}}
+      </div>
+  </div>
+  <div class="testimonials">
+    <ion-item lines="none">
+      <ion-label class="ion-no-margin special-plan-label" slot="start">
+        SPECIAL PLANS FOR YOU
+      </ion-label>
+    </ion-item>
+    <div>
+      <ion-slides pager="false" class="special-plans" [options]="specialPlanOptions" #specialPlanSlider>
+        <ion-slide *ngFor="let plan of specialPlan;let i = index" (click)="OnPlan(plan)">
+          <ion-img class="special-plan-image" [src]="plan.p_image ? plan.p_image :'assets/img/sliderPlaceHolder.svg'"></ion-img>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </div>
+</ion-content>

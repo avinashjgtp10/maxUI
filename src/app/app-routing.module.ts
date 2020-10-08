@@ -40,6 +40,10 @@ const routes: Routes = [
     path: 'diet-plan',
     loadChildren: () => import('./pages/diet-plan/diet-plan.module').then( m => m.DietPlanPageModule)
   },
+  {
+    path: 'my-plan',
+    loadChildren: () => import('./pages/my-plan/my-plan.module').then( m => m.MyPlanPageModule)
+  },
 ];
 
 @NgModule({
