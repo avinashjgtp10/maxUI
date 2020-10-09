@@ -43,7 +43,9 @@
     "@ngx-translate/http-loader": "^5.0.0",
     "angular-svg-round-progressbar": "^4.0.0",
     "com.darktalker.cordova.screenshot": "^0.1.6",
-    "cordova-android": "^8.1.0",
+    "com.razorpay.cordova": "git+https://github.com/razorpay/razorpay-cordova.git",
+    "cordova-android": "^9.0.0",
+    "cordova-browser": "^5.0.4",
     "cordova-plugin-advanced-http": "^3.0.0",
     "cordova-plugin-android-permissions": "^1.0.2",
     "cordova-plugin-androidx": "^2.0.0",
@@ -130,12 +132,13 @@
       "cordova-plugin-androidx-adapter": {},
       "cordova-plugin-fcm-with-dependecy-updated": {},
       "cordova-support-google-services": {},
-      "cordova-plugin-telerik-imagepicker": {},
+      "cordova-plugin-telerik-imagepicker": {
+        "PHOTO_LIBRARY_USAGE_DESCRIPTION": " "
+      },
       "cordova-plugin-media": {},
-      "cordova-plugin-streaming-media": {}
+      "cordova-plugin-streaming-media": {},
+      "com.razorpay.cordova": {}
     },
-    "platforms": [
-      "android"
-    ]
+    "platforms": []
   }
 }
