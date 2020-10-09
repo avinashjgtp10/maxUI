@@ -12,9 +12,6 @@ import { ApiCallService } from 'src/app/services/api/api-call.service';
 import { DateProviderService } from 'src/app/services/date/date-provider.service';
 import { LoadingContollerService } from 'src/app/services/loading/loading-contoller.service';
 
-
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -22,6 +19,7 @@ import { LoadingContollerService } from 'src/app/services/loading/loading-contol
 })
 export class HomePage implements OnInit {
   public items: any = [];
+  userName = ""
   isExpanded: boolean = false;
   trackersData = [
     {
@@ -122,19 +120,19 @@ export class HomePage implements OnInit {
       name: 'Live4',
       imgUrl: ''
     }]
-    this.specialPlanesData = [{
-      title: 'Muscle Training',
-      imgUrl: '',
-      desc:'Lorem Ipsum is simply dummy text'
-    },{
-      title: 'Yoga',
-      imgUrl: '',
-      desc:'Lorem Ipsum is simply dummy text'
-    },{
-      title: 'Weight Loss',
-      imgUrl: '',
-      desc:'Lorem Ipsum is simply dummy text'
-    }]
+    // this.specialPlanesData = [{
+    //   title: 'Muscle Training',
+    //   imgUrl: '',
+    //   desc:'Lorem Ipsum is simply dummy text'
+    // },{
+    //   title: 'Yoga',
+    //   imgUrl: '',
+    //   desc:'Lorem Ipsum is simply dummy text'
+    // },{
+    //   title: 'Weight Loss',
+    //   imgUrl: '',
+    //   desc:'Lorem Ipsum is simply dummy text'
+    // }]
     
     const payload = {
       date: this.dateProviderService.getTodayDateInFormat(),
@@ -144,6 +142,9 @@ export class HomePage implements OnInit {
     this.apiCallService.post(payload, '/dashboard/getData').subscribe( data =>{
       this.loadingContollerService.loadingDismiss();
       if(data['data']){
+        let dataArr = data['data'];
+        this.userName = dataArr.userProfile.c_name
+        this.specialPlanesData = dataArr.specialPlan;
         this.setDataIntoTrackers(data['data'])
       }
     })
@@ -213,7 +214,6 @@ export class HomePage implements OnInit {
   }
  
   openTrackerDetail(event){
-   // console.log(event);
     this[event.actionName]();
   }
   async waterTracker() {
