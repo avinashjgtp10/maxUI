@@ -21,7 +21,7 @@ const routes: Routes = [
       },
       {
         path: 'tab4',
-        loadChildren: () => import('../pages/my-plans/my-plans.module').then(m => m.MyPlansPageModule)
+        loadChildren: () => import('../pages/my-plan/my-plan.module').then(m => m.MyPlanPageModule)
       },
       {
         path: 'tab5',
