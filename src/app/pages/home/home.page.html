@@ -4,7 +4,7 @@
           <ion-avatar slot="start">
             <img src="assets/img/manage-profile/avatar.svg">
           </ion-avatar>
-          <ion-title class="ion-no-padding">Hi Rahul !</ion-title>
+          <ion-title class="ion-no-padding">{{userName}}</ion-title>
           <ion-icon src="assets/icon/icon_notifications.svg" class="input-icon" slot="end"></ion-icon>
         </ion-item>
   </ion-toolbar>
@@ -19,15 +19,24 @@
       <ion-label class="ion-no-margin" slot="start">
          Live Classes For You
       </ion-label>
+      
     </ion-item>
       <ion-slides pager="false" [options]="liveClassesOpts"  #liveClassesSlider>
           <ion-slide *ngFor="let liveClass of liveClassesData;let i = index">
-            <ion-img [src]="liveClass.imgUrl ? liveClass.imgUrl:'assets/img/sliderPlaceHolder.svg'"></ion-img>
+            <!-- <ion-img [src]="liveClass.imgUrl ? liveClass.imgUrl:'assets/img/sliderPlaceHolder.svg'"></ion-img> -->
+            <!-- <div class="video-section">
+              <video id="video_1"  class="video-player" controls preload="none"
+              #videoPlayer (ended)="videoEnded()">
+              <source src="playingVideoSrc" type="video/mp4" />
+              Browser not supported
+            </video> -->
+
+          <!-- </div> -->
           </ion-slide>
         </ion-slides>
   </div>
-  <div class="offers-section">
-      <ion-item lines="none">
+  <!-- <div class="offers-section"> -->
+      <!-- <ion-item lines="none">
         <ion-label class="ion-no-margin" slot="start">
            Offers Section
         </ion-label>
@@ -37,7 +46,7 @@
               <ion-img [src]="liveClass.imgUrl ? liveClass.imgUrl:'assets/img/offerSliderPlaceHolder.svg'"></ion-img>
             </ion-slide>
           </ion-slides>
-    </div>
+    </div> -->
     <div class="special-plans-section">
         <ion-item lines="none">
           <ion-label class="ion-no-margin" slot="start">
@@ -46,8 +55,8 @@
         </ion-item>
           <ion-slides pager="false" [options]="specialPlansOpts"  #specialPlansSlider>
               <ion-slide *ngFor="let specilaPlan of specialPlanesData;let i = index">
-                <ion-card class="ion-no-margin ion-no-padding">
-                  <ion-card-header class="ion-no-margin ion-no-padding">
+                <ion-card class="ion-no-margin ion-no-padding"  [style.background-image]="'url('+specilaPlan.p_image+')'">
+                  <!-- <ion-card-header class="ion-no-margin ion-no-padding">
                       <ion-toolbar>
                           <ion-buttons slot="end">
                             <ion-button>
@@ -55,9 +64,9 @@
                             </ion-button>
                           </ion-buttons>
                         </ion-toolbar>
-                  </ion-card-header>
-                  <ion-card-content class="ion-no-margin ion-no-padding">
-                    <ion-item lines="none" class="ion-no-padding">
+                  </ion-card-header> -->
+                  <!-- <ion-card-content class="ion-no-margin ion-no-padding">
+                    <ion-item lines="none" class="ion-no-padding" >
                      <ion-label>
                        <ion-text>
                           11 June 2020
@@ -67,12 +76,12 @@
                       </h5>
                      </ion-label>
                     </ion-item>
-                  </ion-card-content>
+                  </ion-card-content> -->
                 </ion-card>
               </ion-slide>
             </ion-slides>
       </div>
-      <div class="program-list-section">
+      <!-- <div class="program-list-section">
         <ion-list>
           <ion-item lines="none" *ngFor="let program of specialPlanesData; let i = index">
             <ion-thumbnail slot="end">
@@ -88,7 +97,7 @@
             </ion-label>
           </ion-item>
         </ion-list>
-      </div>
+      </div> -->
       <div class="detail-classes-section">
          <ion-list>
            <ion-list-header>

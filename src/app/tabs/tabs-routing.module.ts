@@ -21,7 +21,7 @@ const routes: Routes = [
       },
       {
         path: 'tab4',
-        loadChildren: () => import('../pages/work-out-video/work-out-video.module').then(m => m.WorkOutVideoPageModule)
+        loadChildren: () => import('../pages/my-plans/my-plans.module').then(m => m.MyPlansPageModule)
       },
       {
         path: 'tab5',
