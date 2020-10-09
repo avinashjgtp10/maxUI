@@ -1,0 +1,72 @@
+.price-selection {
+  position: absolute;
+  width: 92%;
+  height: 350px;
+  border: 1px solid lightgray;
+  bottom: 15px;
+  left: 15px;
+  background-color: white;
+  z-index: 1;
+  border-radius: 25px;
+  .plan-item {
+    margin: 25px;
+    .plan-label {
+      font-size: 16px;
+      font-weight: 700;
+      .plan-cost {
+        float: right;
+      }
+    }
+    .plan-content {
+      margin-top: 8px;
+      .plan-radio {
+        float: right;
+      }
+    }
+  }
+  .btn-wrapper {
+    position: fixed;
+    left: 50%;
+    margin-left: -111px;
+    .pay-btn {
+      border: 1px solid #e02828;
+      color: white;
+      background: red;
+      border-radius: 25px;
+      position: fixed;
+      bottom: 30px;
+      width: 230px;
+      height: 45px;
+      font-size: 19px;
+    }
+  }
+  ion-label {
+    color: rgba(68, 68, 68, 0.8);
+    font-weight: 300;
+  }
+  .special-plan {
+    margin: 20px;
+    .validity {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .special-des {
+      color: rgba(68, 68, 68, 0.8);
+      font-weight: 300;
+    }
+  }
+}
+.plan-heading {
+  text-transform: capitalize;
+  font-weight: 600;
+}
+.maxui-ion-icon {
+  ion-icon {
+    color: black;
+  }
+}
+.selected-plan-content {
+  img {
+    width: 100%;
+  }
+}

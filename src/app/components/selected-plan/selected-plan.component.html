@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-item lines="none">
+      <ion-button (click)="closeModal()" slot="start" fill="clear" size="small" class="maxui-ion-icon ion-no-margin">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+      <ion-label class="ion-no-padding ion-text-center">
+        <ion-text class="plan-heading ion-no-padding"> {{selectedPlan.p_name}} </ion-text>
+      </ion-label>
+      <ion-button (click)="closeModal()" slot="end" fill="clear" size="small" class="ion-no-margin">
+        <ion-icon slot="icon-only" src="assets/icon/icon_settings.svg"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class='selected-plan-content'>
+    <img [src]="selectedPlan.p_image ? selectedPlan.p_image:'assets/img/offerSliderPlaceHolder.svg'" />
+  </div>
+  <div class='price-selection'>
+    <div *ngIf="selectedPlan.mode === 'standard'">
+      <ion-radio-group [value]="price" [(ngModel)]="price" (ionChange)="onSelctedPlan($event)">
+        <div class="plan-item">
+          <div class="plan-label">
+            <span>Annually</span>
+            <span class="plan-cost">&#8377; {{selectedPlan.y_price}}</span>
+          </div>
+          <div class="plan-content">
+            <ion-radio class="plan-radio" checked="true" slot="end" mode="md" [value]="selectedPlan.y_price">
+            </ion-radio>
+            <ion-label>All free Features + fitness and diet consultation</ion-label>
+          </div>
+        </div>
+        <div class="plan-item">
+          <div class="plan-label">
+            <span>Quarterly</span>
+            <span class="plan-cost">&#8377; {{selectedPlan.q_price}}</span>
+          </div>
+          <div class="plan-content">
+            <ion-radio class="plan-radio" slot="end" mode="md" [value]="selectedPlan.q_price"></ion-radio>
+            <ion-label>All free Features + fitness and diet consultation</ion-label>
+          </div>
+        </div>
+        <div class="plan-item">
+          <div class="plan-label">
+            <span>Monthly</span>
+            <span class="plan-cost">&#8377; {{selectedPlan.m_price}}</span>
+          </div>
+          <div class="plan-content">
+            <ion-radio class="plan-radio" slot="end" mode="md" [value]="selectedPlan.m_price"></ion-radio>
+            <ion-label>All free Features + fitness and diet consultation</ion-label>
+          </div>
+        </div>
+      </ion-radio-group>
+    </div>
+    <div class="special-plan" *ngIf="selectedPlan.mode === 'special'">
+      <span class="validity" *ngIf="selectedPlan.sp_validity"><strong>Validity:
+        </strong>{{selectedPlan.sp_validity}}</span>
+      <span class="special-des"> {{selectedPlan.p_desc}} </span>
+    </div>
+    <div class="btn-wrapper">
+      <button class="pay-btn">
+        Pay &#8377; {{price}}</button>
+    </div>
+  </div>
+</ion-content>
