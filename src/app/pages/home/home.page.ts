@@ -11,6 +11,9 @@ import { WeightTrackerPage } from '../weight-tracker/weight-tracker.page';
 import { ApiCallService } from 'src/app/services/api/api-call.service';
 import { DateProviderService } from 'src/app/services/date/date-provider.service';
 import { LoadingContollerService } from 'src/app/services/loading/loading-contoller.service';
+import { SelectedPlanComponent } from 'src/app/components/selected-plan/selected-plan.component';
+import { VideoPlayerComponent } from 'src/app/components/video-player/video-player.component';
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-home',
@@ -82,6 +85,7 @@ export class HomePage implements OnInit {
    },
   ];
   liveClassesData: Array<Object> = [];
+  liveSessionData = [];
   specialPlanesData: Array<Object> = [];
   @ViewChild('liveClassesSlider', { static: false }) liveClassesSlider: IonSlides;
   @ViewChild('offersSlider', { static: false }) offersSlider: IonSlides;
@@ -90,11 +94,11 @@ export class HomePage implements OnInit {
     private storage:Storage, public modalController: ModalController, private apiCallService: ApiCallService,
     private dateProviderService: DateProviderService, private loadingContollerService: LoadingContollerService) {
    }
-   liveClassesOpts = {
-    initialSlide: 0,
-    slidesPerView: 2.5,
-    speed: 400
-    };
+  //  liveClassesOpts = {
+  //   initialSlide: 0,
+  //   slidesPerView: 2.5,
+  //   speed: 400
+  //   };
     offersOpts = {
       initialSlide: 0,
       slidesPerView: 2.5,
@@ -106,20 +110,6 @@ export class HomePage implements OnInit {
       speed: 400
    };
   ngOnInit() {
-    this.liveClassesData = [{
-      name: 'Live1',
-      imgUrl: ''
-    },{
-      name: 'Live2',
-      imgUrl: ''
-    },{
-      name: 'Live3',
-      imgUrl: ''
-    },
-    {
-      name: 'Live4',
-      imgUrl: ''
-    }]
     // this.specialPlanesData = [{
     //   title: 'Muscle Training',
     //   imgUrl: '',
@@ -143,7 +133,9 @@ export class HomePage implements OnInit {
       this.loadingContollerService.loadingDismiss();
       if(data['data']){
         let dataArr = data['data'];
-        this.userName = dataArr.userProfile.c_name
+        this.userName = dataArr.userProfile.c_name;
+        this.liveClassesData = dataArr['featuredVideo'] ? _.cloneDeep(dataArr['featuredVideo']) : [];
+        this.liveSessionData = _.reverse(_.cloneDeep(dataArr['featuredVideo']));
         this.specialPlanesData = dataArr.specialPlan;
         this.setDataIntoTrackers(data['data'])
       }
@@ -275,6 +267,30 @@ export class HomePage implements OnInit {
       }
     });
     return await modal.present();
+  }
+
+  async OnPlan(selectedPlan: any) {
+    const modal = await this.modalController.create({
+      component: SelectedPlanComponent,
+      cssClass: 'selected-plan-component',
+      componentProps: {
+        'selectedPlan': selectedPlan
+      },
+    });
+    return await modal.present();
+  }
+
+  async onLiveClass(url) {
+    if (url) {
+      const modal = await this.modalController.create({
+        component: VideoPlayerComponent,
+        cssClass: 'mac-video-player',
+        componentProps: {
+          'dataSource': url
+        },
+      });
+      return await modal.present();
+    }
   }
  
 }

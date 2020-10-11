@@ -26,20 +26,30 @@ ion-header {
 }
 ion-content {
     .live-class-section{
-        ion-item{
-            ion-label{
-                min-width: 80%;
-                font-weight: normal;
-                font-size: 16px;
-                text-transform: uppercase;
-                color: #000000;
+        // ion-item{
+        //     ion-label{
+        //         min-width: 80%;
+        //         font-weight: normal;
+        //         font-size: 16px;
+        //         text-transform: uppercase;
+        //         color: #000000;
+        //     }
+        // }
+        // ion-slides{
+        //     ion-slide{
+        //         margin: 0 0 0 16px;
+        //     }
+        // }
+        ion-slides {
+            ion-slide {
+              width: 200px !important;
+              height: 200px !important;
+              margin-bottom: 20px;
+              ion-img {
+                height: 220px !important;
+              }
             }
-        }
-        ion-slides{
-            ion-slide{
-                margin: 0 0 0 16px;
-            }
-        }
+          }
     }
     .special-plans-section{
         ion-item{
@@ -151,6 +161,7 @@ ion-content {
             }
             ion-card{
                 box-shadow: none;
+                height: 300px;
                 img{
                     min-width: 100%;
                 }
@@ -173,3 +184,15 @@ ion-content {
         }
     }
 }
+.testimonials {
+    ion-slides {
+      ion-slide {
+        width: 200px !important;
+        height: 200px !important;
+        margin-bottom: 20px;
+        ion-img {
+          height: 220px !important;
+        }
+      }
+    }
+  }
