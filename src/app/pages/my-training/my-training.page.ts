@@ -69,7 +69,7 @@ export class MyTrainingPage implements OnInit {
     return await modal.present();
   }
   playVideo() {
-    let myVideo: any = document.getElementById("video_1");
+    let myVideo: any = document.getElementById("video_12");
     if (myVideo.paused) {
       myVideo.play();
       this.isPlaying = true;
