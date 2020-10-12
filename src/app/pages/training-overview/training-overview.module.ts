@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TrainingOverviewPageRoutingModule } from './training-overview-routing.module';
 import { ComponentsModule } from '../../components/components.module';
 
+import { WorkOutVideoPageModule } from '../work-out-video/work-out-video.module'
 import { TrainingOverviewPage } from './training-overview.page';
 
 @NgModule({
@@ -15,7 +16,8 @@ import { TrainingOverviewPage } from './training-overview.page';
     ComponentsModule,
     FormsModule,
     IonicModule,
-    TrainingOverviewPageRoutingModule
+    TrainingOverviewPageRoutingModule,
+    WorkOutVideoPageModule
   ],
   declarations: [TrainingOverviewPage]
 })

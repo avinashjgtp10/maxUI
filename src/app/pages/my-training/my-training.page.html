@@ -1,51 +1,65 @@
 <ion-header>
   <ion-toolbar>
-      <ion-item lines="none"> 
-          <ion-avatar slot="start">
-            <img src="assets/img/manage-profile/avatar.svg">
-          </ion-avatar>
-          <ion-label class="ion-no-padding">
-            <h5>Hi Rahul !</h5>
-            <ion-text class="ion-no-padding">Basic plan</ion-text>
-          </ion-label>
-          <ion-button slot="end" shape="round" fill="outline">
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <img src="assets/img/manage-profile/avatar.svg" />
+      </ion-avatar>
+      <ion-label class="ion-no-padding">
+        <ion-text class="ion-no-padding">Basic plan</ion-text>
+      </ion-label>
+      <!-- <ion-button slot="end" shape="round" fill="outline">
             <ion-text>Upgrade</ion-text>
-          </ion-button>
-        </ion-item>
+          </ion-button> -->
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <div class="video-section">
-          <video id="video_1" class="video-player" preload="none"
-          #videoPlayer (ended)="videoEnded()">
-          <source [src]="playingVideoSrc" type="video/mp4" />
-          Browser not supported
-        </video>
-        <ion-button (click)="playVideo()" fill="clear" size="small" class="ion-no-margin play-button">
-            <ion-icon slot="icon-only" src="assets/icon/icon_play.svg"></ion-icon>
-          </ion-button>
-      </div>
-      <div class="offers-section">
-          <ion-item lines="none">
-            <ion-label class="ion-no-margin" slot="start">
-               RECOMENDED PLANS FOR YOU
-            </ion-label>
-          </ion-item>
-            <ion-slides pager="false" [options]="offersOpts"  #offersSlider>
-                <ion-slide *ngFor="let liveClass of liveClassesData;let i = index">
-                  <ion-img [src]="liveClass.ic_url ? liveClass.ic_url:'assets/img/sliderPlaceHolder.svg'"></ion-img>
-                </ion-slide>
-              </ion-slides>
-        </div>
-        <div class="reach-your-golas-section ion-padding">
-           <h4>Reach Your Health Goals</h4>
-           <p>Get your standardize</p>
-           <button (click)="openSlideShow()">
-              <ion-text>Diet Plan</ion-text>
-           </button>
-            <button (click)="openFintessPlan()">
-                <ion-text>Fitness Plan</ion-text>
-            </button>   
-        </div>
+  <div class="video-section">
+    <video
+      id="video_12"
+      class="video-player"
+      preload="none"
+      #videoPlayer
+      (ended)="videoEnded()"
+    >
+      <source
+        src="https://maxfit.s3.ap-south-1.amazonaws.com/How+to+Get+a+Flat+Stomach+in+a+Month+at+Home+-++Abs+Workout+Planking.mp4"
+        type="video/mp4"
+      />
+      Browser not supported
+    </video>
+    <ion-button
+      (click)="playVideo()"
+      fill="clear"
+      size="small"
+      class="ion-no-margin play-button"
+    >
+      <ion-icon slot="icon-only" src="assets/icon/icon_play.svg"></ion-icon>
+    </ion-button>
+  </div>
+  <div class="offers-section">
+    <ion-item lines="none">
+      <ion-label class="ion-no-margin" slot="start">
+        RECOMENDED PLANS FOR YOU
+      </ion-label>
+    </ion-item>
+    <ion-slides pager="false" [options]="offersOpts" #offersSlider>
+      <ion-slide *ngFor="let liveClass of liveClassesData;let i = index">
+        <ion-img
+          [src]="liveClass.ic_url ? liveClass.ic_url:'assets/img/sliderPlaceHolder.svg'"
+        ></ion-img>
+      </ion-slide>
+    </ion-slides>
+  </div>
+  <div class="reach-your-golas-section ion-padding">
+    <h4>Reach Your Health Goals</h4>
+    <p>Get your standardize</p>
+    <button (click)="openSlideShow()">
+      <ion-text>Diet Plan</ion-text>
+    </button>
+    <button (click)="openFintessPlan()">
+      <ion-text>Fitness Plan</ion-text>
+    </button>
+  </div>
 </ion-content>
