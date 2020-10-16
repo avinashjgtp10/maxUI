@@ -59,7 +59,7 @@
       <span class="special-des"> {{selectedPlan.p_desc}} </span>
     </div>
     <div class="btn-wrapper">
-      <button class="pay-btn">
+      <button class="pay-btn" (click)="onPayment()">
         Pay &#8377; {{price}}</button>
     </div>
   </div>

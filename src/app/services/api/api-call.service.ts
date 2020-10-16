@@ -270,4 +270,12 @@ export class ApiCallService {
         catchError(this.handleError)
       )
   }
+  getPaymentId(data): Observable<JSON> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json')
+    return this.http
+      .post<JSON>(this.base_path + '/payment/create_order', JSON.stringify(data), { headers: headers })
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 }
