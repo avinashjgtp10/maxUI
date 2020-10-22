@@ -25,7 +25,7 @@
   <div class="segment-content">
     <div class="week-workout-section">
       <ion-list>
-        <ion-item *ngFor="let item of playlistData" (click)="onclickItem(item)">
+        <ion-item *ngFor="let item of playlistData; let i = index" (click)="onWorkoutVideo(i)">
           <ion-thumbnail slot="start">
             <img [src]="item.tmimage">
           </ion-thumbnail>
@@ -33,7 +33,7 @@
             <p>{{item.tmdays}}</p>
             <ion-text>{{item.tmexercise}}</ion-text>
           </ion-label>
-          <ion-button slot="end" (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
+          <ion-button slot="end" slot="start" fill="clear" size="small" class="ion-no-margin">
             <ion-icon *ngIf="item.isChecked" slot="icon-only" src="assets/icon/icon_tick.svg"></ion-icon>
             <ion-icon *ngIf="!item.isChecked" slot="icon-only" src="assets/icon/icon_unChecked.svg"></ion-icon>
           </ion-button>

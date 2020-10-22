@@ -37,30 +37,29 @@ export class WorkOutVideoPage implements OnInit {
     }
   }
   next() {
-    let myVideo: any = document.getElementById("my_video_1");
-      this.currentPlayingIndex++;
-      if (this.completePlaylist[this.currentPlayingIndex]) {
-        this.currentPlayingItem = this.completePlaylist[this.currentPlayingIndex];
-        this.playingVideoSrc = this.currentPlayingItem.tmvideourl;
-        myVideo.src = this.currentPlayingItem.tmvideourl;
-        myVideo.play();
-      } else {
-        console.log('Next is not allowed');
-      }
+    this.currentPlayingIndex++;
+    this.checkVideo();
   }
   previousVideo() {
-    let myVideo: any = document.getElementById("my_video_1");
     this.currentPlayingIndex--;
+    this.checkVideo();
+  }
+  closeModal() {
+    this.modalController.dismiss();
+  }
+  checkVideo() {
+    let myVideo: any = document.getElementById("my_video_1");
     if (this.completePlaylist[this.currentPlayingIndex]) {
       this.currentPlayingItem = this.completePlaylist[this.currentPlayingIndex];
       this.playingVideoSrc = this.currentPlayingItem.tmvideourl;
       myVideo.src = this.currentPlayingItem.tmvideourl;
       myVideo.play();
     } else {
-      console.log('Prev is not allowed');
+      console.log('Video is not available');
     }
   }
-  closeModal() {
-    this.modalController.dismiss();
+  onWorkoutVideo(index) {
+    this.currentPlayingIndex = index;
+    this.checkVideo();
   }
 }
