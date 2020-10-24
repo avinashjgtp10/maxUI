@@ -1,0 +1,97 @@
+.book-appointment {
+  .dietcian-profile-cotainer {
+    margin-left: 15px;
+    margin-top: 15px;
+  }
+  .profile-text {
+    padding-left: 15px;
+    color: black;
+    .profile-name {
+      opacity: 0.9;
+      font-size: 20px;
+    }
+    .profile-row {
+      opacity: 0.7;
+      margin-top: 6px;
+      font-size: 15px
+    }
+  }
+  .additional-details {
+    width: 100%;
+    height: 90px;
+    border-top: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+    .additional-details-row {
+      margin-top: 20px;
+    }
+  }
+  .dot {
+    height: 12px;
+    width: 12px;
+    background-color: black;
+    opacity: 0.5;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+  }
+  .dot-text {
+    margin-left: 12px;
+  }
+  .available-slots {
+    margin-left: 12px;
+    margin-top: 20px;
+    padding-bottom: 45px;
+    ion-grid {
+      padding-left: 0px;
+    }
+    .todays-label {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .slots-section {
+      margin-top: 12px;
+    }
+    .morning-label, .evening-label {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .actual-slot {
+      text-align: center;
+      height: 50px;
+      vertical-align: cent;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 500;
+      padding-top: 17px;
+      padding-left: 4px;
+      margin: 3%;
+      margin-left: 0px;
+    }
+    .selected {
+      background-color: red;
+      color: white
+    }
+
+    .not-selected {
+      background-color: #f2f2f2;
+      color: black;
+    }
+
+  }
+  .btn-wrapper {
+    position: fixed;
+    left: 50%;
+    margin-left: -65px;
+    .pay-btn {
+        border: 1px solid #e02828;
+        color: white;
+        background: red;
+        border-radius: 25px;
+        position: fixed;
+        bottom: 5px;
+        width: 138px;
+        height: 45px;
+        font-size: 19px;
+    }
+}
+}
