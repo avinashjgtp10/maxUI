@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-item lines="none">
+      <ion-button (click)="closeModal()" slot="start" fill="clear" size="small" class="maxui-ion-icon ion-no-margin">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+      <ion-label class="ion-no-padding ion-text-center">
+        <ion-text class="plan-heading ion-no-padding"> BOOK APPOINTMENT </ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="book-appointment">
+  <ion-grid class="dietcian-profile-cotainer">
+    <ion-row>
+      <ion-col size="3">
+        <img src='assets/img/manage-profile/diet_avatar.png' />
+      </ion-col>
+      <ion-col class='profile-text' size="9">
+          <ion-row *ngIf="profile.di_name" class='profile-name'>{{profile.di_name}}</ion-row>
+          <ion-row *ngIf="profile.di_specialization" class='profile-row'>{{profile.di_specialization}}</ion-row>
+          <ion-row *ngIf="profile.di_exp" class='profile-row'> {{profile.di_exp}}</ion-row>
+          <ion-row *ngIf="profile.di_raiting" class='profile-row'> {{profile.di_raiting}}</ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class='additional-details'> 
+    <div class="additional-details-row">
+      <span> <span class="dot"></span> <span class='dot-text'>Video Consulation</span></span> <span> <span class="dot"></span> <span class='dot-text'>3 Day Free follow up</span></span>
+    </div>
+    <div class="additional-details-row">
+      <span><span class="dot"></span> <span class='dot-text'>Available to Chat</span></span> 
+    </div>
+  </div>
+  <div class="available-slots">
+      <ion-lable class="todays-label"> Today's Slots</ion-lable>
+      <div class="slots-section">
+        <ion-lable class="morning-label"> Morning  </ion-lable>
+          <ion-grid>
+            <ion-row *ngFor='let slots of morningSlots; let PIndex = index'>
+              <ion-col [ngClass]="s.active? 'selected':'not-selected'" class="actual-slot" *ngFor='let s of slots; let childIndex = index' (click)="onSlot(s, 'm', PIndex, childIndex)">
+                    {{s.slot}}
+                </ion-col>
+            </ion-row>
+          </ion-grid>
+      </div>
+      <div class="slots-section">
+        <ion-lable class="evening-label"> Evening  </ion-lable>
+          <ion-grid>
+            <ion-row *ngFor='let slots of eveningSlots; let PIndex = index'>
+              <ion-col [ngClass]="s.active? 'selected':'not-selected'" class="actual-slot" *ngFor='let s of slots; let childIndex = index' (click)="onSlot(s, 'e',PIndex, childIndex)">
+                    {{s.slot}}
+                </ion-col>
+            </ion-row>
+          </ion-grid>
+      </div>
+  </div>
+      <div class="btn-wrapper">
+      <button class="pay-btn" (click)="onSubmit()">
+       Submit</button>
+    </div>
+</ion-content>

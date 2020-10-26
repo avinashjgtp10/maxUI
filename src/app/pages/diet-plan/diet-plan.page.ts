@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ApiCallService } from "../../services/api/api-call.service";
 import { LoadingContollerService } from "../../services/loading/loading-contoller.service";
 import * as moment from 'moment';
@@ -6,6 +6,7 @@ import { DateSliderPage } from '../date-slider/date-slider.page';
 import { DateProviderService } from "../../services/date/date-provider.service";
 import { ModalController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { BookAppointmentComponent } from 'src/app/components/book-appointment/book-appointment.component';
 
 
 @Component({
@@ -14,6 +15,9 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./diet-plan.page.scss'],
 })
 export class DietPlanPage implements OnInit {
+  @ViewChild("overlay") overlay: ElementRef;
+  bookApt = false;
+  scheduled = false;
   isDateSliderOpened: boolean = false;
   clientId: string = localStorage.getItem('c_id');
   calorieProgressBar: number = 0;
@@ -278,5 +282,33 @@ export class DietPlanPage implements OnInit {
       ]
     });
     this.toast.present();
+  }
+  onBookAppointment() {
+    this.bookApt = true;
+    this.overlay.nativeElement.style['display'] = 'block';
+  }
+  async OnSelectTrainer(selectedPlan: any) {
+    this.bookApt = false;
+    this.overlay.nativeElement.style['display'] = 'none';
+    const modal = await this.modalController.create({
+      component: BookAppointmentComponent,
+      cssClass: 'book-appointment-component',
+      componentProps: {
+        'selectedPlan': selectedPlan
+      },
+    });
+    modal.onDidDismiss().then((data) => {
+      if(data.data.appointment){
+       this.scheduleAppointment(data.data['appointment'])
+      }
+     });
+    return await modal.present();
+  }
+  scheduleAppointment(data) {
+    this.apiCallService.scheduleAppointment(data).subscribe((res) => {
+      this.scheduled  =  true;
+    }, err => {
+      console.log("Unable to schedule appointment");
+    })
   }
 }

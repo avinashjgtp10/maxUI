@@ -17,7 +17,7 @@
     <ion-button fill="clear" size="small" shape="round" class="ion-no-margin subscribe-button ion-text-wrap">Live Chat
       <ion-icon slot="icon-only" src="assets/icon/icon_chat_box.svg"></ion-icon>
     </ion-button>
-    <ion-button fill="outline" size="small" shape="round" class="ion-no-margin subscribe-button ion-text-wrap">Book
+    <ion-button fill="outline" size="small" shape="round" class="ion-no-margin subscribe-button ion-text-wrap" (click)="onBookAppointment()">Book
       Appointment
       <ion-icon slot="icon-only" src="assets/icon/icon_appointment.svg"></ion-icon>
     </ion-button>
@@ -164,4 +164,22 @@
       <p>No items Present</p>
     </ion-toolbar>
   </ion-list>
+  <div id="overlay" #overlay></div>
+  <div *ngIf='bookApt'class='book-appointment'>
+    <div class='select-trainer'> <ion-label> <ion-text>Select your Trainer</ion-text></ion-label></div>
+    <div class="btn-wrapper">
+      <button class="pay-btn pay-btn-trainer">
+       Workout Trainer</button>
+    </div>
+    <div class="btn-wrapper">
+      <button class="pay-btn pay-btn-diet" (click)="OnSelectTrainer()">
+       Dietician</button>
+    </div>
+  </div>
+  <div *ngIf='scheduled'class='book-appointment'>
+    <div class='sceduled-confirm'> <ion-icon  class="confirm-circle" name="checkmark-circle"></ion-icon></div>
+    <div class="confirm-text">
+      Appointment Confirmed
+    </div>
+  </div>
 </ion-content>

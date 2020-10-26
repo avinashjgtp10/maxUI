@@ -8,6 +8,7 @@ import { PipesModule } from '../../pipes/pipes.module';
 import { DietPlanPageRoutingModule } from './diet-plan-routing.module';
 
 import { DietPlanPage } from './diet-plan.page';
+import { BookAppointmentComponent } from 'src/app/components/book-appointment/book-appointment.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { DietPlanPage } from './diet-plan.page';
     PipesModule,
     DietPlanPageRoutingModule
   ],
-  declarations: [DietPlanPage]
+  declarations: [DietPlanPage, BookAppointmentComponent]
 })
 export class DietPlanPageModule {}
