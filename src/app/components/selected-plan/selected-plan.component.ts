@@ -39,7 +39,7 @@ export class SelectedPlanComponent implements OnInit {
       image: 'https://i.imgur.com/3g7nmJC.png',
       order_id: res.id,
       currency: 'INR',
-      key: 'rzp_live_aPJ6aNbQ0xMBdx	',
+      key: 'rzp_test_TE3JpmqTYzeFU1',
       amount: '100',
       name: 'Acme Corp',
       theme: {
