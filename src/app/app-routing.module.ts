@@ -11,6 +11,7 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+
   },
   {
     path: 'app-start',
@@ -18,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: 'manage-profile',
-    loadChildren: () => import('./pages/manage-profile/manage-profile.module').then( m => m.ManageProfilePageModule),
+    loadChildren: () => import('./pages/manage-profile/manage-profile.module').then( m => m.ManageProfilePageModule)
   },
   {
     path: 'terms-and-condition',
@@ -38,7 +39,9 @@ const routes: Routes = [
   },
   {
     path: 'diet-plan',
-    loadChildren: () => import('./pages/diet-plan/diet-plan.module').then( m => m.DietPlanPageModule)
+    loadChildren: () => import('./pages/diet-plan/diet-plan.module').then( m => m.DietPlanPageModule),
+    canActivate:[AuthGuard],
+    data: { plan : 'premium'}
   },
   {
     path: 'my-plan',
@@ -50,6 +53,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers:[AuthGuard]
 })
 export class AppRoutingModule { }

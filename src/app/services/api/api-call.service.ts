@@ -10,6 +10,7 @@ import { Storage } from "@ionic/storage";
 export class ApiCallService {
   // API path
   base_path = 'https://pristine-lake-clark-35296.herokuapp.com/api/v1';
+  //base_path = "http://localhost:5000/api/v1/";
 
   constructor(private http: HttpClient, private storage: Storage) { }
 
@@ -293,4 +294,17 @@ export class ApiCallService {
         catchError(this.handleError)
       )
   }
+
+    // Update Profile
+    updateUserPlan(data, c_id): Observable<JSON> {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json')
+      return this.http
+        .put<JSON>(this.base_path + `/UpdateclientId/${c_id}`, JSON.stringify(data), { headers: headers })
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
+
+
+
 }

@@ -4,10 +4,10 @@ import { LoadingContollerService } from "../../services/loading/loading-contolle
 import * as moment from 'moment';
 import { DateSliderPage } from '../date-slider/date-slider.page';
 import { DateProviderService } from "../../services/date/date-provider.service";
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { BookAppointmentComponent } from 'src/app/components/book-appointment/book-appointment.component';
-
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-diet-plan',
@@ -46,11 +46,13 @@ export class DietPlanPage implements OnInit {
   fromDate: any;
   constructor(public loadingService: LoadingContollerService,
     public modalController: ModalController,
+    private location: Location,
     public dateService: DateProviderService,
     public apiCallService: ApiCallService,
     public toastController: ToastController) { }
 
   ngOnInit() {
+    console.log("calling")
     this.today = moment().format('DD/MM/YYYY');
     this.fromDate = moment().subtract(1, 'M').format('DD/MM/YYYY');
     this.initData();
@@ -203,7 +205,7 @@ export class DietPlanPage implements OnInit {
     }
   }
   closeModal() {
-    this.modalController.dismiss();
+    this.location.back();
   }
   dismissToast() {
     this.toast.dismiss();

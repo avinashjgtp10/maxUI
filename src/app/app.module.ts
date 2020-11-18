@@ -26,10 +26,13 @@ import { Media } from '@ionic-native/media/ngx';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
-
 // FCM
 import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
 import { PushService } from './services/push/push.service';
+
+
+import { AuthGuard} from './guards/auth.guard'
+import { ToastProvider } from './services/toast/toast'
 //push
 export function createTranslateLoader(http:HttpClient){
  return new TranslateHttpLoader(http,'assets/i18n/','.json');
@@ -67,7 +70,9 @@ export function createTranslateLoader(http:HttpClient){
     StreamingMedia,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     FCM,
-    PushService
+    PushService,
+    ToastProvider,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

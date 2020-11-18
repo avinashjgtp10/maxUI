@@ -148,6 +148,7 @@ export class AppStartPage implements OnInit {
             this.storage.set('User_Data', response.data).then(() => {
               if(response.data.userDesc === 'old') {
                 localStorage.setItem('c_id',response.data.c_id);
+                localStorage.setItem('plan',response.data.plan);
                 this.navController.navigateRoot(['home']);
               } else {
                 this.navController.navigateRoot(['manage-profile']);
