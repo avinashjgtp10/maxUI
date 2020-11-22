@@ -44,7 +44,7 @@
     "angular-svg-round-progressbar": "^4.0.0",
     "com.darktalker.cordova.screenshot": "^0.1.6",
     "com.razorpay.cordova": "git+https://github.com/razorpay/razorpay-cordova.git",
-    "cordova-android": "^9.0.0",
+    "cordova-android": "^8.1.0",
     "cordova-browser": "^5.0.4",
     "cordova-plugin-advanced-http": "^3.0.0",
     "cordova-plugin-android-permissions": "^1.0.2",
@@ -77,6 +77,7 @@
     "ng-otp-input": "^1.7.1",
     "ng5-slider": "^1.2.4",
     "rxjs": "~6.5.1",
+    "shelljs": "^0.8.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },
@@ -139,6 +140,8 @@
       "cordova-plugin-streaming-media": {},
       "com.razorpay.cordova": {}
     },
-    "platforms": []
+    "platforms": [
+      "android"
+    ]
   }
 }
