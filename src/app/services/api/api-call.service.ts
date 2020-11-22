@@ -9,8 +9,8 @@ import { Storage } from "@ionic/storage";
 })
 export class ApiCallService {
   // API path
-  //base_path = 'https://pristine-lake-clark-35296.herokuapp.com/api/v1';
-  base_path = "http://localhost:5000/api/v1/";
+  base_path = 'https://pristine-lake-clark-35296.herokuapp.com/api/v1';
+  //base_path = "http://localhost:5000/api/v1/";
 
   constructor(private http: HttpClient, private storage: Storage) { }
 
