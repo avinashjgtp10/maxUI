@@ -1,10 +1,8 @@
 ion-header {
-    height: 6rem;
     background-color: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     ion-toolbar{
        --background: #FFFFFF;
-        padding-top: 30px;
        ion-item{
         --background: #FFFFFF;
         ion-label{
@@ -33,7 +31,7 @@ ion-content{
     .video-section{
         background-color: #E0E0E0;
         .video-player{
-            width: 100%;
+            width: auto;
             height: 16rem;
         }
         .play-button{
@@ -48,6 +46,9 @@ ion-content{
                 height: 100%;
             }
         }
+    }
+    .offers-section{
+        padding-top: 10px;
     }
     .progress-section{
         p{

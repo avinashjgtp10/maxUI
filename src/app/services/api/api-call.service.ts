@@ -305,6 +305,17 @@ export class ApiCallService {
         )
     }
 
+    storeDayWiseSeenVideo(data:any): Observable<JSON> {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json')
+      return this.http
+        .post<JSON>(this.base_path + '/mytraining/storeworkout', JSON.stringify(data), { headers: headers })
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
+
+  
+
 
 
 }

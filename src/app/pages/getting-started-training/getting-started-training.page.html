@@ -1,13 +1,13 @@
 <ion-header class="ion-no-border">
   <ion-toolbar class="ion-text-center">
-    <ion-button *ngIf="slideIndex == 5 ? false: true" (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
+    <ion-button  (click)="closeModal()" slot="start" fill="clear" size="small" class="ion-no-margin">
       <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-slides pager="false" (ionSlidesDidLoad)="slideDidLoad($event)" [options]="trainingSliderOpts" #trainingSlider>
+  <ion-slides pager="false"  [options]="trainingSliderOpts" #trainingSlider>
     <ion-slide>
       <ion-grid>
         <ion-row>
@@ -148,52 +148,6 @@
         </ion-row>
       </ion-grid>
     </ion-slide>
-    <!-- <ion-slide>
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12" class="ion-text-left">
-            <ion-text class="normal-heading">Select workout days in a week</ion-text>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="12" class="ion-text-left">
-            <ion-text class="normal-para">Let us know your better to help boost your workout</ion-text>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="2">
-            <ion-chip>
-              <ion-label>Mon</ion-label>
-            </ion-chip>
-          </ion-col>
-          <ion-col size="2">
-            <ion-chip>
-              <ion-label>Tue</ion-label>
-            </ion-chip>
-          </ion-col>
-          <ion-col size="2">
-            <ion-chip>
-              <ion-label>Wed</ion-label>
-            </ion-chip>
-          </ion-col>
-          <ion-col size="2">
-            <ion-chip>
-              <ion-label>Thu</ion-label>
-            </ion-chip>
-          </ion-col>
-          <ion-col size="2">
-            <ion-chip>
-              <ion-label>Fri</ion-label>
-            </ion-chip>
-          </ion-col>
-          <ion-col size="2">
-            <ion-chip>
-              <ion-label>Sat</ion-label>
-            </ion-chip>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide> -->
     <ion-slide>
       <ion-grid class="verical-center">
         <ion-row>
@@ -203,7 +157,7 @@
         </ion-row>
         <ion-row>
           <ion-col size="12">
-            <ion-text class="normal-heading">Your all set</ion-text>
+            <ion-text class="normal-heading">Your all set </ion-text>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -217,11 +171,11 @@
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar class="ion-text-center ion-margin-bottom">
-    <ion-label *ngIf="slideIndex == 5 ? false: true">
+    <ion-label *ngIf="slideIndex == 5">
       STEP <ion-text>{{slideIndex}}</ion-text>/<ion-text>{{totalSlides}}</ion-text>
     </ion-label>
-    <ion-progress-bar *ngIf="slideIndex == 5 ? false: true" [value]="slideProgress"></ion-progress-bar>
-    <ion-button (click)="goToTrainigDasboard()" *ngIf="slideIndex == 5 ? true: false"shape="round" fill="outline">
+    <ion-progress-bar *ngIf="slideIndex != 5 "  [value]="slideProgress"></ion-progress-bar>
+    <ion-button (click)="goToTrainigDasboard()" *ngIf="slideIndex == 5 "shape="round" fill="outline">
         <ion-text>Go To Dashboard</ion-text>
       </ion-button>
   </ion-toolbar>

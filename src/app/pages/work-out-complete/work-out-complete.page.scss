@@ -1,0 +1,26 @@
+ion-content {
+  .ion-content-text {
+    ion-item {
+      text-align: center;
+    }
+  }
+}
+
+ion-footer {
+  ion-toolbar {
+    text-align: center;
+    ion-button {
+      width: 80%;
+      height: 2.5rem;
+      --color: white;
+      --border-color: #e02828;
+      --background: #e02828;
+      ion-text {
+        font-weight: 500;
+        font-size: 20px;
+        color: #ffffff;
+        text-transform: none;
+      }
+    }
+  }
+}

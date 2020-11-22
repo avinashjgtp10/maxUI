@@ -32,7 +32,7 @@ import { PushService } from './services/push/push.service';
 
 
 import { AuthGuard} from './guards/auth.guard'
-import { ToastProvider } from './services/toast/toast'
+import { ToastProvider } from './services/toast/toast';
 //push
 export function createTranslateLoader(http:HttpClient){
  return new TranslateHttpLoader(http,'assets/i18n/','.json');

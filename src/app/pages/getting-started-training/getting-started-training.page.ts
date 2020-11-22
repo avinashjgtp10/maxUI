@@ -1,5 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, EventEmitter } from "@angular/core";
-import { ModalController, IonSlides,  } from "@ionic/angular";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  EventEmitter,
+} from "@angular/core";
+import { ModalController, IonSlides, NavController } from "@ionic/angular";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ApiCallService } from "../../services/api/api-call.service";
 import { LoadingContollerService } from "../../services/loading/loading-contoller.service";
@@ -10,7 +16,6 @@ import { TrainingDashboardPage } from "../training-dashboard/training-dashboard.
   templateUrl: "./getting-started-training.page.html",
   styleUrls: ["./getting-started-training.page.scss"],
 })
-
 export class GettingStartedTrainingPage implements OnInit {
   trainingSliderOpts = {
     speed: 400,
@@ -19,7 +24,7 @@ export class GettingStartedTrainingPage implements OnInit {
     allowTouchMove: false,
   };
   result: any;
-  @ViewChild('trainingSlider', {read: ElementRef}) slider: ElementRef;
+  @ViewChild("trainingSlider", { read: ElementRef }) slider: ElementRef;
   slideIndex: number = 1;
   totalSlides: number = 5;
   slideProgress: number = 0;
@@ -33,22 +38,19 @@ export class GettingStartedTrainingPage implements OnInit {
   };
   constructor(
     private route: Router,
+    private navCtrl: NavController,
     public modalController: ModalController,
     private apiCallService: ApiCallService,
     private loadingContollerService: LoadingContollerService
   ) {}
 
-  ngOnInit() {
-    
-  }
-
+  ngOnInit() {}
 
   ionViewDidEnter() {
     this.slider.nativeElement.update();
   }
 
-  ionViewDidLoad() {
-  }
+  ionViewDidLoad() {}
 
   ionViewWillEnter() {
     this.slideProgress = this.slideIndex / this.totalSlides;
@@ -77,16 +79,24 @@ export class GettingStartedTrainingPage implements OnInit {
     this.slideIndex = this.slideIndex + 1;
     this.slideProgress = this.slideIndex / this.totalSlides;
   }
+  slideToPrev() {
+    this.slider.nativeElement.slidePrev(400);
+    this.slideIndex = this.slideIndex - 1;
+    this.slideProgress = this.slideIndex / this.totalSlides;
+  }
   closeModal() {
-    this.modalController.dismiss({
-      dismissed: true,
-    });
+    if (this.slideIndex === 1 || this.slideIndex === 5) {
+      this.navCtrl.back();
+    } else {
+     this.slideToPrev()
+    }
   }
   async goToTrainigDasboard() {
-    const modal = await this.modalController.create({
-      component: TrainingDashboardPage,
-      cssClass: "my-custom-class",
-    });
-    return await modal.present();
+    // const modal = await this.modalController.create({
+    //   component: TrainingDashboardPage,
+    //   cssClass: "my-custom-class",
+    // });
+    // return await modal.present();
+    this.route.navigate(["training-dashboard",{data:""}])
   }
 }

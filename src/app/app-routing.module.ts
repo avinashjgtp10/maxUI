@@ -44,9 +44,25 @@ const routes: Routes = [
     data: { plan : 'premium'}
   },
   {
+    path: 'tab4',
+    loadChildren: () => import('./pages/my-plan/my-plan.module').then(m => m.MyPlanPageModule),
+    
+  },
+  {
     path: 'my-plan',
     loadChildren: () => import('./pages/my-plan/my-plan.module').then( m => m.MyPlanPageModule)
   },
+  {
+    path: "gettingStarted",
+    loadChildren: () =>
+      import(
+        "./pages/getting-started-training/getting-started-training.module"
+      ).then((m) => m.GettingStartedTrainingPageModule),
+  },
+  {
+    path: 'work-out-complete',
+    loadChildren: () => import('./pages/work-out-complete/work-out-complete.module').then( m => m.WorkOutCompletePageModule)
+  }
 ];
 
 @NgModule({
