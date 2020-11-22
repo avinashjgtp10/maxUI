@@ -1,6 +1,15 @@
+<ion-header mode="md" class="ion-no-border">
+  <ion-toolbar class="ion-text-center">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="title">{{myPlan}} user</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
 <div class="basic-plan">
-  <ion-img class="basic-plan-img"
-    [src]="basicPlan.length && basicPlan[0].p_image ? basicPlan[0].p_image :'assets/img/sliderPlaceHolder.svg'">
+  <ion-img class="basic-plan-img" [src]="planUrl">
   </ion-img>
 </div>
 <ion-content class="my-plan-page">

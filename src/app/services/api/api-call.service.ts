@@ -9,8 +9,8 @@ import { Storage } from "@ionic/storage";
 })
 export class ApiCallService {
   // API path
-  base_path = 'https://pristine-lake-clark-35296.herokuapp.com/api/v1';
-  //base_path = "http://localhost:5000/api/v1/";
+  //base_path = 'https://pristine-lake-clark-35296.herokuapp.com/api/v1';
+  base_path = "http://localhost:5000/api/v1/";
 
   constructor(private http: HttpClient, private storage: Storage) { }
 
@@ -304,6 +304,17 @@ export class ApiCallService {
           catchError(this.handleError)
         )
     }
+
+    storeDayWiseSeenVideo(data:any): Observable<JSON> {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json')
+      return this.http
+        .post<JSON>(this.base_path + '/mytraining/storeworkout', JSON.stringify(data), { headers: headers })
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
+
+  
 
 
 

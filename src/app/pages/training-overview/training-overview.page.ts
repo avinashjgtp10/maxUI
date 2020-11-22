@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController,NavController } from '@ionic/angular';
 import { DaySchedulePage } from '../day-schedule/day-schedule.page';
 import { ApiCallService } from 'src/app/services/api/api-call.service';
 import { LoadingContollerService } from 'src/app/services/loading/loading-contoller.service';
 import { WorkOutVideoPage } from '../work-out-video/work-out-video.page';
+import { Router, ActivatedRoute, Params, Data } from '@angular/router';
+
+
 @Component({
   selector: 'app-training-overview',
   templateUrl: './training-overview.page.html',
@@ -16,6 +19,8 @@ export class TrainingOverviewPage implements OnInit {
   benefitsText:string = '';
   bgImage:string = '';
   constructor(public modalController: ModalController,
+    private navCtrl:NavController,
+    private route: Router,
     private apiCallService: ApiCallService,
     private loadingContollerService: LoadingContollerService) { }
 
@@ -33,9 +38,7 @@ export class TrainingOverviewPage implements OnInit {
   segmentChanged(e) {
    }
    closeModal() {
-    this.modalController.dismiss({
-      'dismissed': true
-    });
+    this.modalController.dismiss();
   }
   getDayCompleteData(item){
     this.loadingContollerService.loadingPresent();
@@ -48,7 +51,8 @@ export class TrainingOverviewPage implements OnInit {
     const modal = await this.modalController.create({
       component: WorkOutVideoPage,
       componentProps: {
-        'playlistData': item.data
+        'playlistData': item.data,
+        'weekDetails':item.weekDetails
       },
       cssClass: 'my-custom-class'
     });

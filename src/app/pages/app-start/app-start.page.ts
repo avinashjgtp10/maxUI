@@ -141,14 +141,17 @@ export class AppStartPage implements OnInit {
     this.loadingService.loadingPresent();
     this.storage.get('Session_Id').then((val) => {
       this.apiService.verifyOtp(args,val).subscribe((response: any) => {
+        
         this.loadingService.loadingDismiss();
         if(response.status === "success"){
           console.log("success",response);
             this.showWrongOtpError = false;
             this.storage.set('User_Data', response.data).then(() => {
               if(response.data.userDesc === 'old') {
+                
                 localStorage.setItem('c_id',response.data.c_id);
-                localStorage.setItem('plan',response.data.plan);
+                console.log("app start",localStorage.getItem('c_id'))
+                this.getProfileData()
                 this.navController.navigateRoot(['home']);
               } else {
                 this.navController.navigateRoot(['manage-profile']);
@@ -177,6 +180,16 @@ export class AppStartPage implements OnInit {
     });
     
   }
+
+
+  getProfileData() {
+    this.apiService.getProfileData(localStorage.getItem('c_id')).subscribe((response: any) => {
+      localStorage.setItem('plan',response.plan);
+    }, (error) => {
+      console.log("error",error);
+    });
+  }
+
   onSubmit(){
     this.serverError = '';
      this.mobileNumberEntered = this.form.value.mobileNumber;
@@ -303,6 +316,7 @@ export class AppStartPage implements OnInit {
   }
   goToDashboard(){
     let id="65"
+    console.log("dashboard")
     this.route.navigate(["dashboard-with-id",id]);
     console.log("Hey this is dashboard")
   }

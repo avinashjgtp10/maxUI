@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { ApiCallService } from "src/app/services/api/api-call.service";
+import { Storage } from "@ionic/storage";
 declare var RazorpayCheckout: any;
 
 @Component({
@@ -14,6 +15,7 @@ export class SelectedPlanComponent implements OnInit {
   relationship: any;
   constructor(
     public modalController: ModalController,
+    private storage: Storage,
     public apiService: ApiCallService
   ) {}
 
@@ -33,10 +35,10 @@ export class SelectedPlanComponent implements OnInit {
     let data = {
       amount: 100,
     };
+
     this.apiService.getPaymentId(data).subscribe(
       (res) => {
         this.paymentGateway(res);
-     
       },
       (err) => {
         console.log("Error");
@@ -63,11 +65,17 @@ export class SelectedPlanComponent implements OnInit {
       let payload = {
         plan: "premium",
       };
-      this.apiService
-        .updateUserPlan(payload, localStorage.getItem("c_id"))
-        .subscribe((res: any) => {
-          localStorage.setItem("plan", payload.plan);
-        });
+
+      this.storage.get("User_Data").then((data: any) => {
+        console.log(JSON.stringify(data.c_id));
+        console.log(payload);
+        this.apiService
+          .updateUserPlan(payload, data.c_id)
+          .subscribe((res: any) => {
+            localStorage.setItem("plan", "premium");
+            console.log(localStorage.getItem("plan"));
+          });
+      });
     };
     let cancelCallback = function (error) {
       alert(error.description + " (Error " + error.code + ")");

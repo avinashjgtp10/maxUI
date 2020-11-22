@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -25,15 +25,15 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 @font-face {
-    font-family: 'roboto-regular';
-    src: url('./assets/fonts/Roboto/Roboto-Regular.ttf');
-    font-weight:300;
-  };
-@textBoxColor:#e0f1e8;
+  font-family: "roboto-regular";
+  src: url("./assets/fonts/Roboto/Roboto-Regular.ttf");
+  font-weight: 300;
+}
+@textBoxColor: #e0f1e8;
 
 .otp-box {
   border-radius: 6px;
-  border: 1px solid #D0C9D6;
+  border: 1px solid #d0c9d6;
 }
 .otp-container {
   display: flex;
@@ -43,8 +43,8 @@
 // Action Sheet Style
 .my-custom-class {
   .action-sheet-group {
-      border-top-left-radius: 25px;
-      border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
   }
   .action-sheet-title {
     font-weight: normal;
@@ -54,61 +54,60 @@
 }
 
 .add-calorie-toast {
-  --background: #7B7B7B;
+  --background: #7b7b7b;
   --border-radius: 15px;
   --height: 50px;
-  --button-color:#FFFFFF;
-  --color: #FFFFFF;
+  --button-color: #ffffff;
+  --color: #ffffff;
 }
 
-.action-sheet-component{
+.action-sheet-component {
   --height: 43%;
   align-items: flex-end;
   --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
-  .modal-wrapper{
+  .modal-wrapper {
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
   }
 }
-.subscription-modal-component{
+.subscription-modal-component {
   --height: 53%;
   align-items: flex-end;
   --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
-  .modal-wrapper{
+  .modal-wrapper {
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
   }
 }
-.calendar-modal-component{
+.calendar-modal-component {
   --height: 53%;
   align-items: flex-end;
   --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
-  .modal-wrapper{
+  .modal-wrapper {
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
   }
 }
-.add-goal-component{
+.add-goal-component {
   --height: 45%;
   align-items: flex-end;
   --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
-  .modal-wrapper{
+  .modal-wrapper {
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
   }
 }
-.date-slider-component{
+.date-slider-component {
   --height: 66px;
   align-items: baseline;
   --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
   margin-top: 66px;
-  
 }
-.canvasjs-chart-canvas{
+.canvasjs-chart-canvas {
   width: 100% !important;
   height: 320px !important;
 }
-.share-popup-class{
+.share-popup-class {
   --min-width: 75%;
   --max-height: 60%;
 }
@@ -117,4 +116,21 @@
 }
 .sc-ion-modal-ios-h {
   --background: none !important;
+}
+
+ion-action-sheet {
+  -button.upgrade-plan-btn.sc-ion-action-sheet-md {
+    background: blue;
+  }
+
+  .sc-ion-action-sheet-md .upgrade-plan-btn {
+    background-color: red;
+    color:white;
+    font-family: roboto-regular;
+  }
+
+  .sc-ion-action-sheet-md .ion-ios-trash-solid,
+    .ion-md-trash-solid {
+      content: url(./assets/img/icon_home.svg);
+    }
 }

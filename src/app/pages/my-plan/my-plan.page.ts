@@ -4,6 +4,8 @@ import { SelectedPlanComponent } from '../../components/selected-plan/selected-p
 import { ApiCallService } from 'src/app/services/api/api-call.service';
 import * as _ from 'lodash';
 import { LoadingContollerService } from 'src/app/services/loading/loading-contoller.service';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-my-plan',
@@ -16,9 +18,11 @@ export class MyPlanPage implements OnInit {
   premiumPlan = [];
   standardPlan = [];
   specialPlan = [];
-  testimonialsData = []
+  testimonialsData = [];
+  myPlan = "";
+  planUrl = "";
 
-  constructor(public modalController: ModalController,
+  constructor(public modalController: ModalController,private storage: Storage,
        public api: ApiCallService, private loadingContollerService: LoadingContollerService) { }
 
   ngOnInit() {
@@ -31,10 +35,15 @@ export class MyPlanPage implements OnInit {
       this.loadingContollerService.loadingDismiss();
       console.log("Unable to fetch plans");
     })
+    this.getUserPlan()
   }
 
   ionViewDidEnter() {
+  }
 
+  getUserPlan(){
+    this.myPlan = `${localStorage.getItem("plan")}`
+    this.planUrl = this.myPlan == "basic" ?  "../../../assets/img/plan/basicPlan.jpg" : "../../../assets/img/plan/premiumPlan.jpg"
   }
 
   async OnPlan(selectedPlan: any) {

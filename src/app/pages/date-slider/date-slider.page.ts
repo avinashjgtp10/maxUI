@@ -30,7 +30,7 @@ export class DateSliderPage implements OnInit {
   constructor(private dateService: DateProviderService, 
               private navParams: NavParams,
               private modalController: ModalController) {
-    console.log(this.navParams.get("fromDate"));
+
     this.fromDate = this.navParams.get("fromDate");
     this.toDate = this.navParams.get("toDate");
     this.selectedDate = this.navParams.get("selectedDate");

@@ -237,7 +237,9 @@ export class ManageProfilePage implements OnInit {
         this.apiService.storeProfileData(args).subscribe((response: any) => {
           let value = {...response.data[0],'userDesc':response.userDesc, 'phonenumber':data.phonenumber , 'token':data.token };
             this.storage.set('User_Data',value).then((res)=>{
+              console.log("Manage Profile",response.data[0])
              localStorage.setItem('c_id',response.data[0].c_id);
+             localStorage.setItem('plan',response.data[0].plan);
              this.loadingService.loadingDismiss();
              this.navController.navigateRoot(['home']);
             }).catch((err)=> {
