@@ -54,6 +54,9 @@ export class MyPlanPage implements OnInit {
         'selectedPlan': selectedPlan
       },
     });
+    modal.onDidDismiss().then(() => {
+      this.getUserPlan();
+    });
     return await modal.present();
   }
 

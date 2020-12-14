@@ -1,11 +1,13 @@
 ion-header {
     background-color: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    
     ion-toolbar{
        --background: #FFFFFF;
 
        ion-item{
         --background: #FFFFFF;
+        text-transform: capitalize;
         ion-avatar{
             width: 35.71px;
             height: 39.14px;
@@ -14,6 +16,7 @@ ion-header {
             font-weight: 500;
             font-size: 18px;
             color: #000000;
+            text-transform: capitalize;
         }
         ion-label{
             h5{

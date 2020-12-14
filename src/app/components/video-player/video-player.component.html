@@ -1,19 +1,10 @@
-<!-- <ion-header class="ion-no-border">
-  <ion-toolbar class="ion-text-center">
-    <ion-item lines="none">
-      <ion-button (click)="closeModal()" slot="end" fill="clear" size="small" class="back-btn">
-        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-toolbar>
-</ion-header> -->
 <div>
   <ion-button (click)="closeModal()" slot="end" fill="clear" size="small" class="back-btn">
     <ion-icon slot="icon-only" name="close-outline"></ion-icon>
   </ion-button>
 </div>
   <div class="video">
-    <video id="my_video_1" class="video-player" controls preload="none" #videoPlayer (ended)="videoEnded()">
+    <video id="my_video_1" class="video-player" controls autoplay  #videoPlayer (ended)="videoEnded()">
       <source [src]="dataSource" type="video/mp4" />
       Browser not supported
     </video>

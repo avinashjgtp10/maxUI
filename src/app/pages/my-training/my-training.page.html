@@ -5,7 +5,8 @@
         <img src="assets/img/manage-profile/avatar.svg" />
       </ion-avatar>
       <ion-label class="ion-no-padding">
-        <ion-text class="ion-no-padding">Basic plan</ion-text>
+        {{myPlan}}
+        <ion-text class="ion-no-padding">  </ion-text>
       </ion-label>
       <!-- <ion-button slot="end" shape="round" fill="outline">
             <ion-text>Upgrade</ion-text>
@@ -16,7 +17,7 @@
 
 <ion-content>
   <div class="video-section">
-    <video
+    <!-- <video
       id="video_12"
       class="video-player"
       preload="none"
@@ -28,15 +29,22 @@
         type="video/mp4"
       />
       Browser not supported
+    </video> -->
+
+
+    <video width="400" poster="https://maxfit.s3.ap-south-1.amazonaws.com/Stress+Management.jpeg" controls>
+      <source src="https://maxfit.s3.ap-south-1.amazonaws.com/Stress+Management.mp4" type="video/mp4">
+      Your browser does not support HTML video.
     </video>
-    <ion-button
+
+    <!-- <ion-button
       (click)="playVideo()"
       fill="clear"
       size="small"
       class="ion-no-margin play-button"
     >
       <ion-icon slot="icon-only" src="assets/icon/icon_play.svg"></ion-icon>
-    </ion-button>
+    </ion-button> -->
   </div>
   <div class="offers-section">
     <ion-item lines="none">

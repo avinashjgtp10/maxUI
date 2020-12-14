@@ -23,6 +23,7 @@ import { DietPlanPage } from "../diet-plan/diet-plan.page";
   styleUrls: ["./my-training.page.scss"],
 })
 export class MyTrainingPage implements OnInit {
+  myPlan = ""
   liveClassesData: Array<Object> = [];
   videoListData: any;
   completeData: any;
@@ -55,9 +56,16 @@ export class MyTrainingPage implements OnInit {
 
   ngOnInit() {
     this.getData();
+    this.getUserPlan()
     // this.file = this.media.create('https://dacasts3-vh.akamaihd.net/i/secure/181403/181403_,938070.mp4,.csmil/master.m3u8');
   }
+
+  getUserPlan(){
+    this.myPlan = `${localStorage.getItem("plan")} user`
+  }
+
   getData() {
+
     this.loadingContollerService.loadingPresent();
     this.apiCallService
       .getMyTrainingData("adult", "basic", localStorage.getItem("c_id"))
@@ -67,9 +75,7 @@ export class MyTrainingPage implements OnInit {
         console.log("data", data.data);
         this.liveClassesData = data.data.image;
         this.videoListData = `https:` + data.data.video[1].hls;
-        // console.log('this.videoListData',this.videoListData);
-        // const _video = this.videoplayer.nativeElement;
-        // _video.src = this.videoListData;
+      
       });
   }
   async openSlideShow() {

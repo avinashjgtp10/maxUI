@@ -1,10 +1,12 @@
 ion-header {
-    height: 7rem;
+     height: 7rem;
+    
     border: none;
     background-color: #F3F4F3;
     ion-toolbar{
        --background: #F3F4F3;
-        padding-top: 30px;
+         padding-top: 30px;
+
 
        ion-item{
         --background: #F3F4F3;
@@ -44,7 +46,7 @@ ion-content {
             ion-slide {
               width: 200px !important;
               height: 200px !important;
-              margin-bottom: 20px;
+              margin: 10px;
               ion-img {
                 height: 220px !important;
               }
@@ -189,7 +191,7 @@ ion-content {
       ion-slide {
         width: 200px !important;
         height: 200px !important;
-        margin-bottom: 20px;
+        margin: 10px;
         ion-img {
           height: 220px !important;
         }

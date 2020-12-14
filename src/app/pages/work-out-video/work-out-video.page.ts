@@ -16,6 +16,7 @@ export class WorkOutVideoPage implements OnInit {
 
   @ViewChild("videoPlayer", { static: false }) videoplayer: ElementRef;
   playingVideoSrc: string;
+  videothumbnail:string;
   currentPlayingItem: any;
   completePlaylist: any;
   currentPlayingIndex: any = 0;
@@ -31,6 +32,7 @@ export class WorkOutVideoPage implements OnInit {
     this.currentPlayingItem = this.completePlaylist[this.currentPlayingIndex];
     this.playingVideoSrc = this.currentPlayingItem.tmvideourl;
     this.tmNumber = this.currentPlayingItem.tm;
+    this.videothumbnail = this.currentPlayingItem.tmimage;
   }
 
   async openPopUp() {

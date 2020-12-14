@@ -18,7 +18,7 @@
     <img [src]="selectedPlan.p_image ? selectedPlan.p_image:'assets/img/offerSliderPlaceHolder.svg'" />
   </div>
   <div class='price-selection'>
-    <div *ngIf="selectedPlan.mode === 'standard'">
+    <div *ngIf="selectedPlan.sp_mode === 'standard'">
       <ion-radio-group [value]="price" [(ngModel)]="price" (ionChange)="onSelctedPlan($event)">
         <div class="plan-item">
           <div class="plan-label">
@@ -53,7 +53,7 @@
         </div>
       </ion-radio-group>
     </div>
-    <div class="special-plan" *ngIf="selectedPlan.mode === 'special'">
+    <div class="special-plan" *ngIf="selectedPlan.sp_mode === 'special'">
       <span class="validity" *ngIf="selectedPlan.sp_validity"><strong>Validity:
         </strong>{{selectedPlan.sp_validity}}</span>
       <span class="special-des"> {{selectedPlan.p_desc}} </span>

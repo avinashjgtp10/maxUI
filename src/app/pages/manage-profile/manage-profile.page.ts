@@ -222,6 +222,7 @@ export class ManageProfilePage implements OnInit {
     this.loadingService.loadingPresent();
     this.serverError = '';
     this.storage.get('User_Data').then((data: any)=> {
+      
       if (data && data.token) {
         let args = {
           c_email :this.registrationForm.value.email,
@@ -229,7 +230,7 @@ export class ManageProfilePage implements OnInit {
           c_age : this.registrationForm.value.age,
           c_weight: this.registrationForm.value.weight,
           c_height: this.height,
-          u_id : data.id,
+          u_id : data.u_id,
           c_fitnessobjective :this.registrationForm.value.goal,
           c_exercise :this.registrationForm.value.activity,
           c_name :this.registrationForm.value.name

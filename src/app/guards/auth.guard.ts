@@ -28,11 +28,10 @@ export class AuthGuard implements CanActivate {
     return new Promise((resolve) => {
       this.storage.ready().then(() => {
         this.storage.get("User_Data").then((data: any) => {
-          console.log("User Data" + data);
           const role = next.data;
           const currentUser = data;
           if (currentUser) {
-            if (role.plan === currentUser.plan) resolve(true);
+            if (role.plan === localStorage.plan) resolve(true);
             else {
               this.presentActionSheet();
               resolve(false);

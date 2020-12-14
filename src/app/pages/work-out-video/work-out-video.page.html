@@ -6,7 +6,7 @@
       </ion-button>
     </ion-item>
     <div class="video">
-      <video id="my_video_1" class="video-player" controls preload="none" #videoPlayer   (ended)="videoEnded(tmNumber)">
+      <video id="my_video_1" class="video-player" controls preload="none" [poster]="videothumbnail" #videoPlayer   (ended)="videoEnded(tmNumber)">
         <source [src]="playingVideoSrc" type="video/mp4"  />
         Browser not supported
       </video>

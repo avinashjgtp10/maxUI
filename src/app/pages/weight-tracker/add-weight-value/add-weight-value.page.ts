@@ -14,7 +14,7 @@ export class AddWeightValuePage implements OnInit {
   constructor(private navParams: NavParams,
     private modalController: ModalController,
     private toastProvider: ToastProvider) {
-      this.currentValue = this.navParams.get("currentWeight");
+      this.currentValue = +this.navParams.get("currentWeight");
      }
 
   ngOnInit() {
@@ -24,7 +24,7 @@ export class AddWeightValuePage implements OnInit {
   }
 
   updateWeight(value){
-    this.currentValue = this.currentValue + value;
+    this.currentValue += value;
     if(this.currentValue < 1){
       this.toastProvider.presentToast('Weight value cannot be be 0!');
       this.currentValue = 1;

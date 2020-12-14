@@ -43,6 +43,7 @@ const routes: Routes = [
     canActivate:[AuthGuard],
     data: { plan : 'premium'}
   },
+  
   {
     path: 'tab4',
     loadChildren: () => import('./pages/my-plan/my-plan.module').then(m => m.MyPlanPageModule),
@@ -62,7 +63,12 @@ const routes: Routes = [
   {
     path: 'work-out-complete',
     loadChildren: () => import('./pages/work-out-complete/work-out-complete.module').then( m => m.WorkOutCompletePageModule)
+  },
+  {
+    path:'chat',
+    loadChildren: () => import('./pages/chat/chat.module').then( m => m.ChatPageModule )
   }
+  
 ];
 
 @NgModule({

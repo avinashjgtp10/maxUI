@@ -26,10 +26,13 @@ import { Media } from '@ionic-native/media/ngx';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
+
 // FCM
 import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
 import { PushService } from './services/push/push.service';
-
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+//const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
+const config: SocketIoConfig = { url: ' https://maxfit.herokuapp.com', options: {} };
 
 import { AuthGuard} from './guards/auth.guard'
 import { ToastProvider } from './services/toast/toast';
@@ -49,6 +52,7 @@ export function createTranslateLoader(http:HttpClient){
   HttpClientModule,
   RoundProgressModule,
   IonicStorageModule.forRoot(),
+  SocketIoModule.forRoot(config),
   NgCircleProgressModule.forRoot({
   
   }),

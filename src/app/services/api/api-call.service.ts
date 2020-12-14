@@ -3,16 +3,29 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Storage } from "@ionic/storage";
+import { BehaviorSubject } from "rxjs/BehaviorSubject"
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiCallService {
   // API path
-  base_path = 'https://pristine-lake-clark-35296.herokuapp.com/api/v1';
+  base_path = 'https://maxfit.herokuapp.com/api/v1';
   //base_path = "http://localhost:5000/api/v1/";
+  private calorieData = new BehaviorSubject(null);
 
-  constructor(private http: HttpClient, private storage: Storage) { }
+
+  constructor(private http: HttpClient, private storage: Storage) {
+    this.setCalorieConsumtion("calorie")
+   }
+
+  setCalorieConsumtion(calorieData){
+    this.calorieData.next(calorieData)
+  }
+
+  initialCalorieValue(){
+    return this.calorieData.asObservable()
+  }
 
   getTokenData() {
     return new Promise((resolve, reject) => {
@@ -313,6 +326,27 @@ export class ApiCallService {
           catchError(this.handleError)
         )
     }
+
+    storeDayWiseCalorieConsumtion(data:any): Observable<JSON> {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json')
+      return this.http
+        .post<JSON>(this.base_path + '/calorie/storeDayWiseCalorie', JSON.stringify(data), { headers: headers })
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
+
+
+    getDayWiseCalorieConsumtion(data:any): Observable<JSON> {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json')
+      return this.http
+        .post<JSON>(this.base_path + '/calorie/getDayWiseCalorie', JSON.stringify(data), { headers: headers })
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
+
+    
 
   
 

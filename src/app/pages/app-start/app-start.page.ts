@@ -144,13 +144,12 @@ export class AppStartPage implements OnInit {
         
         this.loadingService.loadingDismiss();
         if(response.status === "success"){
-          console.log("success",response);
             this.showWrongOtpError = false;
             this.storage.set('User_Data', response.data).then(() => {
               if(response.data.userDesc === 'old') {
                 
                 localStorage.setItem('c_id',response.data.c_id);
-                console.log("app start",localStorage.getItem('c_id'))
+                
                 this.getProfileData()
                 this.navController.navigateRoot(['home']);
               } else {
