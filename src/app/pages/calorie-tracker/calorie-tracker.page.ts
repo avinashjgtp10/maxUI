@@ -8,6 +8,7 @@ import { DateProviderService } from "../../services/date/date-provider.service";
 import { PickerController } from "@ionic/angular";
 import { PickerOptions } from "@ionic/core";
 import * as moment from "moment";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-calorie-tracker",
@@ -16,6 +17,7 @@ import * as moment from "moment";
 })
 export class CalorieTrackerPage implements OnInit {
   selectedSegment: any = "breakfast";
+  subscribeBtn: boolean = true;
   segmentData: any = [];
   backUpConsumedData: any = [];
   oneDayConsumedCalorie: any;
@@ -34,7 +36,9 @@ export class CalorieTrackerPage implements OnInit {
   };
   otherMealfactor: number = 0.2;
   numColumns: number = 2;
+
   constructor(
+    public router: Router,
     public modalController: ModalController,
     public apiService: ApiCallService,
     public loadingService: LoadingContollerService,
@@ -43,6 +47,8 @@ export class CalorieTrackerPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.subscribeBtn =
+      localStorage.getItem("plan") === "premium" ? false : true;
     this.segmentData = [
       {
         segmentName: "Breakfast",
@@ -90,6 +96,7 @@ export class CalorieTrackerPage implements OnInit {
         {
           text: "Ok",
           handler: (value: any) => {
+            console.log(value, item);
             this.updateItemCalculations(value, item);
           },
         },
@@ -134,13 +141,13 @@ export class CalorieTrackerPage implements OnInit {
   }
   updateItemCalculations(selectedValue, item) {
     let newValue = selectedValue[0].value;
-    let originalValue = parseFloat(item.c_amount);
+    let originalValue = Math.ceil(parseFloat(item.c_amount));
     let ratio = originalValue / newValue;
-    let newCalories = parseFloat(item.c_calories) / ratio;
-    let newFats = parseFloat(item.c_fats) / ratio;
-    let newCarbs = parseFloat(item.c_carbohydrates) / ratio;
-    let newFibers = parseFloat(item.c_fibres) / ratio;
-    let newProteins = parseFloat(item.c_proteins) / ratio;
+    let newCalories = Math.ceil(parseFloat(item.c_calories) / ratio);
+    let newFats = Math.ceil(parseFloat(item.c_fats) / ratio);
+    let newCarbs = Math.ceil(parseFloat(item.c_carbohydrates) / ratio);
+    let newFibers = Math.ceil(parseFloat(item.c_fibres) / ratio);
+    let newProteins = Math.ceil(parseFloat(item.c_proteins) / ratio);
 
     item.c_calories = newCalories;
     item.c_amount = newValue;
@@ -225,8 +232,6 @@ export class CalorieTrackerPage implements OnInit {
       this.mealPercetage[this.selectedSegment];
     this.calorieToReach =
       this.allEstimatedData.calorieEstimate - this.oneDayConsumedCalorie;
-  
-
 
     let data = {
       estimatedCalorie: Math.round(parseFloat(this.calorieToReach)),
@@ -283,5 +288,12 @@ export class CalorieTrackerPage implements OnInit {
       cssClass: "my-custom-class",
     });
     return await modal.present();
+  }
+
+  subscribePlan() {
+    this.modalController.dismiss({
+      dismissed: true,
+    });
+    this.router.navigate(["tab4"]);
   }
 }
